@@ -86,7 +86,7 @@
 //////////////////////
 
 /obj/effect/meteor
-	name = "the concept of meteor"
+	name = "concept of meteor"
 	desc = "You should probably run instead of gawking at this."
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "small"
@@ -129,6 +129,12 @@
 
 /obj/effect/meteor/Bump(atom/A)
 	if(A)
+		if(isliving(A))
+			var/mob/living/L = A
+			L.visible_message("<span class=danger>The [src.name] slams into [L]!</span>",
+							"<span class=userdanger>The [src.name] slams into you!</span>",
+							"<span class=danger>You hear a loud slam!</span>")
+
 		ram_turf(get_turf(A))
 		playsound(src.loc, meteorsound, 40, 1)
 		get_hit()
