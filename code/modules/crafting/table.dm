@@ -1,4 +1,4 @@
-#define TABLECRAFT_MAX_ITEMS 30
+#define TABLECRAFT_MAX_ITEMS 60
 
 /obj/structure/table
 	var/list/table_contents = list()
@@ -243,7 +243,7 @@
 		busy = 1
 		interact(usr)
 		if(construct_item(usr, TR))
-			usr << "<span class='notice'>[TR.name] constructed.</span>"
+			usr << "<span class='notice'>[TR.name] done.</span>"
 		else
 			usr << "<span class ='warning'>Construction failed.</span>"
 		busy = 0

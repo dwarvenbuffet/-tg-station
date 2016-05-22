@@ -363,3 +363,14 @@
 		name = input
 		M << "You name the gun [input]. Say hello to your new friend."
 		return
+
+
+/obj/item/weapon/gun/CheckParts(list/parts_list)
+	..()
+	var/obj/item/weapon/gun/G = locate(/obj/item/weapon/gun) in contents
+	if(G)
+		G.loc = loc
+		qdel(G.pin)
+		G.pin = null
+		visible_message("[G] can now fit a new pin, but old one was destroyed in the process.")
+		qdel(src)

@@ -8,6 +8,14 @@
 	var/chem_catalysts[] = list() //like tools but for reagents
 
 
+/datum/table_recipe/pin_removal
+	name = "Pin Removal"
+	result = /obj/item/weapon/gun
+	reqs = list(/obj/item/weapon/gun = 1)
+	parts = list(/obj/item/weapon/gun = 1)
+	tools = list(/obj/item/weapon/weldingtool, /obj/item/weapon/screwdriver, /obj/item/weapon/wirecutters)
+	time = 80
+
 /datum/table_recipe/IED
 	name = "IED"
 	result = /obj/item/weapon/grenade/iedcasing
@@ -146,4 +154,4 @@
 				/obj/item/stack/cable_coil = 1,
 				/obj/item/stack/sheet/plasteel = 1)
 	tools = list(/obj/item/weapon/weldingtool)
-	time = 100 
+	time = 100
