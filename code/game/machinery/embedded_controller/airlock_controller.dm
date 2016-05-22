@@ -108,7 +108,7 @@
 					process_again = 1
 
 			if(AIRLOCK_STATE_CLOSED)
-				if(target_state > state)
+				if(target_state > state) //We're trying to open external
 					if(memory["interior_status"] == "closed")
 						state = AIRLOCK_STATE_DEPRESSURIZE
 						process_again = 1
@@ -117,7 +117,8 @@
 						signal.data["tag"] = interior_door_tag
 						signal.data["command"] = "secure_close"
 						post_signal(signal)
-				else if(target_state < state)
+						process_again = 1
+				else if(target_state < state) //We're trying to open internal
 					if(memory["exterior_status"] == "closed")
 						state = AIRLOCK_STATE_PRESSURIZE
 						process_again = 1
@@ -126,6 +127,7 @@
 						signal.data["tag"] = exterior_door_tag
 						signal.data["command"] = "secure_close"
 						post_signal(signal)
+						process_again = 1
 
 				else
 					if(memory["pump_status"] != "off")
@@ -283,10 +285,10 @@
 <div class='statusDisplay'>
 <div class='line'><div class='statusLabel'>Current Status:</div><div class='statusValue'>[current_status]</div></div><BR>
 <div class='line'>&nbsp;</div>
-<div class='line'><div class='statusLabel'> \> Chamber Pressure:</div><div class='statusValue'>[sensor_pressure] kPa</div></div><BR>
-<div class='line'><div class='statusLabel'> \> Control Pump:</div><div class='statusValue'>[pump_status]</div></div><BR>
-<div class='line'><div class='statusLabel'> \> Interior Door:</div><div class='statusValue'>[interior_status]</div></div><BR>
-<div class='line'><div class='statusLabel'> \> Exterior Door:</div><div class='statusValue'>[exterior_status]</div></div><BR>
+<div class='line'><div class='statusLabel'>\> Chamber Pressure:</div><div class='statusValue'>[sensor_pressure] kPa</div></div><BR>
+<div class='line'><div class='statusLabel'>\> Control Pump:</div><div class='statusValue'>[pump_status]</div></div><BR>
+<div class='line'><div class='statusLabel'>\> Interior Door:</div><div class='statusValue'>[interior_status]</div></div><BR>
+<div class='line'><div class='statusLabel'>\> Exterior Door:</div><div class='statusValue'>[exterior_status]</div></div><BR>
 </div>
 [state_options]"}
 
