@@ -107,7 +107,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	var/icon_off = "cigoff"
 	var/type_butt = /obj/item/weapon/cigbutt
 	var/lastHolder = null
-	var/smoketime = 300
+	var/smoketime = 1000
 	var/chem_volume = 30
 
 /obj/item/clothing/mask/cigarette/suicide_act(mob/user)
@@ -307,7 +307,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	type_butt = /obj/item/weapon/cigbutt/cigarbutt
 	throw_speed = 0.5
 	item_state = "cigaroff"
-	smoketime = 1500
+	smoketime = 10000
 	chem_volume = 40
 
 /obj/item/clothing/mask/cigarette/cigar/cohiba
@@ -316,6 +316,8 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	icon_state = "cigar2off"
 	icon_on = "cigar2on"
 	icon_off = "cigar2off"
+	smoketime = 10000
+	chem_volume = 100
 
 /obj/item/clothing/mask/cigarette/cigar/havana
 	name = "premium Havanian cigar"
@@ -323,8 +325,8 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	icon_state = "cigar2off"
 	icon_on = "cigar2on"
 	icon_off = "cigar2off"
-	smoketime = 7200
-	chem_volume = 40
+	smoketime = 10000
+	chem_volume = 50
 
 /obj/item/weapon/cigbutt
 	name = "cigarette butt"
