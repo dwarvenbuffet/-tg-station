@@ -364,20 +364,17 @@ var/list/slot_equipment_priority = list( \
 
 	if(!src || !isturf(src.loc) || !(A in view(src.loc)))
 		return 0
-	if(istype(A, /obj/effect/decal/point))
+	if(istype(A, /obj/effect/overlay/temp/point))
 		return 0
 
 	var/tile = get_turf(A)
 	if (!tile)
 		return 0
 
-	var/obj/P = new /obj/effect/decal/point(tile)
-	P.invisibility = invisibility
-	spawn (20)
-		if(P)
-			qdel(P)
+	PoolOrNew(/obj/effect/overlay/temp/point, list(A,invisibility))
 
 	return 1
+
 
 //this and stop_pulling really ought to be /mob/living procs
 /mob/proc/start_pulling(var/atom/movable/AM)
