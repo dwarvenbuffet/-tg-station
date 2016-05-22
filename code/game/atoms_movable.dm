@@ -54,11 +54,18 @@
 		return
 
 	last_move = direct
+	if(.)
+		Moved(oldloc, direct)
 
 	spawn(5)	// Causes space drifting. /tg/station has no concept of speed, we just use 5
 		if(loc && direct && last_move == direct)
 			if(loc == newloc) //Remove this check and people can accelerate. Not opening that can of worms just yet.
 				newtonian_move(last_move)
+
+//Called after a successful Move(). By this point, we've already moved
+/atom/movable/proc/Moved(atom/OldLoc, Dir)
+	return 1
+
 
 /atom/movable/Del()
 	if(isnull(gc_destroyed) && loc)

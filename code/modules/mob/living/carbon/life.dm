@@ -396,10 +396,7 @@
 		if(hallucination)
 			spawn handle_hallucinations()
 
-			if(hallucination<=2)
-				hallucination = 0
-			else
-				hallucination -= 2
+			hallucination = max(hallucination-2,0)
 
 		else
 			for(var/atom/a in hallucinations)
