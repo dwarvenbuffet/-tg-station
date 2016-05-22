@@ -51,6 +51,9 @@
 	. = ..()
 	if(istype(target,/mob))
 		var/old_stat = target.stat
+		if(target.dna)
+			for(var/datum/organ/limb/L in target.get_missing_limbs())
+				L.regenerate_organitem(target.dna)
 		target.revive()
 		target.suiciding = 0
 		if(!target.ckey)
@@ -58,6 +61,7 @@
 				if(target.real_name == ghost.real_name)
 					ghost.reenter_corpse()
 					break
+
 		if(old_stat != DEAD)
 			target << "<span class='notice'>You feel great!</span>"
 		else
