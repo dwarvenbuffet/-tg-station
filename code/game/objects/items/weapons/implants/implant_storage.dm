@@ -40,6 +40,7 @@
 
 		qdel(src)
 		return 1
+	storage.loc = source
 
 	return ..()
 

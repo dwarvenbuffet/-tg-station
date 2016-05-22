@@ -149,7 +149,7 @@
 		M.gets_drilled(firer, artifact_fail = 1)
 	new /obj/item/effect/kinetic_blast(target_turf)
 	if(isturf(target))
-		for(var/turf/T in range(1, target_turf)) //Switch to orange() to make it not explode gibtonite instantly
+		for(var/turf/T in orange(1, target_turf)) //Switch to range() to make it explode gibtonite instantly
 			if(istype(T, /turf/simulated/mineral))
 				var/turf/simulated/mineral/M = T
 				M.gets_drilled(firer, artifact_fail = 1)

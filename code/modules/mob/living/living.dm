@@ -750,11 +750,14 @@ Sorry Giacom. Please don't be mad :(
 /mob/living/proc/float(on)
 	if(throwing)
 		return
-	if(on && !floating)
+	var/fixed = 0
+	if(anchored || (buckled && buckled.anchored))
+		fixed = 1
+	if(on && !floating && !fixed)
 		animate(src, pixel_y = pixel_y + 2, time = 10, loop = -1)
 		floating = 1
-	else if(!on && floating)
-		animate(src, pixel_y = initial(pixel_y), time = 10)
+	else if(((!on || fixed) && floating))
+		animate(src, pixel_y = get_standard_pixel_y_offset(lying), time = 10)
 		floating = 0
 
 //called when the mob receives a bright flash

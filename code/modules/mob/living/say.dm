@@ -68,12 +68,16 @@ var/list/crit_allowed_modes = list(MODE_WHISPER)
 	return 0
 
 /mob/living/say(message, bubble_type,)
-	message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
+
+
 
 	if(stat == DEAD)
+		message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
 		say_dead(message)
 		return
-
+	var/message_mode = get_message_mode(message)
+	if(message_mode != MODE_WHISPER) //Prevent double treating before passing to whisper()
+		message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
 	if(check_emote(message))
 		return
 
@@ -82,7 +86,7 @@ var/list/crit_allowed_modes = list(MODE_WHISPER)
 			src << "<span class='warning'>You find yourself unable to speak!</span>"
 		return
 
-	var/message_mode = get_message_mode(message)
+
 
 	if(stat && !(message_mode in crit_allowed_modes))
 		return

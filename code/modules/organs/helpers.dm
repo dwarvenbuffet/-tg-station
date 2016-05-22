@@ -101,6 +101,8 @@ mob/proc/exists(var/organname)
 /mob/proc/get_limbs()
 	return 0
 
+/mob/proc/get_missing_limbs()
+	return 0
 
 /mob/proc/get_num_arms()
 	return 2
@@ -134,6 +136,15 @@ mob/proc/exists(var/organname)
 		for(var/limbname in list_limbs())
 			var/datum/organ/limb/LI = get_organdatum(limbname)
 			if(LI)
+				returnlimbs += LI
+		return returnlimbs
+
+/mob/living/carbon/get_missing_limbs()
+	if(organsystem)
+		var/list/returnlimbs = list()
+		for(var/limbname in list_limbs())
+			var/datum/organ/limb/LI = get_organdatum(limbname)
+			if(LI && !LI.exists())
 				returnlimbs += LI
 		return returnlimbs
 

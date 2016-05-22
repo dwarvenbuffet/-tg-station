@@ -9,7 +9,6 @@
 	if(stat == DEAD)
 		return
 
-
 	message = trim(html_encode(message))
 	if(!can_speak(message))
 		return

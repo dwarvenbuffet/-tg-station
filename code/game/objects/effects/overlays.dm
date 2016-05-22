@@ -45,3 +45,22 @@
 	icon = 'icons/turf/space.dmi'
 	icon_state = "bluespacify"
 	layer = LIGHTING_LAYER
+
+/obj/effect/overlay/temp
+	icon_state = "nothing"
+	anchored = 1
+	layer = 4.1
+	mouse_opacity = 0
+	var/duration = 10
+	var/randomdir = 1
+
+/obj/effect/overlay/temp/Destroy()
+	..()
+	return QDEL_HINT_PUTINPOOL
+
+/obj/effect/overlay/temp/New()
+	if(randomdir)
+		dir = pick(cardinal)
+	flick("[icon_state]", src) //Because we might be pulling it from a pool, flick whatever icon it uses so it starts at the start of the icon's animation.
+	spawn(duration)
+		qdel(src)

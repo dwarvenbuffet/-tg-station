@@ -225,13 +225,15 @@
 		SSair.add_to_active(src)
 
 /turf/proc/ReplaceWithLattice()
-	src.ChangeTurf(/turf/space)
-	new /obj/structure/lattice(locate(src.x, src.y, src.z) )
+	src.ChangeTurf(baseturf)
+	if(istype(src, /turf/space))
+		new /obj/structure/lattice(locate(src.x, src.y, src.z) )
 
 /turf/proc/ReplaceWithCatwalk()
-	src.ChangeTurf(/turf/space)
-	src.cancable = 1//so cables can be laid
-	new /obj/structure/lattice/catwalk(locate(src.x, src.y, src.z) )
+	src.ChangeTurf(baseturf)
+	if(istype(src, /turf/space))
+		src.cancable = 1//so cables can be laid
+		new /obj/structure/lattice/catwalk(locate(src.x, src.y, src.z) )
 
 /turf/proc/phase_damage_creatures(damage,mob/U = null)//>Ninja Code. Hurts and knocks out creatures on this turf //NINJACODE
 	for(var/mob/living/M in src)

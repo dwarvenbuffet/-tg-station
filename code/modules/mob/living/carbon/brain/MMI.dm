@@ -153,8 +153,6 @@
 		name = "Man-Machine Interface: [brainmob.real_name]"
 		update_icon()
 
-		locked = 1
-
 		feedback_inc("cyborg_mmis_filled",1)
 
 		return
@@ -208,7 +206,6 @@
 
 	name = "Man-Machine Interface: [brainmob.real_name]"
 	update_icon()
-	locked = 1
 	return
 
 /obj/item/device/mmi/radio_enabled
