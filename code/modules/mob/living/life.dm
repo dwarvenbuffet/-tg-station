@@ -115,6 +115,7 @@
 		if(!weakened)
 			update_icons()
 
+
 /mob/living/proc/handle_disabilities()
 	//Eyes
 	if(disabilities & BLIND || stat)	//blindness from disability or unconsciousness doesn't get better on its own
