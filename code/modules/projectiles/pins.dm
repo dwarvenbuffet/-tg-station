@@ -149,7 +149,8 @@
 /obj/item/device/firing_pin/dna
 	name = "DNA-keyed firing pin"
 	desc = "This is a DNA-locked firing pin which only authorizes one user. Attempt to fire once to DNA-link."
-	icon_state = "firing_pin_dna"
+	icon_state = "firing_pin"
+	color = "blue"
 	fail_message = "<span class='warning'>DNA CHECK FAILED.</span>"
 	var/unique_enzymes = null
 
@@ -177,6 +178,7 @@
 		..()
 
 /obj/item/device/firing_pin/dna/dredd
+	name = "DNA-keyed DR3-DD firing pin"
 	desc = "This is a DNA-locked firing pin which only authorizes one user. Attempt to fire once to DNA-link. It has a small explosive charge on it."
 	selfdestruct = 1
 

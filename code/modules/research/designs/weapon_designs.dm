@@ -16,10 +16,50 @@
 	name = "loyalty firing pin"
 	desc = "This is a security firing pin which only authorizes users who are loyalty-implanted."
 	id = "pin_loyalty"
-	req_tech = list("combat" = 6, "materials" = 6, "powerstorage" = 3)
+	req_tech = list("combat" = 5, "materials" = 5, "powerstorage" = 3)
 	build_type = PROTOLATHE
-	materials = list(MAT_SILVER = 600, MAT_DIAMOND = 600, MAT_URANIUM = 200)
+	materials = list(MAT_SILVER = 500, MAT_DIAMOND = 500, MAT_URANIUM = 250)
 	build_path = /obj/item/device/firing_pin/implant/loyalty
+	category = list("Firing Pins")
+
+/datum/design/pin_standard
+	name = "electronic firing pin"
+	desc = "A small authentication device, to be inserted into a firearm reciever to allow operation. NT safety regulations require all new designs to incorporate one."
+	id = "pin_standard"
+	req_tech = list("combat" = 6, "materials" = 7, "powerstorage" = 6, "illegal" = 2, "magnets" = 5, "engineering" = 5, "programming" = 5, "plasma" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL= 2000, MAT_SILVER = 1000, MAT_DIAMOND = 1000, MAT_URANIUM = 500, MAT_PLASMA = 500)
+	build_path = /obj/item/device/firing_pin
+	category = list("Firing Pins")
+
+/datum/design/pin_dna
+	name = "dna-keyed firing pin"
+	desc = "This is a DNA-locked firing pin which only authorizes one user. Attempt to fire once to DNA-link."
+	id = "pin_dna"
+	req_tech = list("combat" = 6, "materials" = 7, "powerstorage" = 7, "illegal" = 4, "magnets" = 5, "engineering" = 6, "programming" = 5, "plasma" = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL= 2000, MAT_SILVER = 1000, MAT_DIAMOND = 2000, MAT_URANIUM = 1000, MAT_GOLD = 500, MAT_PLASMA = 500)
+	build_path = /obj/item/device/firing_pin/dna
+	category = list("Firing Pins")
+
+/datum/design/pin_dredd
+	name = "dna-keyed dr3-dd firing pin"
+	desc = "This is a DNA-locked firing pin which only authorizes one user. Attempt to fire once to DNA-link. It has a small explosive charge on it."
+	id = "pin_dredd"
+	req_tech = list("combat" = 6, "materials" = 7, "powerstorage" = 8, "illegal" = 6, "magnets" = 6, "engineering" = 6, "programming" = 6, "plasma" = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL= 2000, MAT_SILVER = 2000, MAT_DIAMOND = 2000, MAT_URANIUM = 2000, MAT_GOLD = 500, MAT_PLASMA = 500)
+	build_path = /obj/item/device/firing_pin/dna/dredd
+	category = list("Firing Pins")
+
+/datum/design/pin_honk
+	name = "hilarious firing pin"
+	desc = "Advanced clowntech that can convert any firearm into a far more useful object."
+	id = "pin_honking"
+	req_tech = list("combat" = 6, "materials" = 7, "powerstorage" = 7, "illegal" = 6, "magnets" = 6, "engineering" = 6, "programming" = 5, "plasma" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL= 2000, MAT_SILVER = 1000, MAT_BANANIUM = 2000, MAT_URANIUM = 1000, MAT_GOLD = 500, MAT_PLASMA = 500)
+	build_path = /obj/item/device/firing_pin/clown/ultra
 	category = list("Firing Pins")
 
 /datum/design/stunrevolver
