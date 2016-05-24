@@ -37,7 +37,6 @@
 	icon = 'icons/obj/guns/toy.dmi'
 	icon_state = "foamdart"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
-	range = 10
 
 /obj/item/projectile/bullet/reusable/foam_dart/riot
 	name = "riot foam dart"

@@ -4,7 +4,6 @@
 	species = list(/mob/living/carbon/human)
 	possible_locs = list("chest")
 
-
 /datum/surgery/lipoplasty/can_start(mob/user, mob/living/carbon/target, datum/organ/organdata)
 	if(target.disabilities & FAT)
 		return ..()
@@ -38,10 +37,15 @@
 	var/removednutriment = target.nutrition
 	target.nutrition = NUTRITION_LEVEL_WELL_FED
 	removednutriment -= 450 //whatever was removed goes into the meat
-	var/obj/item/weapon/reagent_containers/food/snacks/meat/slab/human/newmeat = new
+	var/mob/living/carbon/human/H = target
+	var/typeofmeat = /obj/item/weapon/reagent_containers/food/snacks/meat/slab/human
+	if(H.dna && H.dna.species)
+		typeofmeat = H.dna.species.meat
+	var/obj/item/weapon/reagent_containers/food/snacks/meat/slab/human/newmeat = new typeofmeat
 	newmeat.name = "fatty meat"
 	newmeat.desc = "Extremely fatty tissue taken from a patient."
+	newmeat.subjectname = H.real_name
+	newmeat.subjectjob = H.job
 	newmeat.reagents.add_reagent ("nutriment", (removednutriment / 15)) //To balance with nutriment_factor of nutriment
-	var/obj/item/meatslab = newmeat
-	meatslab.loc = target.loc
+	newmeat.loc = target.loc
 	return 1
