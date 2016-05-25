@@ -11,7 +11,6 @@
 	caliber = "357"
 	max_ammo = 7
 
-
 /obj/item/ammo_box/magazine/internal/cylinder/rus357
 	name = "russian revolver cylinder"
 	desc = "Oh god, this shouldn't be here"
@@ -207,7 +206,6 @@
 	..()
 	icon_state = "a762-[round(ammo_count(),10)]"
 
-
 /obj/item/ammo_box/magazine/m12g
 	name = "shotgun magazine (12g slugs)"
 	icon_state = "m12gb"
@@ -219,7 +217,6 @@
 /obj/item/ammo_box/magazine/m12g/update_icon()
 	..()
 	icon_state = "[initial(icon_state)]-[Ceiling(ammo_count(0)/8)*8]"
-
 
 /obj/item/ammo_box/magazine/m12g/buckshot
 	name = "shotgun magazine (12g buckshot slugs)"
@@ -235,12 +232,12 @@
 	name = "shotgun magazine (12g dragon's breath)"
 	icon_state = "m12gf"
 	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
-/*
+
 /obj/item/ammo_box/magazine/m12g/bioterror
 	name = "shotgun magazine (12g bioterror)"
 	icon_state = "m12gt"
 	ammo_type = /obj/item/ammo_casing/shotgun/dart/bioterror
-*/
+
 /obj/item/ammo_box/magazine/toy
 	name = "foam force META magazine"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart

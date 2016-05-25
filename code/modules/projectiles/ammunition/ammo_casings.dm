@@ -13,12 +13,10 @@
 	caliber = "38"
 	projectile_type = /obj/item/projectile/bullet/weakbullet2
 
-
 /obj/item/ammo_casing/c10mm
 	desc = "A 10mm bullet casing."
 	caliber = "10mm"
 	projectile_type = /obj/item/projectile/bullet/midbullet3
-
 
 /obj/item/ammo_casing/c9mm
 	desc = "A 9mm bullet casing."
@@ -50,7 +48,6 @@
 	caliber = ".45"
 	projectile_type = /obj/item/projectile/bullet/midbullet
 
-
 /obj/item/ammo_casing/shotgun
 	name = "shotgun slug"
 	desc = "A 12 gauge lead slug."
@@ -58,7 +55,6 @@
 	caliber = "shotgun"
 	projectile_type = /obj/item/projectile/bullet
 	materials = list(MAT_METAL=4000)
-
 
 /obj/item/ammo_casing/shotgun/buckshot
 	name = "buckshot shell"
@@ -68,14 +64,12 @@
 	pellets = 5
 	variance = 0.8
 
-
 /obj/item/ammo_casing/shotgun/beanbag
 	name = "beanbag slug"
 	desc = "A weak beanbag slug for riot control."
 	icon_state = "bshell"
 	projectile_type = /obj/item/projectile/bullet/weakbullet
 	materials = list(MAT_METAL=250)
-
 
 /obj/item/ammo_casing/shotgun/improvised
 	name = "improvised shell"
@@ -85,7 +79,6 @@
 	materials = list(MAT_METAL=250)
 	pellets = 5
 	variance = 0.8
-
 
 /obj/item/ammo_casing/shotgun/improvised/overload
 	name = "overloaded improvised shell"
@@ -101,14 +94,12 @@
 	..()
 	pellets = rand(3, 8)
 
-
 /obj/item/ammo_casing/shotgun/stunslug
 	name = "taser slug"
 	desc = "A stunning taser slug."
 	icon_state = "stunshell"
 	projectile_type = /obj/item/projectile/bullet/stunshot
 	materials = list(MAT_METAL=250)
-
 
 /obj/item/ammo_casing/shotgun/meteorshot
 	name = "meteorshot shell"
@@ -179,7 +170,7 @@
 
 /obj/item/ammo_casing/shotgun/dart/attackby()
 	return
-/* 3strong
+
 /obj/item/ammo_casing/shotgun/dart/bioterror
 	desc = "A shotgun dart filled with deadly toxins."
 
@@ -191,7 +182,7 @@
 	reagents.add_reagent("mutetoxin", 5) //;HELP OPS IN MAINT
 	reagents.add_reagent("initropidril", 5)
 	reagents.add_reagent("sodium_thiopental", 5)
-*/
+
 /obj/item/ammo_casing/a762
 	desc = "A 7.62mm bullet casing."
 	icon_state = "762-casing"
@@ -217,7 +208,6 @@
 /obj/item/ammo_casing/caseless/update_icon()
 	..()
 	icon_state = "[initial(icon_state)]"
-
 
 /obj/item/ammo_casing/caseless/a75
 	desc = "A .75 bullet casing."

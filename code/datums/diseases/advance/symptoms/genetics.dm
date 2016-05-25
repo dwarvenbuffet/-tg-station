@@ -1,5 +1,4 @@
 /*
-/*
 //////////////////////////////////////
 
 DNA Saboteur
@@ -87,5 +86,3 @@ Bonus
 /datum/symptom/genetic_mutation/powers/Start(var/datum/disease/advance/A)
 	..()
 	possible_mutations = good_mutations
-
-*/

@@ -141,7 +141,7 @@ var/list/uplink_items = list()
 	desc = "A short bow mounted across a tiller in miniature. Small enough to fit into a pocket or slip into a bag unnoticed. It fires bolts tipped with a paralyzing toxin collected from a rare organism. \
 	The bow generates bolts using an internal power source but must be manually charged between shots."
 	item = /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow
-	cost = 14
+	cost = 13 // This is bait. Can't make a double e-sword if you pick up one of these!
 	excludefrom = list(/datum/game_mode/nuclear)
 	surplus = 50
 
@@ -285,14 +285,14 @@ var/list/uplink_items = list()
 	item = /obj/item/ammo_box/magazine/m12g/stun
 	cost = 3
 	gamemodes = list(/datum/game_mode/nuclear)
-/*
+
 /datum/uplink_item/ammo/bulltoxin
 	name = "Drum Magazine - 12g Bioterror"
 	desc = "An alternative 8-round toxic magazine for use in the Bulldog shotgun. Contains debilitating toxins to make your target die an agonizing death."
 	item = /obj/item/ammo_box/magazine/m12g/bioterror
 	cost = 3
 	gamemodes = list(/datum/game_mode/nuclear)
-*/
+
 /datum/uplink_item/ammo/bulldragon
 	name = "Drum Magazine - 12g Dragon's Breath"
 	desc = "An alternative 8-round dragon's breath magazine for use in the Bulldog shotgun. I'm a fire starter, twisted fire starter!"
@@ -334,7 +334,6 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/stealthy_weapons
 	category = "Stealthy and Inconspicuous Weapons"
-
 
 /datum/uplink_item/stealthy_weapons/throwingstars
 	name = "Box of Throwing Stars"

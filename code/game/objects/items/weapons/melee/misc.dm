@@ -16,8 +16,6 @@
 		user.visible_message("<span class='suicide'>[user] is strangling \himself with the [src.name]! It looks like \he's trying to commit suicide.</span>")
 		return (OXYLOSS)
 
-
-
 /obj/item/weapon/melee/classic_baton
 	name = "police baton"
 	desc = "A wooden truncheon for beating criminal scum."
@@ -69,8 +67,6 @@
 	else
 		return ..()
 
-
-
 /obj/item/weapon/melee/classic_baton/telescopic
 	name = "telescopic baton"
 	desc = "A compact yet robust personal defense weapon. Can be concealed when folded."
@@ -102,7 +98,6 @@
 
 	playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, 1)
 	add_fingerprint(user)
-
 
 /obj/item/weapon/melee/supermatter_sword // This can ONLY be a good idea.
 	name = "supermatter sword"
@@ -195,4 +190,3 @@
 
 /obj/item/weapon/melee/supermatter_sword/add_blood()
 	return
-
