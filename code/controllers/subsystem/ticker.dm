@@ -176,7 +176,6 @@ var/datum/subsystem/ticker/ticker
 	create_characters() //Create player characters and transfer them
 	collect_minds()
 	equip_characters()
-	data_core.manifest()
 
 	Master.RoundStart()
 
@@ -326,6 +325,7 @@ var/datum/subsystem/ticker/ticker
 				captainless=0
 			if(player.mind.assigned_role != player.mind.special_role)
 				SSjob.EquipRank(player, player.mind.assigned_role, 0)
+				data_core.manifest_inject(player)
 	if(captainless)
 		for(var/mob/M in player_list)
 			if(!istype(M,/mob/new_player))
