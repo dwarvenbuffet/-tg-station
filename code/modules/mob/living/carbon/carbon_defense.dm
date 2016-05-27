@@ -82,7 +82,7 @@
 		if(zone == "mouth")
 			zone = "head"
 		var/datum/organ/limb/L = get_organdatum(zone)
-		if(!L.exists())
+		if(!L || !L.exists())
 			return 0
 		else
 			var/datum/organ/O = I.handle_dismemberment(L)

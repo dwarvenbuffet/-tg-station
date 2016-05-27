@@ -86,6 +86,8 @@
 			for(var/beat in splittext(lowertext(line), ","))
 				//world << "beat: [beat]"
 				var/list/notes = splittext(beat, "/")
+				if(!notes || !notes.len)
+					goto end //considered harmful??
 				for(var/note in splittext(notes[1], "-"))
 					//world << "note: [note]"
 					if(!playing || shouldStopPlaying(user))//If the instrument is playing, or special case
@@ -114,6 +116,7 @@
 		repeat--
 		if(repeat >= 0) // don't show the last -1 repeat
 			updateDialog(user)
+	end:
 	playing = 0
 	repeat = 0
 	updateDialog(user)

@@ -40,7 +40,7 @@ MASS SPECTROMETER
 /obj/item/device/t_scanner/proc/scan()
 
 	for(var/turf/T in range(2, get_turf(src)))
-		if(!T)
+		if(!T || !istype(T))
 			continue
 
 		if(!T.intact)
