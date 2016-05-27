@@ -55,6 +55,8 @@
 		chambered.newshot()
 	return
 
+
+
 /obj/item/weapon/gun/energy/process_chamber()
 	if(chambered && !chambered.BB) //if BB is null, i.e the shot has been fired...
 		var/obj/item/ammo_casing/energy/shot = chambered
@@ -71,6 +73,8 @@
 	fire_delay = shot.delay
 	if (shot.select_name)
 		user << "<span class='danger'>[src] is now set to [shot.select_name].</span>"
+	chambered = null
+	newshot()
 	update_icon()
 	return
 
