@@ -26,7 +26,7 @@
 /mob/living/carbon/human/getBruteLoss()
 	var/amount = 0
 	for(var/datum/organ/limb/O in get_limbs())
-		if(O.status & (ORGAN_DESTROYED | ORGAN_NOBLEED))
+		if(O.status & ORGAN_DESTROYED)
 			amount += O.destroyed_dam //A destroyed limb is basically a severe brute wound, right?
 		else if(O.exists() && O.counts_for_damage())
 			var/obj/item/organ/limb/L = O.organitem
@@ -37,7 +37,9 @@
 /mob/living/carbon/human/getFireLoss()
 	var/amount = 0
 	for(var/datum/organ/limb/O in get_limbs())
-		if(O.exists() && O.counts_for_damage()) //A limb only counts for burns if it's actually there.
+		if(O.status &  ORGAN_NOBLEED)
+			amount += O.destroyed_dam //Count it as burnt for purposes of damage
+		else if(O.exists() && O.counts_for_damage())
 			var/obj/item/organ/limb/L = O.organitem
 			amount += L.burn_dam
 	return amount

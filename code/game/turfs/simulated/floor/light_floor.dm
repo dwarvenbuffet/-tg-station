@@ -18,6 +18,7 @@
         if(istype(builtin_tile, /obj/item/stack/tile/light))
             var/obj/item/stack/tile/light/L = builtin_tile
             L.state = state
+            update_icon()
     update_icon()
 /turf/simulated/floor/light/update_icon()
     ..()

@@ -46,7 +46,7 @@
 	scan()
 
 /obj/item/clothing/glasses/meson/engine/proc/scan()
-	for(var/turf/T in range(2, loc))
+	for(var/turf/T in range(2, get_turf(src)))
 
 		if(!T.intact)
 			continue
@@ -64,11 +64,12 @@
 
 /obj/item/clothing/glasses/meson/engine/proc/invis_update()
 	for(var/obj/O in invis_objects)
-		if(!t_ray_on() || !(O in range(1, loc)))
+		if(!t_ray_on() || !(O in range(1, get_turf(src))))
 			invis_objects -= O
-			var/turf/T = O.loc
-			if(T && T.intact)
-				O.invisibility = 101
+			var/turf/T = get_turf(O)
+			if(istype(T))
+				if(T && T.intact)
+					O.invisibility = 101
 
 /obj/item/clothing/glasses/meson/engine/proc/t_ray_on()
 	if(!istype(loc,/mob/living/carbon/human))

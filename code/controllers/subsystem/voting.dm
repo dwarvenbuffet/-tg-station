@@ -53,6 +53,7 @@ var/datum/subsystem/vote/SSvote
 	//get the highest number of votes
 	var/greatest_votes = 0
 	var/total_votes = 0
+	var/winners
 	for(var/option in choices)
 		var/votes = choices[option]
 		total_votes += votes
@@ -72,16 +73,17 @@ var/datum/subsystem/vote/SSvote
 					if(choices[master_mode] >= greatest_votes)
 						greatest_votes = choices[master_mode]
 	//get all options with that many votes and return them in a list
-	. = list()
+	winners = list()
 	if(greatest_votes)
 		for(var/option in choices)
 			if(choices[option] == greatest_votes)
-				. += option
-	return .
+				winners += option
+	return winners
 
 /datum/subsystem/vote/proc/announce_result()
 	var/list/winners = get_result()
 	var/text
+	var/result
 	if(winners.len > 0)
 		if(question)	text += "<b>[question]</b>"
 		else			text += "<b>[capitalize(mode)] Vote</b>"
@@ -94,36 +96,37 @@ var/datum/subsystem/vote/SSvote
 				text = "\n<b>Vote Tied Between:</b>"
 				for(var/option in winners)
 					text += "\n\t[option]"
-			. = pick(winners)
-			text += "\n<b>Vote Result: [.]</b>"
+			result = pick(winners)
+			text += "\n<b>Vote Result: [result]</b>"
 		else
 			text += "\n<b>Did not vote:</b> [clients.len-voted.len]"
 	else
 		text += "<b>Vote Result: Inconclusive - No Votes!</b>"
 	log_vote(text)
 	world << "\n<font color='purple'>[text]</font>"
-	return .
+	return result
 
 /datum/subsystem/vote/proc/result()
-	. = announce_result()
+	var/result = announce_result()
 	var/restart = 0
-	if(.)
+	if(result)
 		switch(mode)
 			if("restart")
-				if(. == "Restart Round")
+				if(result == "Restart Round")
 					restart = 1
 			if("gamemode")
-				if(master_mode != .)
-					world.save_mode(.)
+				if(master_mode != result)
+					world.save_mode(result)
 					if(ticker && ticker.mode)
 						restart = 1
 					else
-						master_mode = .
+						master_mode = result
 
 	if(restart)
-		world.Reboot("Restart vote successful.", "end_error", "restart vote")
+		spawn(5)
+			world.Reboot("Restart vote successful.", "end_error", "restart vote")
 
-	return .
+	return result
 
 /datum/subsystem/vote/proc/submit_vote(var/vote)
 	if(mode)

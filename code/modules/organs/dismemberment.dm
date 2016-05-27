@@ -94,11 +94,11 @@
 	return
 
 /obj/item/weapon/handle_dismemberment(var/datum/organ/limb/limbdata)
-	if(!dismember_class)
+	if(!dismember_class || !istype(dismember_class))
 		return
 	return dismember_class.handle_dismemberment(limbdata)
 
 /obj/item/projectile/handle_dismemberment(var/datum/organ/limb/limbdata)
-	if(!dismember_class)
+	if(!dismember_class || !istype(dismember_class))
 		return
 	return dismember_class.handle_dismemberment(limbdata)

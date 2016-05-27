@@ -204,9 +204,6 @@
 			sleep(fire_delay)
 
 	else
-		if(istype(src, /obj/item/weapon/gun/energy))
-			var/obj/item/weapon/gun/energy/G = src
-			G.newshot()
 		if(chambered)
 			if(!chambered.fire(target, user, params, , suppressed))
 				shoot_with_empty_chamber(user)
