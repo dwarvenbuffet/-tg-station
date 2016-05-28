@@ -168,6 +168,8 @@
 			nicetype = "pipe"
 
 	var/turf/T = loc
+	if(!istype(T))
+		return
 	if(T.intact)
 		user << "You can only attach the [nicetype] if the floor plating is removed."
 		return
