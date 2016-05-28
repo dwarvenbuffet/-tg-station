@@ -928,28 +928,28 @@
 		switch(href_list["chem_choice"])
 			if("virusfood")
 				if(virusfood_amount>0)
-					beaker.reagents.add_reagent("virusfood",max(beaker.reagents.maximum_volume-beaker.reagents.total_volume,1))
+					beaker.reagents.add_reagent("virusfood",min(beaker.reagents.maximum_volume-beaker.reagents.total_volume,1))
 					virusfood_amount -= 1
 					usr << "Virus Food administered."
 				else
 					usr << "Not enough Virus Food stored!"
 			if("mutagen")
 				if(mutagen_amount>0)
-					beaker.reagents.add_reagent("mutagen",max(beaker.reagents.maximum_volume-beaker.reagents.total_volume,1))
+					beaker.reagents.add_reagent("mutagen",min(beaker.reagents.maximum_volume-beaker.reagents.total_volume,1))
 					mutagen_amount -= 1
 					usr << "Unstable Mutagen administered."
 				else
 					usr << "Not enough Unstable Mutagen stored!"
 			if("plasma")
 				if(plasma_amount>0)
-					beaker.reagents.add_reagent("plasma",max(beaker.reagents.maximum_volume-beaker.reagents.total_volume,1))
+					beaker.reagents.add_reagent("plasma",min(beaker.reagents.maximum_volume-beaker.reagents.total_volume,1))
 					plasma_amount -= 1
 					usr << "Plasma administered."
 				else
 					usr << "Not enough Plasma stored!"
 			if("synaptizine")
 				if(synaptizine_amount>0)
-					beaker.reagents.add_reagent("synaptizine",max(beaker.reagents.maximum_volume-beaker.reagents.total_volume,1))
+					beaker.reagents.add_reagent("synaptizine",min(beaker.reagents.maximum_volume-beaker.reagents.total_volume,1))
 					synaptizine_amount -= 1
 					usr << "Synaptizine administered."
 				else
