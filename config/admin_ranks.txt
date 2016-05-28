@@ -29,6 +29,6 @@
 
 Moderator		= +ADMIN +BAN
 Trial Admin		= +@ +REJUV +STEALTH +FUN +SOUNDS
-Admin			= +@ +VAREDIT +SPAWN
-Game Master		= +EVERYTHING
-Host                    = +EVERYTHING
+Admin			= +@ +VAREDIT +SPAWN +POSSESS
+Game Master		= +@ +DEBUG +SERVER +BUILD
+Host            = +EVERYTHING
