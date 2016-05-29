@@ -85,9 +85,10 @@
 	if(default_unfasten_wrench(user, O))
 		return
 
-	default_deconstruction_crowbar(O)
+	if(default_deconstruction_crowbar(O))
+		return
 
-	if(isrobot(user))
+	if(isrobot(user) && !ismommi(user))
 		return
 
 	if (istype(O,/obj/item/weapon/storage/bag/plants))
@@ -108,7 +109,7 @@
 		user << "<span class='warning'>\The [O] is stuck to your hand, you cannot put it in the seed extractor!</span>"
 		return
 
-	if(O && O.loc)
+	if(O && O.loc && loc)
 		O.loc = src.loc
 
 	if(seedify(O,-1))
