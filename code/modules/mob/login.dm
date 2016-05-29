@@ -52,6 +52,7 @@
 
 	//readd this mob's HUDs (antag, med, etc)
 	reload_huds()
+	reload_fullscreen() //fix the fullscreens
 	if(ckey in deadmins)
 		verbs += /client/proc/readmin
 
