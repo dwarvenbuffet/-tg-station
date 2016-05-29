@@ -107,6 +107,7 @@
 	if(..())
 		reagents.add_reagent("nutriment", 1 + round((potency / 10), 1))
 		reagents.add_reagent("vitamin", 1 + round((potency / 25), 1))
+		reagents.add_reagent("cornoil", 1 + round((potency / 10), 1))
 		bitesize = 1 + round(reagents.total_volume / 2, 1)
 
 
