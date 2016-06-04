@@ -29,13 +29,13 @@
 	if(href_list["makeAntag"])
 		switch(href_list["makeAntag"])
 			if("1")
-				message_admins("[key_name_admin(usr)] created traitors.")
-				log_admin("[key_name(usr)] created traitors.")
+				message_admins("[key_name_admin(usr)] created a traitor.")
+				log_admin("[key_name(usr)] created a traitor.")
 				if(!src.makeTraitors())
 					usr << "<span class='danger'>Unfortunatly there were no candidates available.</span>"
 			if("2")
-				message_admins("[key_name(usr)] created changelings.")
-				log_admin("[key_name(usr)] created changelings.")
+				message_admins("[key_name(usr)] created a changeling.")
+				log_admin("[key_name(usr)] created a changeling.")
 				if(!src.makeChanglings())
 					usr << "<span class='danger'>Unfortunatly there were no candidates available.</span>"
 			if("3")

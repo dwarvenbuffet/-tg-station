@@ -290,7 +290,7 @@ var/syndicate_code_response//Code response for traitors.
 					syndicate_code_response += pick(last_names)
 				else
 					syndicate_code_response += " the "
-					syndicate_code_response += "[pic(get_all_jobs())]"
+					syndicate_code_response += "[pick(get_all_jobs())]"
 				syndicate_code_response += "."
 			else
 				syndicate_code_response += pick("*shrug*","*smile*","*blink*","*sigh*","*laugh*","*nod*","*giggle*")

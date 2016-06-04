@@ -11,8 +11,8 @@ client/proc/one_click_antag()
 /datum/admins/proc/one_click_antag()
 
 	var/dat = {"
-		<a href='?src=\ref[src];makeAntag=1'>Make Traitors</a><br>
-		<a href='?src=\ref[src];makeAntag=2'>Make Changelings</a><br>
+		<a href='?src=\ref[src];makeAntag=1'>Make a Traitor</a><br>
+		<a href='?src=\ref[src];makeAntag=2'>Make a Changeling</a><br>
 		<a href='?src=\ref[src];makeAntag=3'>Make Revs</a><br>
 		<a href='?src=\ref[src];makeAntag=4'>Make Cult</a><br>
 		<a href='?src=\ref[src];makeAntag=5'>Make Malf AI</a><br>
@@ -75,7 +75,7 @@ client/proc/one_click_antag()
 									candidates += applicant
 
 	if(candidates.len)
-		var/numTraitors = min(candidates.len, 3)
+		var/numTraitors = min(candidates.len, 1)
 
 		for(var/i = 0, i<numTraitors, i++)
 			H = pick(candidates)
@@ -111,7 +111,7 @@ client/proc/one_click_antag()
 									candidates += applicant
 
 	if(candidates.len)
-		var/numChanglings = min(candidates.len, 3)
+		var/numChanglings = min(candidates.len, 1)
 
 		for(var/i = 0, i<numChanglings, i++)
 			H = pick(candidates)

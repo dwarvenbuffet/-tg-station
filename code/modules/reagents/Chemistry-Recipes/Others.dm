@@ -133,6 +133,24 @@
 			D.RemoveSymptom(metabolism)
 			D.AddSymptom(new /datum/symptom/purge())
 			D.Refresh(1)
+		//scarab symptom
+ 		var/itching = locate(/datum/symptom/itching) in D.symptoms
+ 		var/hallucinogen = locate(/datum/symptom/hallucigen) in D.symptoms
+ 		var/vomit = locate(/datum/symptom/vomit) in D.symptoms
+ 		if(itching && hallucinogen && vomit)
+ 			D.RemoveSymptom(itching)
+ 			D.RemoveSymptom(hallucinogen)
+ 			D.RemoveSymptom(vomit)
+ 			D.AddSymptom(new /datum/symptom/scarab())
+ 			D.Refresh(1) //It needs to actually change the disease name for reasons
+ 		//explosive death
+ 		var/choking = locate(/datum/symptom/choking) in D.symptoms
+ 		var/asthmothia = locate(/datum/symptom/asthmothia) in D.symptoms
+ 		if(choking && asthmothia)
+ 			D.RemoveSymptom(choking)
+ 			D.RemoveSymptom(asthmothia)
+ 			D.AddSymptom(new /datum/symptom/explosive())
+ 			D.Refresh(1)
 		//sensory restoration
 		var/visionaid = locate(/datum/symptom/visionaid) in D.symptoms
 		var/youth = locate(/datum/symptom/youth) in D.symptoms
