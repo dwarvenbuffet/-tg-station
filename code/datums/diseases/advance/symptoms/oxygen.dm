@@ -30,8 +30,12 @@ Bonus
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(4, 5)
-				if (M.reagents.get_reagent_amount("dexalinp") < 20)
-					M.reagents.add_reagent("dexalinp", 20)
+				if(M.stat != DEAD)
+					M.adjustOxyLoss(-12)
+					if(M.losebreath > 0)
+						M.losebreath -= 2
+					if(M.losebreath < 0)
+						M.losebreath = 0
 			else
 				if(prob(SYMPTOM_ACTIVATION_PROB * 5))
 					M << "<span class='notice'>[pick("Your lungs feel great.", "You are now breathing manually.", "You don't feel the need to breathe.")]</span>"
