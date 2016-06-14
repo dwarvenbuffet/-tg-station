@@ -125,6 +125,7 @@
 			D.RemoveSymptom(healer)
 			D.AddSymptom(new /datum/symptom/regen())
 			D.Refresh(1) //It needs to actually change the disease name for reasons
+
 		//purge virus
 		var/liggeritis = locate(/datum/symptom/liggeritis) in D.symptoms
 		var/metabolism = locate(/datum/symptom/heal/metabolism) in D.symptoms
@@ -133,6 +134,7 @@
 			D.RemoveSymptom(metabolism)
 			D.AddSymptom(new /datum/symptom/purge())
 			D.Refresh(1)
+
 		//scarab symptom
  		var/itching = locate(/datum/symptom/itching) in D.symptoms
  		var/hallucinogen = locate(/datum/symptom/hallucigen) in D.symptoms
@@ -143,6 +145,7 @@
  			D.RemoveSymptom(vomit)
  			D.AddSymptom(new /datum/symptom/scarab())
  			D.Refresh(1) //It needs to actually change the disease name for reasons
+
  		//explosive death
  		var/choking = locate(/datum/symptom/choking) in D.symptoms
  		var/asthmothia = locate(/datum/symptom/asthmothia) in D.symptoms
@@ -151,6 +154,7 @@
  			D.RemoveSymptom(asthmothia)
  			D.AddSymptom(new /datum/symptom/explosive())
  			D.Refresh(1)
+
 		//sensory restoration
 		var/visionaid = locate(/datum/symptom/visionaid) in D.symptoms
 		var/youth = locate(/datum/symptom/youth) in D.symptoms
@@ -159,6 +163,16 @@
 			D.RemoveSymptom(youth)
 			D.AddSymptom(new /datum/symptom/sensres())
 			D.Refresh(1)
+
+		//Limb Regeneration
+		var/purge = locate(/datum/symptom/purge) in D.symptoms
+		var/regen = locate(/datum/symptom/regen) in D.symptoms
+		if(purge && regen && liggeritis)
+			D.RemoveSymptom(regen)
+			D.RemoveSymptom(purge)
+			D.AddSymptom(new /datum/symptom/limb_regen())
+			D.Refresh(1)
+
 
 /datum/chemical_reaction/mix_virus/rem_virus
 

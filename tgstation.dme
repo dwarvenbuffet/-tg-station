@@ -289,6 +289,7 @@
 #include "code\datums\diseases\advance\symptoms\inert.dm"
 #include "code\datums\diseases\advance\symptoms\itching.dm"
 #include "code\datums\diseases\advance\symptoms\liggeritis.dm"
+#include "code\datums\diseases\advance\symptoms\limb_regen.dm"
 #include "code\datums\diseases\advance\symptoms\mlady.dm"
 #include "code\datums\diseases\advance\symptoms\oxygen.dm"
 #include "code\datums\diseases\advance\symptoms\purge.dm"
