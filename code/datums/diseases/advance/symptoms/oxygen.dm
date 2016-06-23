@@ -26,7 +26,7 @@ Bonus
 
 /datum/symptom/oxygen/Activate(var/datum/disease/advance/A)
 	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB * 5))
+	if(prob(SYMPTOM_ACTIVATION_PROB * 100))
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(4, 5)

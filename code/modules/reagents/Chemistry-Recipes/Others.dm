@@ -167,7 +167,7 @@
 		//Limb Regeneration
 		var/purge = locate(/datum/symptom/purge) in D.symptoms
 		var/regen = locate(/datum/symptom/regen) in D.symptoms
-		if(purge && regen && liggeritis)
+		if(purge && regen)
 			D.RemoveSymptom(regen)
 			D.RemoveSymptom(purge)
 			D.AddSymptom(new /datum/symptom/limb_regen())

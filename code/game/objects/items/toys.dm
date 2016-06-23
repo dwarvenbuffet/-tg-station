@@ -287,6 +287,8 @@
 	force_wielded = 0
 	origin_tech = null
 	attack_verb = list("attacked", "struck", "hit")
+	
+	wielded_dismember_class = new /datum/dismember_class/cant_dismember
 
 /obj/item/weapon/twohanded/dualsaber/toy/IsShield()
 	return 0
