@@ -7,5 +7,7 @@
 # NOTE: if the rank-name cannot be found in admin_ranks.txt, they will not be adminned! ~Carn #
 # NOTE: syntax was changed to allow hyphenation of ranknames, since spaces are stripped.      #
 ###############################################################################################
-BigSlice = Host
-0ak = Trial Admin
+SierraChan = Host
+Dopaper = Game Master
+Sheylos = Game Admin
+Octareenroon93 = Game Admin
