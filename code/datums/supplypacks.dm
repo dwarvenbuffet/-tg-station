@@ -1095,12 +1095,6 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 15
 	containername = "conveyor assembly crate"
 
-/datum/supply_packs/misc/water_pool
-	name = "9 Water Pool Tiles"
-	contains = list(/obj/item/stack/tile/pool)
-	amount = 9
-	cost = 25
-	containername = "water pool tiles crate"
 
 /datum/supply_packs/misc/watertank
 	name = "Water Tank Crate"
