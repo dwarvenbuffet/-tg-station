@@ -90,6 +90,11 @@
 	desc = "To be Robust is not an action or a way of life, but a mental state. Only those with the force of Will strong enough to act during a crisis, saving friend from foe, are truly Robust. Stay Robust my friends."
 	icon_state = "goldenplaque"
 
+/obj/structure/sign/fireplaque
+    name = "The Plaque of Adequate Fire Safety"
+    desc = "Awarded to stations who achieve the utmost in Fire Safety standards. When your clown yells 'Fire Safety' enough times, you might as well be plasma-fire proof."
+    icon_state = "fireplaque"
+
 /obj/structure/sign/kiddieplaque
 	name = "AI developers plaque"
 	desc = "Next to the extremely long list of names and job titles, there is a drawing of a little child. The child appears to be retarded. Beneath the image, someone has scratched the word \"PACKETS\""
