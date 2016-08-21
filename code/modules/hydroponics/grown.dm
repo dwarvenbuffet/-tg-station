@@ -50,7 +50,7 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	..()
-	if (istype(O, /obj/item/device/analyzer/plant_analyzer))
+	if (istype(O, /obj/item/device/plant_analyzer))
 		var/msg
 		msg = "<span class='info'>*---------*\n This is \a <span class='name'>[src]</span>\n"
 		switch(plant_type)
@@ -74,7 +74,7 @@
 
 /obj/item/weapon/grown/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	..()
-	if (istype(O, /obj/item/device/analyzer/plant_analyzer))
+	if (istype(O, /obj/item/device/plant_analyzer))
 		var/msg
 		msg = "<span class='info'>*---------*\n This is \a <span class='name'>[src]</span>\n"
 		switch(plant_type)
@@ -432,7 +432,7 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/apple/gold/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	. = ..()
-	if (istype(O, /obj/item/device/analyzer/plant_analyzer))
+	if (istype(O, /obj/item/device/plant_analyzer))
 		user << "<span class='info'>- Mineral Content: <i>[reagents.get_reagent_amount("gold")]%</i></span>"
 
 
@@ -648,7 +648,7 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/chili/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	. = ..()
-	if (istype(O, /obj/item/device/analyzer/plant_analyzer))
+	if (istype(O, /obj/item/device/plant_analyzer))
 		user << "<span class='info'>- Capsaicin: <i>[reagents.get_reagent_amount("capsaicin")]%</i></span>"
 
 
@@ -668,7 +668,7 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/icepepper/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	. = ..()
-	if (istype(O, /obj/item/device/analyzer/plant_analyzer))
+	if (istype(O, /obj/item/device/plant_analyzer))
 		user << "<span class='info'>- Frostoil: <i>[reagents.get_reagent_amount("frostoil")]%</i></span>"
 
 
@@ -689,7 +689,7 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/ghost_chili/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	. = ..()
-	if (istype(O, /obj/item/device/analyzer/plant_analyzer))
+	if (istype(O, /obj/item/device/plant_analyzer))
 		user << "<span class='info'>- Capsaicin: <i>[reagents.get_reagent_amount("capsaicin")]%</i></span>"
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/ghost_chili/attack_hand(mob/user as mob)
@@ -1059,7 +1059,7 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/mushroom/reishi/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	. = ..()
-	if (istype(O, /obj/item/device/analyzer/plant_analyzer))
+	if (istype(O, /obj/item/device/plant_analyzer))
 		user << "<span class='info'>- Anti-Toxin: <i>[reagents.get_reagent_amount("anti_toxin")]%</i></span>"
 		user << "<span class='info'>- Morphine: <i>[reagents.get_reagent_amount("morphine")]%</i></span>"
 
@@ -1079,7 +1079,7 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/mushroom/amanita/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	. = ..()
-	if (istype(O, /obj/item/device/analyzer/plant_analyzer))
+	if (istype(O, /obj/item/device/plant_analyzer))
 		user << "<span class='info'>- Amatoxins: <i>[reagents.get_reagent_amount("amatoxin")]%</i></span>"
 		user << "<span class='info'>- Mushroom Hallucinogen: <i>[reagents.get_reagent_amount("mushroomhallucinogen")]%</i></span>"
 
@@ -1099,7 +1099,7 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/mushroom/angel/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	. = ..()
-	if (istype(O, /obj/item/device/analyzer/plant_analyzer))
+	if (istype(O, /obj/item/device/plant_analyzer))
 		user << "<span class='info'>- Amatoxins: <i>[reagents.get_reagent_amount("amatoxin")]%</i></span>"
 		user << "<span class='info'>- Mushroom Hallucinogen: <i>[reagents.get_reagent_amount("mushroomhallucinogen")]%</i></span>"
 
@@ -1118,7 +1118,7 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/mushroom/libertycap/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	. = ..()
-	if (istype(O, /obj/item/device/analyzer/plant_analyzer))
+	if (istype(O, /obj/item/device/plant_analyzer))
 		user << "<span class='info'>- Mushroom Hallucinogen: <i>[reagents.get_reagent_amount("mushroomhallucinogen")]%</i></span>"
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/mushroom/plumphelmet

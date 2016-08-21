@@ -198,7 +198,7 @@ Botanist
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sneakers/black(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/botanic_leather(H), slot_gloves)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/apron(H), slot_wear_suit)
-	H.equip_to_slot_or_del(new /obj/item/device/analyzer/plant_analyzer(H), slot_s_store)
+	H.equip_to_slot_or_del(new /obj/item/device/plant_analyzer(H), slot_s_store)
 
 /*
 Janitor

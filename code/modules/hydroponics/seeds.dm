@@ -34,7 +34,7 @@
 	return
 
 /obj/item/seeds/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if (istype(O, /obj/item/device/analyzer/plant_analyzer))
+	if (istype(O, /obj/item/device/plant_analyzer))
 		user << "*** <B>[plantname]</B> ***"
 		user << "-Plant Endurance: <span class='notice'> [endurance]</span>"
 		user << "-Plant Lifespan: <span class='notice'> [lifespan]</span>"

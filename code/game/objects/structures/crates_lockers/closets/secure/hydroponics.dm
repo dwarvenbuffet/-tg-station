@@ -13,7 +13,7 @@
 				new /obj/item/clothing/suit/apron/overalls(src)
 		new /obj/item/weapon/storage/bag/plants/portaseeder(src)
 		new /obj/item/clothing/under/rank/hydroponics(src)
-		new /obj/item/device/analyzer/plant_analyzer(src)
+		new /obj/item/device/plant_analyzer(src)
 		new /obj/item/device/radio/headset/headset_srv(src)
 		new /obj/item/clothing/mask/bandana(src)
 		new /obj/item/weapon/cultivator(src)

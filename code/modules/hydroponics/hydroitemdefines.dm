@@ -1,5 +1,5 @@
 // Plant analyzer
-/obj/item/device/analyzer/plant_analyzer
+/obj/item/device/plant_analyzer //inheriting the default analyzer behaviour is undesired
 	name = "plant analyzer"
 	desc = "A scanner used to evaluate a plant's various areas of growth."
 	icon = 'icons/obj/device.dmi'
@@ -7,8 +7,6 @@
 	item_state = "analyzer"
 	origin_tech = "magnets=1;biotech=1"
 
-/obj/item/device/analyzer/plant_analyzer/attack_self(mob/user as mob)
-	return 0
 
 // *************************************
 // Hydroponics Tools
