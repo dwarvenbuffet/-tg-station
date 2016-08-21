@@ -28,10 +28,11 @@
 	else
 		user.whisper("O bidai nabora se[pick("'","`")]sma!")
 	sleep(10)
+	var/decoded = html_decode(message) //stop double encoding 2016
 	if(say)
-		user.say(message)
+		user.say(decoded)
 	else
-		user.whisper(message)
+		user.whisper(decoded)
 	for(var/mob/M in mob_list)
 		if(iscultist(M) || (M in dead_mob_list))
 			if(clear || !ishuman(user))
