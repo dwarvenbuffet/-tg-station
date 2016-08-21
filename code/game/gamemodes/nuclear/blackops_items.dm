@@ -32,6 +32,9 @@ var/list/total_extraction_beacons = list()
 	if(!beacon)
 		user << "[src] is not linked to a beacon, and cannot be used."
 		return
+	if(((z == ZLEVEL_CENTCOM) || (beacon.z == ZLEVEL_CENTCOM)) && !is_syndie)
+		user << "[beacon] is out of range."
+		return
 	if(!istype(A))
 		return
 	if(!flag)
@@ -43,6 +46,16 @@ var/list/total_extraction_beacons = list()
 			return
 		user << "<span class='notice'>You start attaching the pack to [A]...</span>"
 		if(do_after(user,50,target=A))
+			if(!beacon || (((z == ZLEVEL_CENTCOM) || (beacon.z == ZLEVEL_CENTCOM)) && !is_syndie)) //Test it again to make sure it didn't change in the last 5 seconds
+				user << "[beacon] has moved out of range."
+				return
+			var/list/flooring_near_beacon = list() //Pick it here to avoid any fuckery with moving beacons
+			for(var/turf/simulated/floor/floor in orange(1, get_turf(beacon)))
+				flooring_near_beacon += floor
+			if(!flooring_near_beacon || flooring_near_beacon.len == 0)
+				user << "[beacon] is unavailable."
+				return
+			var/turf/simulated/floor/chosen = pick(flooring_near_beacon)
 			user << "<span class='notice'>You attach the pack to [A] and activate it.</span>"
 			var/image/balloon
 			if(istype(A, /mob/living))
@@ -79,10 +92,7 @@ var/list/total_extraction_beacons = list()
 				L.drowsyness = 0
 				L.sleeping = 0
 			sleep(30)
-			var/list/flooring_near_beacon = list()
-			for(var/turf/simulated/floor/floor in orange(1, beacon))
-				flooring_near_beacon += floor
-			holder_obj.loc = pick(flooring_near_beacon)
+			holder_obj.loc = chosen
 			animate(holder_obj, pixel_z = 10, time = 50)
 			sleep(50)
 			animate(holder_obj, pixel_z = 15, time = 10)
