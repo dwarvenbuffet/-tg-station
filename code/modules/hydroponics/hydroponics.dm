@@ -942,7 +942,8 @@
 		user << "<span class='warning'>You fail to harvest anything useful.</span>"
 		playsound(loc, 'sound/misc/sadtrombone.ogg', 50, 0)
 	else
-		user << "You harvest [myseed.getYield()] items from the [myseed.plantname]."
+		var/plural = (myseed.getYield() > 1)
+		user << "You harvest [myseed.getYield()] [plural ? "items" : "item"] from the [myseed.plantname]."
 	if(myseed.oneharvest)
 		qdel(myseed)
 		planted = 0
