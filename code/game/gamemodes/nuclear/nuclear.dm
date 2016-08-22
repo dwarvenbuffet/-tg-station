@@ -104,7 +104,7 @@
 		new /obj/structure/closet/syndicate/nuclear(uplinklocker.loc)
 	if(nuke_spawn && synd_spawn.len > 0)
 		var/obj/machinery/nuclearbomb/the_bomb = new /obj/machinery/nuclearbomb(nuke_spawn.loc)
-		the_bomb.r_code = nuke_code
+		the_bomb.unlock_code = nuke_code
 
 	return ..()
 

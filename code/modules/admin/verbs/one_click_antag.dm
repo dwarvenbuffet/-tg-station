@@ -264,7 +264,7 @@ client/proc/one_click_antag()
 
 		if(nuke_spawn)
 			var/obj/machinery/nuclearbomb/the_bomb = new /obj/machinery/nuclearbomb(nuke_spawn.loc)
-			the_bomb.r_code = nuke_code
+			the_bomb.unlock_code = nuke_code
 
 		if(closet_spawn)
 			new /obj/structure/closet/syndicate/nuclear(closet_spawn.loc)

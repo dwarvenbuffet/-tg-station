@@ -437,8 +437,8 @@
 			text += "<br><a href='?src=\ref[src];nuclear=lair'>To shuttle</a>, <a href='?src=\ref[src];common=undress'>undress</a>, <a href='?src=\ref[src];nuclear=dressup'>dress up</a>."
 			var/code
 			for (var/obj/machinery/nuclearbomb/bombue in world)
-				if (length(bombue.r_code) <= 5 && bombue.r_code != "LOLNO" && bombue.r_code != "ADMIN")
-					code = bombue.r_code
+				if (length(bombue.unlock_code) <= 5 && bombue.unlock_code != "LOLNO" && bombue.unlock_code != "ADMIN")
+					code = bombue.unlock_code
 					break
 			if (code)
 				text += " Code is [code]. <a href='?src=\ref[src];nuclear=tellcode'>tell the code.</a>"
@@ -1032,8 +1032,8 @@
 			if("tellcode")
 				var/code
 				for (var/obj/machinery/nuclearbomb/bombue in world)
-					if (length(bombue.r_code) <= 5 && bombue.r_code != "LOLNO" && bombue.r_code != "ADMIN")
-						code = bombue.r_code
+					if (length(bombue.unlock_code) <= 5 && bombue.unlock_code != "LOLNO" && bombue.unlock_code != "ADMIN")
+						code = bombue.unlock_code
 						break
 				if (code)
 					store_memory("<B>Syndicate Nuclear Bomb Code</B>: [code]", 0, 0)
