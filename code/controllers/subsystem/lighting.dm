@@ -80,11 +80,10 @@ var/datum/subsystem/lighting/SSlighting
 //Note: if we get additional z-levels at runtime (e.g. if the gateway thin ever gets finished) we can initialize specific
 //z-levels with the z_level argument
 /datum/subsystem/lighting/Initialize(timeofday, z_level)
-
-	create_lighting_overlays()
-
 	if(z_level)
 		create_lighting_overlays(z_level)
+	else
+		create_lighting_overlays()
 
 	if(config.starlight)
 		set background = 1

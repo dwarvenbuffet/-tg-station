@@ -32,6 +32,9 @@ proc/spawn_room(var/atom/start_loc, var/x_size, var/y_size, var/list/walltypes, 
 
 			A.contents += T
 
+	for(var/turf/F in room_turfs["floors"])
+		F.updateMineralOverlays()
+
 	for(var/turf/simulated/wall/W in room_turfs["walls"])
 		if(W.smooth)
 			smooth_icon(W)
