@@ -9,6 +9,7 @@
 	idle_power_usage = 100
 	active_power_usage = 1000
 	use_power = 1
+	machine_flags = WRENCHMOVE
 
 	var/spawn_progress = 0
 	var/max_spawn_ticks = 5

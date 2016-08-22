@@ -9,6 +9,7 @@
 	var/ticks_required_to_spawn
 	density = 1
 	var/previous_power_state = 0
+	machine_flags = WRENCHMOVE
 
 	use_power = 1
 	active_power_usage = 2000
@@ -45,6 +46,7 @@
 //todo: how the hell is the asteroid permanently powered?
 /obj/machinery/auto_cloner/process()
 	if(powered(power_channel))
+		stat &= ~(NOPOWER)
 		if(!previous_power_state)
 			previous_power_state = 1
 			icon_state = "cellold1"
@@ -75,6 +77,7 @@
 			icon_state = "cellold1"
 			desc = "It's full of a bubbling viscous liquid, and is lit by a mysterious glow."
 	else
+		stat |= NOPOWER
 		if(previous_power_state)
 			previous_power_state = 0
 			icon_state = "cellold0"
