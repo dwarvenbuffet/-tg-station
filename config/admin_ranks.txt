@@ -31,8 +31,9 @@ Admin Observer
 Moderator		= +ADMIN
 Admin Candidate	= +@
 Trial Admin		= +@ +SPAWN +REJUV +VAREDIT +BAN
+Midimin			= +@ +SOUNDS
 Badmin			= +@ +POSSESS +BUILDMODE +SERVER +FUN
-Game Admin		= +@ +STEALTH +SOUNDS +DEBUG
+Game Admin		= +@ +STEALTH +DEBUG
 Game Master		= +EVERYTHING
 Host			= +EVERYTHING
 Coder			= +DEBUG +VAREDIT +SERVER +SPAWN

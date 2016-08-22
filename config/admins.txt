@@ -11,4 +11,5 @@ SierraChan = Host
 Dopaper = Game Master
 Sheylos = Game Admin
 Octareenroon93 = Game Admin
+SpaghettiScience = Midimin
 Zaers = Coder
