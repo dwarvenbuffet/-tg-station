@@ -78,6 +78,8 @@
 		O.setOxyLoss(getOxyLoss())
 		O.adjustFireLoss(getFireLoss())
 		O.radiation = radiation
+		O.setCloneLoss(getCloneLoss())
+		O.setBrainLoss(getBrainLoss())
 
 	//re-add implants to new mob
 	for(var/obj/item/weapon/implant/I in implants)
@@ -199,6 +201,8 @@
 		O.setOxyLoss(getOxyLoss())
 		O.adjustFireLoss(getFireLoss())
 		O.radiation = radiation
+		O.setCloneLoss(getCloneLoss())
+		O.setBrainLoss(getBrainLoss())
 
 	//re-add implants to new mob
 	for(var/obj/item/weapon/implant/I in implants)
