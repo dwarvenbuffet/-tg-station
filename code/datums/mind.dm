@@ -1410,6 +1410,7 @@
 	special_role = "[G.name] Gang Boss"
 	G.bosses += src
 	G.add_gang_hud(src)
+	gang_datum = G
 	ticker.mode.forge_gang_objectives(src)
 	ticker.mode.greet_gang(src)
 	ticker.mode.equip_gang(current,G)
