@@ -771,9 +771,9 @@
 	var/mutagen_amount = 0
 	var/plasma_amount = 0
 	var/synaptizine_amount = 0
-	var/new_diseases = list()
-	var/new_symptoms = list()
-	var/new_cures = list()
+	var/list/new_diseases = list()
+	var/list/new_symptoms = list()
+	var/list/new_cures = list()
 	var/tab_open = TAB_ANALYSIS //the magic of defines!
 	var/temp_html = ""
 	var/wait = null
@@ -925,7 +925,7 @@
 
 	else if(href_list["chem_choice"])
 		if(!beaker) return
-		switch(href_list["chem_choice"])
+		switch(href_list["chem_choice"]) //holy copypasta batman
 			if("virusfood")
 				if(virusfood_amount>0)
 					beaker.reagents.add_reagent("virusfood",min(beaker.reagents.maximum_volume-beaker.reagents.total_volume,1))
@@ -956,11 +956,37 @@
 					usr << "Not enough Synaptizine!"
 		src.updateUsrDialog()
 		return
+	else if(href_list["chem_transfer"])
+		if(!beaker) return
+		var/input_amt = input("Please input the amount to transfer", name) as num
+		if(..()) //test to see if they haven't moved away
+			return
+		var/transfer_amt = min(beaker.reagents.maximum_volume-beaker.reagents.total_volume, input_amt)
+		switch(href_list["chem_transfer"])
+			if("virusfood")
+				beaker.reagents.add_reagent("virusfood", transfer_amt)
+				virusfood_amount -= transfer_amt
+			if("mutagen")
+				beaker.reagents.add_reagent("mutagen", transfer_amt)
+				mutagen_amount -= transfer_amt
+			if("plasma")
+				beaker.reagents.add_reagent("plasma", transfer_amt)
+				plasma_amount -= transfer_amt
+			if("synaptizine")
+				beaker.reagents.add_reagent("synaptizine", transfer_amt)
+				synaptizine_amount -= transfer_amt
+	else if(href_list["empty_beaker"])
+		if(!beaker) return
+		beaker.reagents.clear_reagents()
 
 	else if(href_list["update_virus"])
 		upload_virus(usr)
 	else if(href_list["update_cure"])
 		upload_vaccine(usr)
+	else if(href_list["delete_virus"])
+		delete_virus(href_list["delete_virus"])
+	else if(href_list["delete_cure"])
+		delete_vaccine(href_list["delete_cure"])
 	else
 		usr << browse(null, "window=pandemic")
 		src.updateUsrDialog()
@@ -1032,6 +1058,7 @@
 										for(var/datum/symptom/S in A.symptoms)
 											english_symptoms += S.name
 										dat += english_list(english_symptoms)
+										dat += "<BR><A href='?src=\ref[src];update_virus=1'>Upload to database</a><BR>"
 
 								else
 									dat += "<b>No detectable virus in the sample.</b>"
@@ -1053,10 +1080,12 @@
 									disease_name = D.name
 								dat += "<li>[disease_name]</li>"
 							dat += "</ul><BR>"
+							dat += "<BR><A href='?src=\ref[src];update_cure=1'>Upload to database</a><BR>"
 						else
 							dat += "nothing<BR>"
 					else
 						dat += "nothing<BR>"
+					dat += "<hr><BR><A href='?src=\ref[src];empty_beaker=1'>Empty beaker</A>"
 		if(TAB_EXPERIMENT)
 			dat += "<b>Available Chems:</b><br>"
 			dat += "Virus Food: [virusfood_amount].<br>"
@@ -1106,6 +1135,12 @@
 				dat += "<A href='?src=\ref[src];chem_choice=plasma'>Plasma</a><BR>"
 				dat += "<A href='?src=\ref[src];chem_choice=synaptizine'>Synaptizine</a><BR>"
 
+				dat += "<b>Transfer to beaker:</b><br>"
+				dat += "<A href='?src=\ref[src];chem_transfer=virusfood'>Virus Food</a><BR>"
+				dat += "<A href='?src=\ref[src];chem_transfer=mutagen'>Unstable Mutagen</a><BR>"
+				dat += "<A href='?src=\ref[src];chem_transfer=plasma'>Plasma</a><BR>"
+				dat += "<A href='?src=\ref[src];chem_transfer=synaptizine'>Synaptizine</a><BR>"
+
 		if(TAB_DATABASE)
 			dat += "<b>Database:</b><BR><hr>"
 			var/loop = 0
@@ -1114,7 +1149,7 @@
 			for(var/datum/disease/type in new_diseases)
 				loop++
 				dat += "[type.name] "
-				dat += "<li><A href='?src=\ref[src];virus=[loop]'>- <i>Make</i></A><br></li>"
+				dat += "<li><A href='?src=\ref[src];virus=[loop]'>- <i>Make</i></A> <A href='?src=\ref[src];delete_virus=[loop]'>- <i>Delete</i></A><br></li>"
 			loop = 0
 			dat += "<br><b>Vaccines:</b>"
 			dat += "<A href='?src=\ref[src];update_cure=1'>Update</a><BR><hr>"
@@ -1126,7 +1161,7 @@
 				else
 					var/datum/disease/gn = new type(0, null)
 					dat += "[gn.name] "
-				dat += "<li><A href='?src=\ref[src];cure=[loop]'> - <i>Make</i></A><br></li>"
+				dat += "<li><A href='?src=\ref[src];cure=[loop]'> - <i>Make</i></A> <A href='?src=\ref[src];delete_vaccine=[loop]'>- <i>Delete</i></A><br></li>"
 
 	dat += "<hr><BR><A href='?src=\ref[src];eject=1'>Eject beaker</A>"
 
@@ -1218,6 +1253,15 @@
 							new_cures[resistance] = resistance
 							user << "New vaccine added to the database!"
 
+/obj/machinery/computer/pandemic/proc/delete_virus(virus_to_delete)
+	var/pos = text2num(virus_to_delete)
+	new_diseases.Cut(pos, pos + 1)
+
+
+
+/obj/machinery/computer/pandemic/proc/delete_vaccine(vaccine_to_delete)
+	var/pos = text2num(vaccine_to_delete)
+	new_cures.Cut(pos, pos + 1)
 
 #undef TAB_ANALYSIS
 #undef TAB_EXPERIMENT
