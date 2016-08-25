@@ -14,6 +14,25 @@
 		return (!mover.density || !density || lying)
 	return
 
+/client/verb/movenorth()
+	set name = ".movenorth"
+	set instant = 1
+	Move(get_step(mob, NORTH), NORTH)
+
+/client/verb/movewest()
+	set name = ".movewest"
+	set instant = 1
+	Move(get_step(mob, WEST), WEST)
+
+/client/verb/moveeast()
+	set name = ".moveeast"
+	set instant = 1
+	Move(get_step(mob, EAST), EAST)
+
+/client/verb/movesouth()
+	set name = ".movesouth"
+	set instant = 1
+	Move(get_step(mob, SOUTH), SOUTH)
 
 /client/Northeast()
 	swap_hand()
@@ -90,14 +109,15 @@
 
 
 /client/Move(n, direct)
+	if(world.time < move_delay)
+		return 0
+	move_delay = world.time+world.tick_lag
 	if(!mob)
 		return 0
 	if(mob.notransform)
 		return 0	//This is sota the goto stop mobs from moving var
 	if(mob.control_object)
 		return Move_object(direct)
-	if(world.time < move_delay)
-		return 0
 	if(!isliving(mob))
 		return mob.Move(n,direct)
 	if(mob.stat == DEAD)
