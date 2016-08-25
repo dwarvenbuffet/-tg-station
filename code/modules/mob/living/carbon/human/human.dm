@@ -435,115 +435,121 @@
 								usr << "<span class='danger'>Gathered data is inconsistent with the analysis, possible cause: poisoning.</span>"
 
 				if(href_list["hud"] == "s")
-					if(istype(H.glasses, /obj/item/clothing/glasses/hud/security))
-						if(usr.stat || usr == src) //|| !usr.canmove || usr.restrained()) Fluff: Sechuds have eye-tracking technology and sets 'arrest' to people that the wearer looks and blinks at.
-							return													  //Non-fluff: This allows sec to set people to arrest as they get disarmed or beaten
-						// Checks the user has security clearence before allowing them to change arrest status via hud, comment out to enable all access
-						var/allowed_access = null
-						var/obj/item/clothing/glasses/G = H.glasses
-						if (!G.emagged)
-							if(H.wear_id)
-								var/list/access = H.wear_id.GetAccess()
-								if(access_sec_doors in access)
-									allowed_access = H.get_authentification_name()
-						else
-							allowed_access = "@%&ERROR_%$*"
+					if(stat || usr == src)
+						return
 
+					if(!H.test_sechud_allowed(src)) //Don't cache it as we need to check again after the inputs
+						H << "<span class='warning'>ERROR: Invalid Access</span>"
+						return
 
-						if(!allowed_access)
-							H << "<span class='warning'>ERROR: Invalid Access</span>"
-							return
+					if(perpname)
+						R = find_record("name", perpname, data_core.security)
+						if(R)
+							if(href_list["status"])
+								var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list("None", "*Arrest*", "Incarcerated", "Parolled", "Discharged", "Cancel")
+								if(setcriminal != "Cancel")
+									if(R)
+										var/allowed = H.test_sechud_allowed(src)
+										if(allowed && H.canUseHUD())
+											if(istype(H.glasses, /obj/item/clothing/glasses/hud/security))
+												investigate_log("[src.key] has been set from [R.fields["criminal"]] to [setcriminal] by [usr.name] ([usr.key]).", "records")
+												R.fields["criminal"] = setcriminal
+												sec_hud_set_security_status()
+								return
 
-						if(perpname)
-							R = find_record("name", perpname, data_core.security)
-							if(R)
-								if(href_list["status"])
-									var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list("None", "*Arrest*", "Incarcerated", "Parolled", "Discharged", "Cancel")
-									if(setcriminal != "Cancel")
+							if(href_list["view"])
+								if(R)
+									if(!H.canUseHUD()) return
+									else if(!istype(H.glasses, /obj/item/clothing/glasses/hud/security)) return
+									usr << "<b>Name:</b> [R.fields["name"]]	<b>Criminal Status:</b> [R.fields["criminal"]]"
+									usr << "<b>Minor Crimes:</b>"
+									for(var/datum/data/crime/c in R.fields["mi_crim"])
+										usr << "<b>Crime:</b> [c.crimeName]"
+										usr << "<b>Details:</b> [c.crimeDetails]"
+										usr << "Added by [c.author] at [c.time]"
+										usr << "----------"
+									usr << "<b>Major Crimes:</b>"
+									for(var/datum/data/crime/c in R.fields["ma_crim"])
+										usr << "<b>Crime:</b> [c.crimeName]"
+										usr << "<b>Details:</b> [c.crimeDetails]"
+										usr << "Added by [c.author] at [c.time]"
+										usr << "----------"
+									usr << "<b>Notes:</b> [R.fields["notes"]]"
+								return
+
+							if(href_list["add_crime"])
+								switch(alert("What crime would you like to add?","Security HUD","Minor Crime","Major Crime","Cancel"))
+									if("Minor Crime")
 										if(R)
-											if(H.canUseHUD())
-												if(istype(H.glasses, /obj/item/clothing/glasses/hud/security))
-													investigate_log("[src.key] has been set from [R.fields["criminal"]] to [setcriminal] by [usr.name] ([usr.key]).", "records")
-													R.fields["criminal"] = setcriminal
-													sec_hud_set_security_status()
-									return
-
-								if(href_list["view"])
-									if(R)
-										if(!H.canUseHUD()) return
-										else if(!istype(H.glasses, /obj/item/clothing/glasses/hud/security)) return
-										usr << "<b>Name:</b> [R.fields["name"]]	<b>Criminal Status:</b> [R.fields["criminal"]]"
-										usr << "<b>Minor Crimes:</b>"
-										for(var/datum/data/crime/c in R.fields["mi_crim"])
-											usr << "<b>Crime:</b> [c.crimeName]"
-											usr << "<b>Details:</b> [c.crimeDetails]"
-											usr << "Added by [c.author] at [c.time]"
-											usr << "----------"
-										usr << "<b>Major Crimes:</b>"
-										for(var/datum/data/crime/c in R.fields["ma_crim"])
-											usr << "<b>Crime:</b> [c.crimeName]"
-											usr << "<b>Details:</b> [c.crimeDetails]"
-											usr << "Added by [c.author] at [c.time]"
-											usr << "----------"
-										usr << "<b>Notes:</b> [R.fields["notes"]]"
-									return
-
-								if(href_list["add_crime"])
-									switch(alert("What crime would you like to add?","Security HUD","Minor Crime","Major Crime","Cancel"))
-										if("Minor Crime")
+											var/t1 = stripped_input("Please input minor crime names:", "Security HUD", "", null)
+											var/t2 = stripped_multiline_input("Please input minor crime details:", "Security HUD", "", null)
 											if(R)
-												var/t1 = stripped_input("Please input minor crime names:", "Security HUD", "", null)
-												var/t2 = stripped_multiline_input("Please input minor crime details:", "Security HUD", "", null)
-												if(R)
-													if (!t1 || !t2 || !allowed_access) return
-													else if(!H.canUseHUD()) return
-													else if(!istype(H.glasses, /obj/item/clothing/glasses/hud/security)) return
-													var/crime = data_core.createCrimeEntry(t1, t2, allowed_access, worldtime2text())
-													data_core.addMinorCrime(R.fields["id"], crime)
-													usr << "<span class='notice'>Successfully added a minor crime.</span>"
-													return
-										if("Major Crime")
+												var/allowed = H.test_sechud_allowed(src) //stop time of check / time of use issues 2016
+												if (!t1 || !t2 || !allowed) return
+												else if(!H.canUseHUD()) return
+												else if(!istype(H.glasses, /obj/item/clothing/glasses/hud/security)) return
+												var/crime = data_core.createCrimeEntry(t1, t2, allowed, worldtime2text())
+												data_core.addMinorCrime(R.fields["id"], crime)
+												usr << "<span class='notice'>Successfully added a minor crime.</span>"
+												return
+									if("Major Crime")
+										if(R)
+											var/t1 = stripped_input("Please input major crime names:", "Security HUD", "", null)
+											var/t2 = stripped_multiline_input("Please input major crime details:", "Security HUD", "", null)
 											if(R)
-												var/t1 = stripped_input("Please input major crime names:", "Security HUD", "", null)
-												var/t2 = stripped_multiline_input("Please input major crime details:", "Security HUD", "", null)
-												if(R)
-													if (!t1 || !t2 || !allowed_access) return
-													else if (!H.canUseHUD()) return
-													else if (!istype(H.glasses, /obj/item/clothing/glasses/hud/security)) return
-													var/crime = data_core.createCrimeEntry(t1, t2, allowed_access, worldtime2text())
-													data_core.addMajorCrime(R.fields["id"], crime)
-													usr << "<span class='notice'>Successfully added a major crime.</span>"
+												var/allowed = H.test_sechud_allowed(src)
+												if (!t1 || !t2 || !allowed) return
+												else if (!H.canUseHUD()) return
+												else if (!istype(H.glasses, /obj/item/clothing/glasses/hud/security)) return
+												var/crime = data_core.createCrimeEntry(t1, t2, allowed, worldtime2text())
+												data_core.addMajorCrime(R.fields["id"], crime)
+												usr << "<span class='notice'>Successfully added a major crime.</span>"
+								return
+
+							if(href_list["view_comment"])
+								if(R)
+									if(!H.canUseHUD()) return
+									else if(!istype(H.glasses, /obj/item/clothing/glasses/hud/security)) return
+									usr << "<b>Comments/Log:</b>"
+									var/counter = 1
+									while(R.fields[text("com_[]", counter)])
+										usr << R.fields[text("com_[]", counter)]
+										usr << "----------"
+										counter++
 									return
 
-								if(href_list["view_comment"])
+							if(href_list["add_comment"])
+								if(R)
+									var/t1 = stripped_multiline_input("Add Comment:", "Secure. records", null, null)
 									if(R)
-										if(!H.canUseHUD()) return
+										var/allowed = H.test_sechud_allowed(src)
+										if (!t1 || !allowed) return
+										else if(!H.canUseHUD()) return
 										else if(!istype(H.glasses, /obj/item/clothing/glasses/hud/security)) return
-										usr << "<b>Comments/Log:</b>"
 										var/counter = 1
 										while(R.fields[text("com_[]", counter)])
-											usr << R.fields[text("com_[]", counter)]
-											usr << "----------"
 											counter++
+										R.fields[text("com_[]", counter)] = text("Made by [] on [] [], []<BR>[]", allowed, worldtime2text(), time2text(world.realtime, "MMM DD"), year_integer+540, t1,)
+										usr << "<span class='notice'>Successfully added comment.</span>"
 										return
-
-								if(href_list["add_comment"])
-									if(R)
-										var/t1 = stripped_multiline_input("Add Comment:", "Secure. records", null, null)
-										if(R)
-											if (!t1 || !allowed_access) return
-											else if(!H.canUseHUD()) return
-											else if(!istype(H.glasses, /obj/item/clothing/glasses/hud/security)) return
-											var/counter = 1
-											while(R.fields[text("com_[]", counter)])
-												counter++
-											R.fields[text("com_[]", counter)] = text("Made by [] on [] [], []<BR>[]", allowed_access, worldtime2text(), time2text(world.realtime, "MMM DD"), year_integer+540, t1,)
-											usr << "<span class='notice'>Successfully added comment.</span>"
-											return
-							usr << "<span class='warning'>Unable to locate a data core entry for this person.</span>"
+						usr << "<span class='warning'>Unable to locate a data core entry for this person.</span>"
 
 /mob/living/carbon/human/proc/canUseHUD()
 	return !(src.stat || src.weakened || src.stunned || src.restrained())
+
+
+/mob/living/carbon/human/proc/test_sechud_allowed(var/target)
+	// Checks the user has security clearence before allowing them to change arrest status via hud, edit it to return id name to enable all access
+	var/allowed_access = null
+	var/obj/item/clothing/glasses/G = glasses
+	if (!G.emagged)
+		if(wear_id)
+			var/list/access = wear_id.GetAccess()
+			if(access_sec_doors in access)
+				allowed_access = get_authentification_name()
+			else
+				allowed_access = "@%&ERROR_%$*"
+	return allowed_access
 
 /mob/living/carbon/human/proc/play_xylophone()
 	if(!src.xylophone)
