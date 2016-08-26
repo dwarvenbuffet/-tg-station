@@ -286,7 +286,7 @@
 	melee_damage_upper = 10
 	damage_transfer = 1.2
 	projectiletype = /obj/item/projectile/guardian
-	ranged_cooldown_cap = 0
+	ranged_cooldown_time = 0
 	projectilesound = 'sound/effects/hit_on_shattered_glass.ogg'
 	ranged = 1
 	range = 13

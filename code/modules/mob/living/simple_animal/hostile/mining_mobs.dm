@@ -56,7 +56,7 @@
 	projectilesound = 'sound/weapons/pierce.ogg'
 	ranged = 1
 	ranged_message = "stares"
-	ranged_cooldown_cap = 20
+	ranged_cooldown_time = 200
 	throw_message = "does nothing against the hard shell of"
 	vision_range = 2
 	speed = 3
@@ -68,7 +68,6 @@
 	attacktext = "bites into"
 	a_intent = "harm"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	ranged_cooldown_cap = 4
 	aggro_vision_range = 9
 	idle_vision_range = 2
 	turns_per_move = 5
@@ -232,7 +231,7 @@
 	attacktext = "lashes out at"
 	throw_message = "falls right through the strange body of the"
 	ranged_cooldown = 0
-	ranged_cooldown_cap = 0
+	ranged_cooldown_time = 0
 	environment_smash = 0
 	retreat_distance = 3
 	minimum_distance = 3
@@ -358,8 +357,7 @@
 	mouse_opacity = 2
 	move_to_delay = 40
 	ranged = 1
-	ranged_cooldown = 2 //By default, start the Goliath with his cooldown off so that people can run away quickly on first sight
-	ranged_cooldown_cap = 8
+	ranged_cooldown_time = 80
 	friendly = "wails at"
 	vision_range = 4
 	speed = 3
@@ -403,7 +401,7 @@
 	if(get_dist(src, target) <= 7)//Screen range check, so you can't get tentacle'd offscreen
 		visible_message("<span class='warning'>The [src.name] digs its tentacles under [target.name]!</span>")
 		new /obj/effect/goliath_tentacle/original(tturf)
-		ranged_cooldown = ranged_cooldown_cap
+		ranged_cooldown = world.time + ranged_cooldown_time
 		icon_state = icon_aggro
 		pre_attack = 0
 	return

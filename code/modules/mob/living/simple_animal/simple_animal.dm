@@ -42,10 +42,15 @@
 	var/list/atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0) //Leaving something at 0 means it's off - has no maximum
 	var/unsuitable_atmos_damage = 2	//This damage is taken when atmos doesn't fit all the requirements above
 
+	//Healable by medical stacks? Defaults to yes.
+	var/healable = 1
+
 
 	//LETTING SIMPLE ANIMALS ATTACK? WHAT COULD GO WRONG. Defaults to zero so Ian can still be cuddly
 	var/melee_damage_lower = 0
 	var/melee_damage_upper = 0
+	var/melee_damage_type = BRUTE //Damage type of a simple mob's melee attack, should it do damage.
+	var/list/damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1) // 1 for full damage , 0 for none , -1 for 1:1 heal from that source
 	var/attacktext = "attacks"
 	var/attack_sound = null
 	var/friendly = "nuzzles" //If the mob does no damage with it's attack
@@ -61,6 +66,10 @@
 	var/supernatural = 0
 	var/purge = 0
 	var/flying = 0 //whether it's flying or touching the ground.
+	var/del_on_death = 0
+	var/list/loot = list() //list of things spawned at mob's loc when it dies
+	var/deathmessage = ""
+	var/death_sound = null //The sound played on death
 
 	//simple_animal access
 	var/obj/item/weapon/card/id/access_card = null	//innate access uses an internal ID card
@@ -216,7 +225,7 @@
 					atmos_suitable = 0
 
 				if(!atmos_suitable)
-					adjustBruteLoss(unsuitable_atmos_damage)
+					apply_damage(unsuitable_atmos_damage, OXY)
 
 		else
 			if(atmos_requirements["min_oxy"] || atmos_requirements["min_tox"] || atmos_requirements["min_n2"] || atmos_requirements["min_co2"])
@@ -226,9 +235,9 @@
 
 /mob/living/simple_animal/proc/handle_temperature_damage()
 	if(bodytemperature < minbodytemp)
-		adjustBruteLoss(2)
+		apply_damage(2, BURN)
 	else if(bodytemperature > maxbodytemp)
-		adjustBruteLoss(3)
+		apply_damage(3, BURN)
 
 
 /mob/living/simple_animal/gib(var/animation = 0)
@@ -243,7 +252,7 @@
 
 
 /mob/living/simple_animal/blob_act()
-	adjustBruteLoss(20)
+	apply_damage(20, BRUTE)
 	return
 
 /mob/living/simple_animal/say_quote(input, list/spans)
@@ -272,9 +281,38 @@
 	if(!Proj)
 		return
 	if((Proj.damage_type != STAMINA))
-		adjustBruteLoss(Proj.damage)
+		apply_damage(Proj.damage, Proj.damage_type)
 		Proj.on_hit(src, 0)
 	return 0
+
+/mob/living/simple_animal/proc/adjustHealth(amount)
+	if(status_flags & GODMODE)
+		return 0
+	bruteloss = Clamp(bruteloss + amount, 0, maxHealth)
+	updatehealth()
+	return amount
+
+/mob/living/simple_animal/adjustBruteLoss(amount)
+	if(damage_coeff[BRUTE])
+		. = adjustHealth(amount * damage_coeff[BRUTE])
+
+/mob/living/simple_animal/adjustFireLoss(amount)
+	if(damage_coeff[BURN])
+		. = adjustHealth(amount * damage_coeff[BURN])
+
+/mob/living/simple_animal/adjustOxyLoss(amount)
+	if(damage_coeff[OXY])
+		. = adjustHealth(amount * damage_coeff[OXY])
+
+/mob/living/simple_animal/adjustToxLoss(amount)
+	if(damage_coeff[TOX])
+		. = adjustHealth(amount * damage_coeff[TOX])
+
+/mob/living/simple_animal/adjustCloneLoss(amount)
+	if(damage_coeff[CLONE])
+		. = adjustHealth(amount * damage_coeff[CLONE])
+/mob/living/simple_animal/adjustStaminaLoss(amount)
+	return
 
 /mob/living/simple_animal/attack_hand(mob/living/carbon/human/M as mob)
 	switch(M.a_intent)
@@ -291,7 +329,7 @@
 			M.do_attack_animation(src)
 			visible_message("<span class='danger'>[M] [response_harm] [src]!</span>")
 			playsound(loc, "punch", 25, 1, -1)
-			adjustBruteLoss(harm_intent_damage)
+			attack_threshold_check(harm_intent_damage)
 			add_logs(M, src, "attacked", admin=0)
 			updatehealth()
 	return
@@ -353,7 +391,7 @@
 	if(istype(O, /obj/item/stack/medical))
 		if(stat != DEAD)
 			var/obj/item/stack/medical/MED = O
-			if(health < maxHealth)
+			if(healable && health < maxHealth)
 				if(MED.amount >= 1)
 					if(MED.heal_brute >= 1)
 						adjustBruteLoss(-MED.heal_brute)
@@ -415,13 +453,27 @@
 		stat(null, "Health: [round((health / maxHealth) * 100)]%")
 
 /mob/living/simple_animal/death(gibbed)
-	health = 0
-	icon_state = icon_dead
-	stat = DEAD
-	lying = 1
-	density = 0
+	if(loot.len)
+		for(var/i in loot)
+			new i(loc)
 	if(!gibbed)
-		visible_message("<span class='danger'>\the [src] stops moving...</span>")
+		if(death_sound)
+			playsound(get_turf(src),death_sound, 200, 1)
+		if(deathmessage)
+			visible_message("<span class='danger'>\The [src] [deathmessage]</span>")
+		else if(!del_on_death)
+			visible_message("<span class='danger'>\The [src] stops moving...</span>")
+	if(del_on_death)
+		ghostize()
+		qdel(src)
+	else
+		health = 0
+		icon_state = icon_dead
+		stat = DEAD
+		lying = 1
+		density = 0
+
+
 	..()
 
 /mob/living/simple_animal/ex_act(severity, target)
@@ -437,11 +489,6 @@
 
 		if(3.0)
 			adjustBruteLoss(30)
-
-/mob/living/simple_animal/adjustBruteLoss(damage)
-	health = Clamp(health - damage, 0, maxHealth)
-	if(health < 1 && stat != DEAD)
-		death(0)
 
 /mob/living/simple_animal/proc/CanAttack(var/atom/the_target)
 	if(see_invisible < the_target.invisibility)

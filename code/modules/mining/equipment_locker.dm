@@ -631,7 +631,6 @@
 	attack_sound = 'sound/weapons/circsawhit.ogg'
 	ranged = 1
 	ranged_message = "shoots"
-	ranged_cooldown_cap = 3
 	projectiletype = /obj/item/projectile/kinetic
 	projectilesound = 'sound/weapons/Gunshot4.ogg'
 	wanted_objects = list(/obj/item/weapon/ore/diamond, /obj/item/weapon/ore/gold, /obj/item/weapon/ore/silver,
