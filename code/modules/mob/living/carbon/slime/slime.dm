@@ -10,7 +10,8 @@
 	var/is_adult = 0
 	var/docile = 0
 	has_limbs = 0
-	languages = SLIME | HUMAN
+	languages_spoken = SLIME | HUMAN
+	languages_understood = SLIME | HUMAN
 	faction = list("slime")
 
 	layer = 5
@@ -655,7 +656,7 @@
 			user << "<span class='warning'>[M] is already too intelligent for this to work!</span>"
 			return ..()
 		M.key = C.key
-		M.languages |= HUMAN
+		M.addlanguage(HUMAN)
 		M << "<span class='warning'>All at once it makes sense, you know what you are and who you are! Self awareness is yours!</span>"
 		M << "<span class ='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist them in completing their goals at any cost.</span>"
 		user << "<span class='warning'>[M] is suddenly attentive and aware. It worked!</span>"

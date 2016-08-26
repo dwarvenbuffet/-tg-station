@@ -13,7 +13,8 @@
 	health = 25
 	maxHealth = 25
 	see_invisible = SEE_INVISIBLE_OBSERVER
-	languages = ALL
+	languages_spoken = ALL
+	languages_understood = ALL
 	response_help   = "passes through"
 	response_disarm = "swings at"
 	response_harm   = "punches through"

@@ -114,12 +114,12 @@
 /obj/item/organ/internal/alien/hivenode/on_insertion()
 	..()
 	owner.faction |= "alien"
-	owner.languages |= ALIEN
+	owner.addlanguage(ALIEN)
 
 /obj/item/organ/internal/alien/hivenode/Remove(mob/living/carbon/M, special = 0)
 	if(M)
 		M.faction -= "alien"
-		M.languages &= ~ALIEN
+		M.removelanguage(ALIEN)
 	..()
 
 
