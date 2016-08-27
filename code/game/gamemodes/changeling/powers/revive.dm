@@ -45,6 +45,9 @@
 	user.mind.changeling.purchasedpowers -= src
 	user.med_hud_set_status()
 	user.med_hud_set_health()
+	user.eye_stat = 0 //fix eyes too
+	user.eye_blurry = 0
+	user.disabilities &= ~(NEARSIGHT|BLIND)
 	feedback_add_details("changeling_powers","CR")
 	user.stat = CONSCIOUS
 	return 1
