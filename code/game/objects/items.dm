@@ -496,3 +496,6 @@
 
 /obj/item/proc/OnMobLife(var/mob/holder)
 	return
+
+/obj/item/proc/embedded_pulse()
+	return

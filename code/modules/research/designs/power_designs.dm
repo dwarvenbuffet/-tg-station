@@ -60,6 +60,28 @@
 	build_path = /obj/item/weapon/stock_parts/cell/bluespace
 	category = list("Misc","Power Designs")
 
+/datum/design/basic_breaker
+	name = "Breaker"
+	desc = "An unit for the breaker boxes."
+	id = "breaker"
+	req_tech = list("powerstorage" = 1)
+	build_type = PROTOLATHE | AUTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 750, MAT_GLASS = 50)
+	construction_time=100
+	build_path = /obj/item/weapon/breaker
+	category = list("Misc","Power Designs","Machinery","initial")
+
+/datum/design/adv_breaker
+	name = "High Capacity Breaker"
+	desc = "An unit for the breaker boxes that can handle greater loads."
+	id = "adv_breaker"
+	req_tech = list("powerstorage" = 4)
+	build_type = PROTOLATHE | AUTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 250)
+	construction_time=100
+	build_path = /obj/item/weapon/breaker/high_capacity
+	category = list("Misc","Power Designs")
+
 /datum/design/light_replacer
 	name = "Light Replacer"
 	desc = "A device to automatically replace lights. Refill with working lightbulbs."
