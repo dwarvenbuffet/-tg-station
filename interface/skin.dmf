@@ -821,6 +821,10 @@ menu "menu"
 		group = ""
 		is-disabled = false
 		saved-params = "is-checked"
+        elem "reconnectbutton"
+                name = "&Reconnect"
+                category = "&File"
+                command = ".reconnect"
 	elem 
 		name = "&Icons"
 		command = ""

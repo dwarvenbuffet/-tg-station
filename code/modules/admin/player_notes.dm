@@ -61,18 +61,20 @@
 	if(!note)
 		note = html_encode(input(usr,"Enter your note:","Enter some text",null) as message|null)
 		if(!note)	return
+	add_note(ckey, note, usr.ckey, lognote)
 
+/proc/add_note(target_ckey, notetext, adminckey, logged = 1)
 	var/savefile/notesfile = new(NOTESFILE)
 	if(!notesfile)	return
-	notesfile.cd = "/[ckey]"
+	notesfile.cd = "/[target_ckey]"
 	notesfile.eof = 1		//move to the end of the buffer
-	notesfile << "[time2text(world.realtime,"DD-MMM-YYYY")] | [note][(usr && usr.ckey)?" ~[usr.ckey]":""]"
+	notesfile << "[time2text(world.realtime,"DD-MMM-YYYY")] | [notetext][(adminckey)?" ~[adminckey]":""]"
 
-	if(lognote)//don't need an admin log for the notes applied automatically during bans.
-		message_admins("[key_name(usr)] added note '[note]' to [ckey]")
-		log_admin("[key_name(usr)] added note '[note]' to [ckey]")
-
+	if(logged)//don't need an admin log for the notes applied automatically during bans.
+		message_admins("[adminckey] added note '[notetext]' to [target_ckey]")
+		log_admin("[adminckey] added note '[notetext]' to [target_ckey]")
 	return
+
 
 //handles removing entries from the buffer, or removing the entire directory if no start_index is given
 /proc/notes_remove(var/ckey, var/start_index, var/end_index)
@@ -113,5 +115,7 @@
 			notesfile.dir.Remove(ckey)
 			message_admins("[ckey] has no notes and was removed from the notes list.")
 	return
+
+
 
 #undef NOTESFILE
