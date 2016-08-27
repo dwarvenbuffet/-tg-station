@@ -6083,7 +6083,7 @@
 "cmY" = (/obj/structure/disposalpipe/segment,/turf/simulated/floor/plasteel{icon_state = "white"},/area/medical/chemistry)
 "cmZ" = (/obj/machinery/atmospherics/components/unary/vent_scrubber{dir = 1; on = 1; scrub_Toxins = 0},/obj/structure/cable/green{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plasteel{icon_state = "white"},/area/medical/chemistry)
 "cna" = (/turf/simulated/floor/plasteel{dir = 4; icon_state = "whiteyellow"; tag = "icon-whitehall (WEST)"},/area/medical/chemistry)
-"cnb" = (/obj/machinery/chem_dispenser/constructable/synth,/turf/simulated/floor/plasteel{dir = 4; icon_state = "whiteyellowfull"; tag = "icon-whitehall (WEST)"},/area/medical/chemistry)
+"cnb" = (/obj/machinery/chem_dispenser/constructable/synth/fullenergy,/turf/simulated/floor/plasteel{dir = 4; icon_state = "whiteyellowfull"; tag = "icon-whitehall (WEST)"},/area/medical/chemistry)
 "cnc" = (/obj/machinery/computer/rdconsole/core,/turf/simulated/floor/plasteel{icon_state = "warning"},/area/toxins/lab)
 "cnd" = (/turf/simulated/floor/plasteel{icon_state = "warning"},/area/toxins/lab)
 "cne" = (/obj/machinery/r_n_d/circuit_imprinter{pixel_y = 4},/obj/item/weapon/reagent_containers/glass/beaker/sulphuric,/turf/simulated/floor/plasteel{dir = 6; icon_state = "warning"},/area/toxins/lab)

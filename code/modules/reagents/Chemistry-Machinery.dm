@@ -183,7 +183,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "minidispenser"
 	var/baseicon = "minidispenser"
-	energy = 5
+	energy = 0
 	max_energy = 5
 	amount = 5
 	recharge_delay = 30
@@ -281,7 +281,7 @@
 	icon_state = "synth"
 	recharging_power_usage = 5000
 	var/default_power_usage = 5000 //default power usage without any upgrades
-	energy = 50
+	energy = 0
 	max_energy = 50
 	amount = 10
 	//beaker = null
@@ -289,6 +289,9 @@
 	//var/image/icon_beaker = null //cached overlay, might not be needed here.
 	uiname = "Advanced Chem Synthesizer"
 	list/dispensable_reagents = list() //starts with no known chems
+
+/obj/machinery/chem_dispenser/constructable/synth/fullenergy
+	energy = 50
 
 /obj/machinery/chem_dispenser/constructable/synth/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
 	if(stat & (BROKEN)) return
@@ -303,6 +306,7 @@
 		temp_energy += M.rating
 	temp_energy--
 	max_energy = temp_energy * 20  //max energy = (bin1.rating + bin2.rating - 1) * 5, 20 on lowest 100 on highest
+	energy = min(energy, max_energy)
 	for(var/obj/item/weapon/stock_parts/capacitor/C in component_parts)
 		time += C.rating
 	for(var/obj/item/weapon/stock_parts/cell/P in component_parts)
