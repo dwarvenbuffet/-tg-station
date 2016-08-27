@@ -55,7 +55,7 @@
 
 	busy = 1
 	user << "\green Updating power settings.."
-	if(do_after(user, 50))
+	if(do_after(user, 50, target = src))
 		set_state(!on)
 		user << "\green Update Completed. New setting:[on ? "on": "off"]"
 	busy = 0
@@ -74,7 +74,7 @@
 	for(var/mob/O in viewers(user))
 		O.show_message(text("\red [user] started reprogramming [src]!"), 1)
 
-	if(do_after(user, 50))
+	if(do_after(user, 50, target = src))
 		set_state(!on)
 		user.visible_message(\
 		"<span class='notice'>[user.name] [on ? "enabled" : "disabled"] the breaker box!</span>",\
