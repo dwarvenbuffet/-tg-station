@@ -11,6 +11,8 @@
 	var/code = 30
 	var/frequency = 1457
 	var/delay = 0
+	var/silent = 0
+	var/send_capability = 1
 	var/datum/radio_frequency/radio_connection
 
 /obj/item/device/assembly/signaler/New()
@@ -47,8 +49,8 @@
 	//		t1 = "-------"	Speaker: [src.listening ? "<A href='byond://?src=\ref[src];listen=0'>Engaged</A>" : "<A href='byond://?src=\ref[src];listen=1'>Disengaged</A>"]<BR>
 		var/dat = {"
 <TT>
+[send_capability ? "<A href='byond://?src=\ref[src];send=1'>Send Signal</A><BR>" : ""]
 
-<A href='byond://?src=\ref[src];send=1'>Send Signal</A><BR>
 <B>Frequency/Code</B> for signaler:<BR>
 Frequency:
 <A href='byond://?src=\ref[src];freq=-10'>-</A>
@@ -130,7 +132,8 @@ Code:
 	if(signal.encryption != code)	return 0
 	if(!(src.wires & WIRE_RADIO_RECEIVE))	return 0
 	pulse(1)
-	audible_message("\icon[src] *beep* *beep*", null, 1)
+	if(!silent)
+		audible_message("\icon[src] *beep* *beep*", null, 1)
 	return
 
 
@@ -182,3 +185,17 @@ Code:
 
 /obj/item/device/assembly/signaler/anomaly/attack_self()
 	return
+
+/obj/item/device/assembly/signaler/embedded //An signaler embedded in an obj/item that should be configurable
+	var/obj/item/parent = null
+	silent = 1
+	send_capability = 0
+
+/obj/item/device/assembly/signaler/embedded/New()
+	..()
+	parent = loc
+
+
+/obj/item/device/assembly/signaler/embedded/receive_signal(datum/signal/signal)
+	..()
+	parent.embedded_pulse()
