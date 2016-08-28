@@ -167,4 +167,3 @@
 				if("Parolled")		holder.icon_state = "hudparolled"
 				if("Discharged")	holder.icon_state = "huddischarged"
 				else				holder.icon_state = null
-

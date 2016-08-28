@@ -6,7 +6,8 @@
 	icon_state = "monkey1"
 	gender = NEUTER
 	pass_flags = PASSTABLE
-	languages = MONKEY
+	languages_spoken = MONKEY
+	languages_understood = MONKEY
 	ventcrawler = 2
 	type_of_meat = /obj/item/weapon/reagent_containers/food/snacks/meat/slab/monkey
 	unique_name = 1

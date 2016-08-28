@@ -153,7 +153,7 @@ proc/wabbajack(mob/living/M)
 			switch(randomize)
 				if("monkey")
 					new_mob = new /mob/living/carbon/monkey(M.loc)
-					new_mob.languages |= HUMAN
+					new_mob.addlanguage(HUMAN)
 				if("robot")
 					var/robot = pick("cyborg","syndiborg")
 					switch(robot)
@@ -167,27 +167,20 @@ proc/wabbajack(mob/living/M)
 						Robot.mmi = new /obj/item/device/mmi(new_mob)
 						Robot.mmi.transfer_identity(M)	//Does not transfer key/client.
 					else
-						new_mob.languages |= HUMAN
+						new_mob.addlanguage(HUMAN)
 				if("slime")
 					new_mob = new /mob/living/carbon/slime(M.loc)
 					if(prob(50))
 						var/mob/living/carbon/slime/Slime = new_mob
 						Slime.is_adult = 1
-					new_mob.languages |= HUMAN
+					new_mob.addlanguage(HUMAN)
 				if("xeno")
 					if(prob(50))
 						new_mob = new /mob/living/carbon/alien/humanoid/hunter(M.loc)
 					else
 						new_mob = new /mob/living/carbon/alien/humanoid/sentinel(M.loc)
-					new_mob.languages |= HUMAN
+					new_mob.addlanguage(HUMAN)
 
-					/*var/alien_caste = pick("Hunter","Sentinel","Drone","Larva")
-					switch(alien_caste)
-						if("Hunter")	new_mob = new /mob/living/carbon/alien/humanoid/hunter(M.loc)
-						if("Sentinel")	new_mob = new /mob/living/carbon/alien/humanoid/sentinel(M.loc)
-						if("Drone")		new_mob = new /mob/living/carbon/alien/humanoid/drone(M.loc)
-						else			new_mob = new /mob/living/carbon/alien/larva(M.loc)
-					new_mob.languages |= HUMAN*/
 				if("animal")
 					if(prob(50))
 						var/beast = pick("carp","bear","mushroom","statue", "bat", "goat","killertomato", "spiderbase", "spiderhunter", "blobbernaut", "magicarp", "chaosmagicarp")
@@ -219,7 +212,7 @@ proc/wabbajack(mob/living/M)
 							if("fox") new_mob = new /mob/living/simple_animal/fox(M.loc)
 							if("butterfly")	new_mob = new /mob/living/simple_animal/butterfly(M.loc)
 							else			new_mob = new /mob/living/simple_animal/chick(M.loc)
-					new_mob.languages |= HUMAN
+					new_mob.addlanguage(HUMAN)
 				if("human")
 					new_mob = new /mob/living/carbon/human(M.loc)
 

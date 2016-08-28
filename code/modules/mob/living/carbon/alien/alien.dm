@@ -11,7 +11,8 @@
 	faction = list("alien")
 	verb_say = "hisses"
 	ventcrawler = 2
-	languages = ALIEN
+	languages_spoken = ALIEN
+	languages_understood = ALIEN
 	var/nightvision = 1
 
 

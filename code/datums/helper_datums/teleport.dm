@@ -168,3 +168,47 @@
 			var/mob/living/MM = teleatom
 			MM << "<span class='warning'>The bluespace interface on your bag of holding interferes with the teleport!</span>"
 	return 1
+
+
+
+// Safe location finder
+
+/proc/find_safe_turf(zlevel = ZLEVEL_STATION, list/zlevels)
+	if(!zlevels)
+		zlevels = list(zlevel)
+	var/cycles = 1000
+	for(var/cycle in 1 to cycles)
+		// DRUNK DIALLING WOOOOOOOOO
+		var/x = rand(1, world.maxx)
+		var/y = rand(1, world.maxy)
+		var/z = pick(zlevels)
+		var/random_location = locate(x,y,z)
+
+		if(!(istype(random_location, /turf/simulated/floor)))
+			continue
+		var/turf/simulated/floor/F = random_location
+		if(!F.air)
+			continue
+
+		var/datum/gas_mixture/A = F.air
+
+
+		// Can most things breathe?
+		if(A.trace_gases && A.trace_gases.len)
+			continue
+		if(!(A.oxygen >= 16))
+			continue
+		if(A.toxins)
+			continue
+		if(A.carbon_dioxide >= 10)
+			continue
+
+		// Aim for goldilocks temperatures and pressure
+		if((A.temperature <= 270) || (A.temperature >= 360))
+			continue
+		var/pressure = A.return_pressure()
+		if((pressure <= 20) || (pressure >= 550))
+			continue
+
+		// DING! You have passed the gauntlet, and are "probably" safe.
+		return F

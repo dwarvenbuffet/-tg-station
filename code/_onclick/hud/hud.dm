@@ -120,6 +120,8 @@
 		ghost_hud()
 	else if(isovermind(mymob))
 		blob_hud()
+	else if(isswarmer(mymob))
+		swarmer_hud()
 
 
 

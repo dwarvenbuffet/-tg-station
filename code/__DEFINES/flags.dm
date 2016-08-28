@@ -72,8 +72,9 @@
 #define VIRUSIMMUNE	4096
 #define HARDFEET	8192
 
+
 /*
-	These defines are used specifically with the atom/movable/languages bitmask.
+	These defines are used specifically with the atom/movable/languages[_spoken|_understood] bitmask.
 	They are used in atom/movable/Hear() and atom/movable/say() to determine whether hearers can understand a message.
 */
 #define HUMAN 1
@@ -82,3 +83,4 @@
 #define ROBOT 8
 #define SLIME 16
 #define DRONE 32
+#define SWARMER 64

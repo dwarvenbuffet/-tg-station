@@ -108,7 +108,7 @@ var/global/borer_chem_types = typesof(/datum/borer_chem) - /datum/borer_chem
 
 /mob/living/simple_animal/borer/New(var/loc,var/by_gamemode=0)
 	..(loc)
-	languages |= HUMAN
+	addlanguage(HUMAN)
 	truename = "[pick("Primary","Secondary","Tertiary","Quaternary")] [rand(1000,9999)]"
 	host_brain = new/mob/living/captive_brain(src)
 
@@ -319,8 +319,10 @@ var/global/borer_chem_types = typesof(/datum/borer_chem) - /datum/borer_chem
 
 	host_brain.ckey = host.ckey
 	host_brain.name = host.real_name
-	host_brain.languages = host.languages
-	src.languages |= host.languages //Allow borers to learn more languages by infesting beings
+	host_brain.languages_understood = host.languages_understood
+	host_brain.languages_spoken = host.languages_spoken
+	languages_understood |= host.languages_understood //Allow borers to learn more languages by infesting beings
+	languages_spoken |= host.languages_spoken
 	host.ckey = src.ckey
 	controlling = 1
 
