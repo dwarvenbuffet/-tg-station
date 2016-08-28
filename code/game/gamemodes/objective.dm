@@ -205,10 +205,13 @@
 	for(var/mob/living/player in player_list)
 		if(player.mind && player.mind != owner)
 			if(player.stat != DEAD)
-				switch(player.type)
-					if(/mob/living/silicon, /mob/living/simple_animal, /mob/living/carbon/brain, /mob/living/carbon/alien, /mob/living/carbon/slime)
-						continue
 				if(get_area(player) == A)
+					if(issilicon(player) \
+					|| isbrain(player) \
+					|| isalien(player) \
+					|| isslime(player) \
+					|| isanimal(player))
+						continue
 					if(!player.mind.special_role && !istype(get_turf(player.mind.current), /turf/simulated/floor/plasteel/shuttle/red))
 						return 0
 	return 1
