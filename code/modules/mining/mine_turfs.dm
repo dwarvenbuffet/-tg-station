@@ -124,8 +124,8 @@
 				/*if("Adamantine")
 					M = new/turf/simulated/mineral/adamantine(src)*/
 			if(M)
-				src.ChangeTurf(M)
-				src.levelupdate()
+				var/turf/t = ChangeTurf(M)
+				t.levelupdate()
 	return
 
 /turf/simulated/mineral/random/high_chance
@@ -341,18 +341,24 @@
 ////////////////////////////////End Gibtonite
 
 /turf/simulated/floor/plating/asteroid/airless/cave
-	var/length = 100
+	var/initial_length = 100
 	var/mob_spawn_list = list("Goldgrub" = 1, "Goliath" = 5, "Basilisk" = 4, "Hivelord" = 3)
 	var/sanity = 1
+	var/can_go_backwards = 1
+	var/excluded_direction = -1
 
-/turf/simulated/floor/plating/asteroid/airless/cave/New(loc, var/length, var/go_backwards = 1, var/exclude_dir = -1)
+/turf/simulated/floor/plating/asteroid/airless/cave/New(loc)
+	spawn(2)
+		expand_tunnel(initial_length, can_go_backwards, excluded_direction)
+	..()
 
-	// If length (arg2) isn't defined, get a random length; otherwise assign our length to the length arg.
+/turf/simulated/floor/plating/asteroid/airless/cave/proc/expand_tunnel(var/length, var/go_backwards = 1, var/exclude_dir = -1)
+	// If length (arg1) isn't defined, get a random length; otherwise assign our length to the length arg.
 	lighting_build_overlays()
 	if(!length)
-		src.length = rand(25, 50)
+		src.initial_length = rand(25, 50)
 	else
-		src.length = length
+		src.initial_length = length
 
 	// Get our directiosn
 	var/forward_cave_dir = pick(alldirs - exclude_dir)
@@ -365,14 +371,13 @@
 		make_tunnel(backward_cave_dir)
 	// Kill ourselves by replacing ourselves with a normal floor.
 	SpawnFloor(src)
-	..()
 
 /turf/simulated/floor/plating/asteroid/airless/cave/proc/make_tunnel(var/dir)
 
 	var/turf/simulated/mineral/tunnel = src
 	var/next_angle = pick(45, -45)
 
-	for(var/i = 0; i < length; i++)
+	for(var/i = 0; i < initial_length; i++)
 		if(!sanity)
 			break
 
@@ -392,7 +397,7 @@
 		if(istype(tunnel))
 			// Small chance to have forks in our tunnel; otherwise dig our tunnel.
 			if(i > 3 && prob(20))
-				new src.type(tunnel, rand(10, 15), 0, dir)
+				SpawnCave(tunnel, rand(10, 15), 0, dir)
 			else
 				SpawnFloor(tunnel)
 		else //if(!istype(tunnel, src.parent)) // We hit space/normal/wall, stop our tunnel.
@@ -404,6 +409,12 @@
 			next_angle = -next_angle
 			dir = angle2dir(dir2angle(dir) + next_angle)
 
+
+/turf/simulated/floor/plating/asteroid/airless/cave/proc/SpawnCave(var/turf/T, length, go_backwards, excluded_dir)
+	var/turf/simulated/floor/plating/asteroid/airless/cave/C =  T.ChangeTurf(/turf/simulated/floor/plating/asteroid/airless/cave)
+	C.initial_length = length
+	C.can_go_backwards = go_backwards
+	C.excluded_direction = excluded_dir
 
 /turf/simulated/floor/plating/asteroid/airless/cave/proc/SpawnFloor(var/turf/T)
 	for(var/turf/S in range(2,T))
@@ -420,9 +431,7 @@
 	var/turf/simulated/floor/t = T.ChangeTurf(/turf/simulated/floor/plating/asteroid/airless)
 	spawn(2)
 		t.fullUpdateMineralOverlays()
-	spawn (300)
-		t.lighting_fix_overlays()
-		t.update_overlay()
+
 
 /turf/simulated/floor/plating/asteroid/airless/cave/proc/SpawnMonster(var/turf/T)
 	if(prob(30))

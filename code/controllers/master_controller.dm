@@ -75,10 +75,6 @@ var/global/datum/controller/master/Master = new()
 	world << "<span class='boldannounce'>Initializing subsystems...</span>"
 	// Pick a random away mission.
 	createRandomZlevel()
-	// Generate mining.
-	make_mining_asteroid_secret()
-	// Readies Xenoarch
-	SetupXenoarch()
 	// Set up Z-level transistions.
 	setup_map_transitions()
 	// Prepare minimaps
@@ -89,6 +85,10 @@ var/global/datum/controller/master/Master = new()
 	for(var/datum/subsystem/SS in subsystems)
 		SS.Initialize(world.timeofday, zlevel)
 		CHECK_TICK
+	// Generate mining.
+	make_mining_asteroid_secret()
+	// Readies Xenoarch
+	SetupXenoarch()
 	world << "<span class='boldannounce'>Initializations complete!</span>"
 	world.log << "Initializations complete!"
 	// Sort subsystems by display setting for easy access.
@@ -108,13 +108,6 @@ var/global/datum/controller/master/Master = new()
 		timer += world.tick_lag
 		SS.can_fire = 1
 		SS.next_fire = timer + rand(0, SS.wait) // Stagger subsystems.
-	for(var/turf/simulated/T in mining_turfs)
-		set background = TRUE
-		if(!T)
-			continue
-		if(T.lighting_test_overlays())
-			T.lighting_fix_overlays()
-
 	for(var/turf/simulated/wall/W in tunnel_walls)
 		set background = TRUE
 		if(!W)
