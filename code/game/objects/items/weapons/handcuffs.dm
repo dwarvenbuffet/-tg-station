@@ -25,28 +25,52 @@
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	var/trashtype = null //for disposable cuffs
 
-/obj/item/weapon/restraints/handcuffs/attack(mob/living/carbon/C, mob/living/carbon/human/user)
+obj/item/weapon/restraints/handcuffs/attack(mob/living/carbon/C, mob/living/carbon/human/user)
+
+	if(!istype(C))
+		return
 	if(user.disabilities & CLUMSY && prob(50))
 		user << "<span class='warning'>Uh... how do those things work?!</span>"
 		apply_cuffs(user,user)
 		return
 
 	if(!C.handcuffed)
-		C.visible_message("<span class='danger'>[user] is trying to put [src.name] on [C]!</span>", \
+		if(C.get_num_arms() >= 2)
+
+			C.visible_message("<span class='danger'>[user] is trying to put [src.name] on [C]!</span>", \
 							"<span class='userdanger'>[user] is trying to put [src.name] on [C]!</span>")
+			playsound(loc, cuffsound, 30, 1, -2)
 
-		playsound(loc, cuffsound, 30, 1, -2)
-		if(do_mob(user, C, cufftime))
-			apply_cuffs(C,user)
-			user << "<span class='notice'>You handcuff [C].</span>"
-			if(istype(src, /obj/item/weapon/restraints/handcuffs/cable))
-				feedback_add_details("handcuffs","C")
+			switch(user.mind.assigned_role) //Security "fastcuff" buff
+				if("Security Officer")
+					cufftime = 15
+				if("Warden")
+					cufftime = 15
+				if("Head of Security")
+					cufftime = 15
+				if("Detective")
+					cufftime = 15
+				if("Captain")
+					cufftime = 15
+				else
+					cufftime = 25 //Increase to make zipties more viable for people "improvising"
+
+			if(do_mob(user, C, cufftime ) && C.get_num_arms() >= 2)
+				apply_cuffs(C,user)
+				user << "<span class='notice'>You handcuff [C].</span>"
+				if(istype(src, /obj/item/weapon/restraints/handcuffs/cable))
+					feedback_add_details("handcuffs","C")
+				else
+					feedback_add_details("handcuffs","H")
+
+				add_logs(user, C, "handcuffed")
 			else
-				feedback_add_details("handcuffs","H")
-
-			add_logs(user, C, "handcuffed")
+				user << "<span class='warning'>You fail to handcuff [C]!</span>"
 		else
-			user << "<span class='warning'>You fail to handcuff [C].</span>"
+			user << "<span class='warning'>[C] doesn't have two hands...</span>"
+	else
+		return
+		user << "<span class='warning'>You fail to handcuff [C].</span>"
 
 /obj/item/weapon/restraints/handcuffs/proc/apply_cuffs(mob/living/carbon/target, mob/user)
 	if(!target.handcuffed)
@@ -128,7 +152,7 @@
 	desc = "Plastic, disposable zipties that can be used to restrain temporarily but are destroyed after use."
 	icon_state = "cuff_white"
 	breakouttime = 450 //Deciseconds = 45s
-	cufftime = 15 //slithgtly faster than normal cuffs
+	cufftime = 20 //slithgtly faster than normal cuffs. Security should probably use normal cuffs
 	trashtype = /obj/item/weapon/restraints/handcuffs/cable/zipties/used
 
 /obj/item/weapon/restraints/handcuffs/cable/zipties/used
