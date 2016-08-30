@@ -297,6 +297,8 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 	return
 
 /mob/living/simple_animal/hostile/mimic/copy/ranged/OpenFire(var/the_target)
+	if(ranged_cooldown > world.time)
+		return 0
 	if(Zapgun)
 		if(Zapgun.power_supply) //sanity
 			var/obj/item/ammo_casing/energy/shot = Zapgun.ammo_type[Zapgun.select]
@@ -333,6 +335,8 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 		src.ranged = 0 //BANZAIIII
 		src.retreat_distance = 0
 		src.minimum_distance = 1
+		return
 	src.icon_state = TrueGun.icon_state
 	src.icon_living = TrueGun.icon_state
+	ranged_cooldown = world.time + ranged_cooldown_time
 	return

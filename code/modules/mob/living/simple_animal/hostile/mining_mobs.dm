@@ -397,6 +397,8 @@
 	..(gibbed)
 
 /mob/living/simple_animal/hostile/asteroid/goliath/OpenFire()
+	if(ranged_cooldown > world.time)
+		return 0
 	var/tturf = get_turf(target)
 	if(get_dist(src, target) <= 7)//Screen range check, so you can't get tentacle'd offscreen
 		visible_message("<span class='warning'>The [src.name] digs its tentacles under [target.name]!</span>")
