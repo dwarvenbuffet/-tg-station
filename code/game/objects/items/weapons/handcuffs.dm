@@ -1,7 +1,7 @@
 
 /obj/item/weapon/restraints
 	var/breakouttime = 600
-	var/cufftime = 30 //allows configuration of the time to cuff someone
+	var/base_cufftime = 30 //allows configuration of the time to cuff someone
 
 
 
@@ -19,10 +19,11 @@
 	w_class = 2.0
 	throw_speed = 3
 	throw_range = 5
-	cufftime = 20  //Slightly better than cabel cuffs
+	base_cufftime = 20  //Slightly better than cabel cuffs
 	materials = list(MAT_METAL=500)
 	origin_tech = "materials=1"
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
+	var/variable_cufftime = 1
 	var/trashtype = null //for disposable cuffs
 
 obj/item/weapon/restraints/handcuffs/attack(mob/living/carbon/C, mob/living/carbon/human/user)
@@ -34,6 +35,8 @@ obj/item/weapon/restraints/handcuffs/attack(mob/living/carbon/C, mob/living/carb
 		apply_cuffs(user,user)
 		return
 
+	var/cufftime_modifier = 1 //Modifiers to cufftime, at the moment set accodring to the user's job
+
 	if(!C.handcuffed)
 		if(C.get_num_arms() >= 2)
 
@@ -41,19 +44,22 @@ obj/item/weapon/restraints/handcuffs/attack(mob/living/carbon/C, mob/living/carb
 							"<span class='userdanger'>[user] is trying to put [src.name] on [C]!</span>")
 			playsound(loc, cuffsound, 30, 1, -2)
 
-			switch(user.mind.assigned_role) //Security "fastcuff" buff
-				if("Security Officer")
-					cufftime = 15
-				if("Warden")
-					cufftime = 15
-				if("Head of Security")
-					cufftime = 15
-				if("Detective")
-					cufftime = 15
-				if("Captain")
-					cufftime = 15
-				else
-					cufftime = 25 //Increase to make zipties more viable for people "improvising"
+			if(user.mind && variable_cufftime)
+				switch(user.mind.assigned_role) //Security "fastcuff" buff
+					if("Security Officer")
+						cufftime_modifier = 0.75
+					if("Warden")
+						cufftime_modifier = 0.75
+					if("Head of Security")
+						cufftime_modifier = 0.75
+					if("Detective")
+						cufftime_modifier = 0.75
+					if("Captain")
+						cufftime_modifier = 0.75
+					else
+						cufftime_modifier = 1.25 //Increase to make zipties more viable for people "improvising"
+
+			var/cufftime = base_cufftime * cufftime_modifier
 
 			if(do_mob(user, C, cufftime ) && C.get_num_arms() >= 2)
 				apply_cuffs(C,user)
@@ -91,6 +97,7 @@ obj/item/weapon/restraints/handcuffs/attack(mob/living/carbon/C, mob/living/carb
 	icon_state = "cuff_red"
 	item_state = "coil_red"
 	breakouttime = 300 //Deciseconds = 30s
+	variable_cufftime = 0
 	cuffsound = 'sound/weapons/cablecuff.ogg'
 
 /obj/item/weapon/restraints/handcuffs/cable/red
@@ -138,7 +145,7 @@ obj/item/weapon/restraints/handcuffs/attack(mob/living/carbon/C, mob/living/carb
 			playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
 			C.visible_message("<span class='danger'>[user] is trying to put zipties on [C]!</span>", \
 								"<span class='userdanger'>[user] is trying to put zipties on [C]!</span>")
-			if(do_mob(user, C, cufftime))
+			if(do_mob(user, C, base_cufftime))
 				if(!C.handcuffed)
 					C.handcuffed = new /obj/item/weapon/restraints/handcuffs/cable/zipties/used(C)
 					C.update_inv_handcuffed(0)
@@ -152,7 +159,7 @@ obj/item/weapon/restraints/handcuffs/attack(mob/living/carbon/C, mob/living/carb
 	desc = "Plastic, disposable zipties that can be used to restrain temporarily but are destroyed after use."
 	icon_state = "cuff_white"
 	breakouttime = 450 //Deciseconds = 45s
-	cufftime = 20 //slithgtly faster than normal cuffs. Security should probably use normal cuffs
+	base_cufftime = 20 //slithgtly faster than normal cuffs. Security should probably use normal cuffs
 	trashtype = /obj/item/weapon/restraints/handcuffs/cable/zipties/used
 
 /obj/item/weapon/restraints/handcuffs/cable/zipties/used

@@ -501,7 +501,7 @@ Congratulations! You are now trained for xenobiology research!"}
 	icon_state = "cuff_white" // Needs sprite
 	breakouttime = 450
 	unacidable = 1
-	cufftime = 20 //on par with normal cuffs
+	base_cufftime = 15 //faster than normal
 	trashtype = /obj/item/weapon/restraints/handcuffs/energy/used
 
 /obj/item/weapon/restraints/handcuffs/energy/used
