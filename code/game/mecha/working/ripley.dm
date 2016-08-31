@@ -47,12 +47,15 @@
 
 /obj/mecha/working/ripley/update_icon()
 	..()
+	update_goliath_overlays()
+
+/obj/mecha/working/ripley/proc/update_goliath_overlays()
 	if (hides)
-		overlays = null
+		overlays.Cut()
 		if(hides < 3)
-			overlays += image("icon" = "mecha.dmi", "icon_state" = occupant ? "ripley-g" : "ripley-g-open")
+			overlays += image(icon = "mecha.dmi", icon_state = "ripley-g[occupant ? "" : "-open"]", dir = dir)
 		else
-			overlays += image("icon" = "mecha.dmi", "icon_state" = occupant ? "ripley-g-full" : "ripley-g-full-open")
+			overlays += image(icon = "mecha.dmi", icon_state = "ripley-g-full[occupant ? "" : "-open"]", dir = dir)
 
 
 /obj/mecha/working/ripley/firefighter
