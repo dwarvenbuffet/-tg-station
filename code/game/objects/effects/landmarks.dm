@@ -86,6 +86,26 @@
 	landmarks_list -= src
 	..()
 
+//this is really dumb
+/obj/effect/landmark/SinguloCanEat()
+	return 0
+
+/obj/effect/landmark/singularity_act()
+	return 0
+
+/obj/effect/landmark/narsie_act()
+	return 0
+
+/obj/effect/landmark/acid_act()
+	return 0
+
+/obj/effect/landmark/singularity_pull()
+	return 0
+
+/obj/effect/landmark/ex_act()
+	return 0
+
+
 /obj/effect/landmark/start
 	name = "start"
 	icon = 'icons/mob/screen_gen.dmi'
