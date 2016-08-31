@@ -92,6 +92,8 @@
 /mob/living/simple_animal/updatehealth()
 	..()
 	health = Clamp(health, 0, maxHealth)
+	if(health < 1 && stat != DEAD)
+		death()
 
 /mob/living/simple_animal/Life()
 	if(..()) //alive
@@ -103,7 +105,7 @@
 
 /mob/living/simple_animal/handle_regular_status_updates()
 	if(..()) //alive
-		if(health < 1)
+		if(health < 1 && stat != DEAD)
 			death()
 			return 0
 		return 1
