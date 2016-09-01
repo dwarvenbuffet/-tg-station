@@ -42,6 +42,10 @@ proc/spawn_room(var/atom/start_loc, var/x_size, var/y_size, var/list/walltypes, 
 	return room_turfs
 
 //////////////
+proc/make_mining_asteroid_secrets()
+	for(var/i = 0, i < max_secret_rooms, i++)
+		make_mining_asteroid_secret()
+
 
 proc/make_mining_asteroid_secret()
 	var/valid = 0

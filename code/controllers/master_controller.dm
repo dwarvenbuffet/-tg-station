@@ -86,7 +86,7 @@ var/global/datum/controller/master/Master = new()
 		SS.Initialize(world.timeofday, zlevel)
 		CHECK_TICK
 	// Generate mining.
-	make_mining_asteroid_secret()
+	make_mining_asteroid_secrets()
 	// Readies Xenoarch
 	SetupXenoarch()
 	world << "<span class='boldannounce'>Initializations complete!</span>"
