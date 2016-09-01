@@ -431,6 +431,7 @@
 	dir = direction
 	if(turnsound)
 		playsound(src,turnsound,40,1)
+	update_icon()
 	return 1
 
 /obj/mecha/proc/mechstep(direction)
@@ -605,6 +606,7 @@
 		log_append_to_last("[H] moved in as pilot.")
 		icon_state = initial(icon_state)
 		dir = dir_in
+		update_icon()
 		playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 		if(!internal_damage)
 			occupant << sound('sound/mecha/nominal.ogg',volume=50)
@@ -710,6 +712,7 @@
 			L.canmove = 0
 		icon_state = initial(icon_state)+"-open"
 		dir = dir_in
+		update_icon()
 	return
 
 /////////////////////////
