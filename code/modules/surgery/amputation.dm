@@ -58,4 +58,4 @@
 /datum/surgery_step/close/cleanstump/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	L = target.get_organdatum(target_zone)
 	L.status = ORGAN_REMOVED	//No more permadamage
-	return 1
+	return ..()
