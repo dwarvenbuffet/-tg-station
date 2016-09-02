@@ -11,6 +11,11 @@
 	steps = list(/datum/surgery_step/incise, /datum/surgery_step/retract_skin, /datum/surgery_step/clamp_bleeders,
 	/datum/surgery_step/incise, /datum/surgery_step/manipulate_organs)
 
+/datum/surgery/organ_manipulation/soft/can_start(mob/user, mob/living/carbon/target, datum/organ/organdata = null)
+	if(organdata && organdata.parent && organdata.parent.organdatum.exists()) //These are suborgans, so don't care about their existance if parent exists
+		return 1
+	return 0
+
 /datum/surgery/organ_manipulation/alien
 	name = "alien organ manipulation"
 	possible_locs = list("chest", "head", "groin", "eyes", "mouth")
