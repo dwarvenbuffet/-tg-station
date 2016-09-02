@@ -109,7 +109,7 @@
 
 
 	emag.reagents.add_reagent("pacid", 250)
-	emag.name = "Fluacid spray"
+	emag.name = "polytrinic acid spray"
 
 	var/obj/item/weapon/reagent_containers/spray/S = emag
 	S.banned_reagents = list()
