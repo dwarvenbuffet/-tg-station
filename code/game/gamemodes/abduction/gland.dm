@@ -3,7 +3,7 @@
 	desc = "A nausea-inducing hunk of twisting flesh and metal."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "gland"
-	status = ORGAN_ROBOTIC
+	organtype = ORGAN_ROBOTIC
 	origin_tech = "materials=4;biotech=5"
 	var/cooldown_low = 300
 	var/cooldown_high = 300
