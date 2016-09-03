@@ -18,7 +18,7 @@
 	return null
 
 //The proc for inserting organs. Inserts the organ and adds all its suborgans to the organsystem
-/obj/item/organ/proc/Insert(mob/living/carbon/M)
+/obj/item/organ/proc/Insert(mob/living/carbon/M, special)
 	if(!iscarbon(M) || owner == M)
 		return 0
 
@@ -26,7 +26,7 @@
 	if(OR && !OR.exists())
 		if(OR.set_organitem(src))
 			add_suborgans()
-			on_insertion()
+			on_insertion(special)
 			return 1
 	return 0
 
