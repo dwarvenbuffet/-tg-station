@@ -69,10 +69,12 @@ var/global/posibrain_notif_cooldown = 0
 	brainmob.dna = H.dna
 	brainmob.timeofhostdeath = H.timeofdeath
 	brainmob.stat = 0
+	brainmob.ckey = H.ckey //Do not transfer mind
+
+
 	if(brainmob.mind)
 		brainmob.mind.assigned_role = "Positronic Brain"
-	if(H.mind)
-		H.mind.transfer_to(brainmob)
+
 
 //	brainmob.mind.remove_all_antag()
 //	brainmob.mind.wipe_memory()
@@ -88,7 +90,6 @@ var/global/posibrain_notif_cooldown = 0
 		candidate << "This brain has already been taken! Please try your possesion again later!"
 		return
 	notified = 0
-	brainmob.mind = candidate.mind
 	brainmob.ckey = candidate.ckey
 	name = "positronic brain ([brainmob.name])"
 
@@ -100,7 +101,8 @@ var/global/posibrain_notif_cooldown = 0
 	brainmob << "<b>You are a positronic brain, brought into existence on [station_name()].</b>"
 	brainmob << "<b>As a synthetic intelligence, you answer to all crewmembers, as well as the AI.</b>"
 	brainmob << "<b>Remember, the purpose of your existence is to serve the crew and the station. Above all else, do no harm.</b>"
-	brainmob.mind.assigned_role = "Positronic Brain"
+	if(brainmob.mind)
+		brainmob.mind.assigned_role = "Positronic Brain"
 
 	visible_message("<span class='notice'>The positronic brain chimes quietly.</span>")
 	update_icon()
