@@ -75,6 +75,12 @@
 		return
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
+	var/mob/M = usr
+	if(istype(M))
+		if(!M.canUseTopic(src))
+			return
+	else
+		return
 	if(href_list["remove"])
 		var/obj/item/weapon/coin/COIN
 		switch(href_list["remove"])
