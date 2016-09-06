@@ -9,7 +9,8 @@
 ###############################################################################################
 SierraChan = Host
 Dopaper = Game Master
-Sheylos = Game Admin
+Sheylos = Game Master
 Octareenroon91 = Game Admin
 SpaghettiScience = Midimin
+Doubleplus = Midimin
 Zaers = Coder
