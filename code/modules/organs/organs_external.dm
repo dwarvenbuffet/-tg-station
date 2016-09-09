@@ -162,6 +162,7 @@
 
 /obj/item/organ/limb/arm/Remove(special = 0)
 	owner.update_inv_gloves()
+	owner.unEquip(owner.handcuffed)
 
 	..(special)
 

@@ -737,7 +737,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		progbar.appearance_flags = RESET_COLOR
 		return progbar
 
-/proc/do_after(mob/user, delay, numticks = 5, needhand = 1, atom/target = null)
+/proc/do_after(mob/user, delay, numticks = 5, needhand = 1, atom/target = null, tracktargetloc = 1)
 	if(!user)
 		return 0
 
@@ -745,7 +745,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		return 0
 
 	var/atom/Tloc = null
-	if(target)
+	if(target && tracktargetloc)
 		Tloc = target.loc
 
 	var/delayfraction = round(delay/numticks)

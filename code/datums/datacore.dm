@@ -188,6 +188,8 @@
 
 var/record_id_num = 1001
 /datum/datacore/proc/manifest_inject(var/mob/living/carbon/human/H)
+	if(!istype(H))
+		return
 	if(H.mind && (H.mind.assigned_role != H.mind.special_role))
 		var/assignment
 		if(H.mind.assigned_role)
