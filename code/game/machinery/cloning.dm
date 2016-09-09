@@ -158,14 +158,6 @@
 	if(H && H.dna)
 		H.dna.remove_all_mutations()
 
-	if(efficiency > 2)
-		for(var/A in bad_se_blocks)
-			setblock(H.dna.struc_enzymes, A, construct_block(0,2))
-	if(efficiency > 5 && prob(20))
-		randmutg(H)
-	if(efficiency < 3)
-		randmutb(H)
-
 
 	H.silent = 20 //Prevents an extreme edge case where clones could speak if they said something at exactly the right moment.
 	occupant = H
@@ -188,6 +180,14 @@
 	H << "<span class='notice'><b>Consciousness slowly creeps over you as your body regenerates.</b><br><i>So this is what cloning feels like?</i></span>"
 
 	hardset_dna(H, ui, se, null, null, mrace, mcolor)
+	if(efficiency > 2)
+		for(var/A in bad_se_blocks)
+			setblock(H.dna.struc_enzymes, A, construct_block(0,2))
+	if(efficiency > 5 && prob(20))
+		randmutg(H)
+	if(efficiency < 3)
+		randmutb(H)
+
 	H.faction |= factions
 
 	H.set_cloned_appearance()
