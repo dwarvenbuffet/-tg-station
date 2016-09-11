@@ -165,9 +165,6 @@
 	new /obj/item/weapon/throwing_star(src)
 	new /obj/item/weapon/throwing_star(src)
 
-
-
-
 /obj/item/weapon/switchblade
 	name = "switchblade"
 	icon_state = "switchblade"
@@ -206,8 +203,6 @@
 	user.visible_message("<span class='suicide'>[user] is slitting \his own throat with the [src.name]! It looks like \he's trying to commit suicide.</span>")
 	return (BRUTELOSS)
 
-
-
 /obj/item/weapon/phone
 	name = "red phone"
 	desc = "Should anything ever go wrong..."
@@ -227,7 +222,6 @@
 	else
 		user.visible_message("<span class='notice'>[user] is strangling \himself with the [src.name]'s cord! It looks like \he's trying to commit suicide.</span>")
 	return(OXYLOSS)
-
 
 /obj/item/weapon/staff
 	name = "wizards staff"
@@ -261,7 +255,50 @@
 	w_class = 2.0
 	flags = NOSHIELD
 
+/obj/item/weapon/twohanded/nanabat
+	name = "wooden bat"
+	desc = "Nananananananananananana… BATMAN!"
+	icon = 'icons/obj/weapons.dmi'
+	icon_state = "bat"
+	item_state = "bat"
+	force_unwielded = 3
+	force_wielded = 5
+	throwforce = 5.0
+	throw_speed = 3
+	throw_range = 5
+	w_class = 4
+	wielded = 0
+	wieldsound = 'sound/weapons/bdraw.ogg'
+	attack_verb = list("powed", "zokked", "whapped", "biffed")
+	var/koprob = 20
+	var/regvolume = 50
+	var/critvolume = 75
+	var/list/possiblesounds=list('sound/weapons/bhit1.ogg','sound/weapons/bhit2.ogg','sound/weapons/bhit3.ogg')
 
+/obj/item/weapon/twohanded/nanabat/attack(mob/M, mob/user)
+	var/knockout = prob(koprob)
+	if (knockout)
+		playsound(loc, pick(possiblesounds), critvolume)
+		M.Weaken(1)
+		M.confused += 2
+	else
+		playsound(loc, pick(possiblesounds), regvolume)
+	..()
+
+/obj/item/weapon/twohanded/nanabat/aluminumbat
+	name = "aluminum bat"
+	desc = "You just walked into the wrong maintenance shaft, pal."
+	icon_state = "bata"
+	item_state = "bata"
+	attack_verb = list("bonked", "boinked", "lobotomized")
+	hitsound = 'sound/weapons/bata.ogg'
+	force_unwielded = 5
+	force_wielded = 7
+	koprob = 33
+	regvolume = 0
+	critvolume = 50
+	possiblesounds=list('sound/weapons/batc.ogg')
+	//todo: deflect projectiles
 
 /obj/item/weapon/c_tube
 	name = "cardboard tube"
@@ -272,7 +309,6 @@
 	w_class = 1.0
 	throw_speed = 3
 	throw_range = 5
-
 
 /obj/item/weapon/cane
 	name = "cane"
