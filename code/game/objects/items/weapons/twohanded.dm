@@ -284,6 +284,69 @@
 		else
 			user << "<span class='warning'>It's starting to look like a triple rainbow - no, nevermind.</span>"
 
+//bats
+/obj/item/weapon/twohanded/nanabat
+	name = "wooden bat"
+	desc = "Nananananananananananana… BATMAN!"
+	icon = 'icons/obj/weapons.dmi'
+	icon_state = "bat"
+	item_state = "bat"
+	force = 2
+	force_unwielded = 3
+	force_wielded = 7
+	throwforce = 5.0
+	throw_speed = 3
+	throw_range = 5
+	w_class = 4
+	wielded = 0
+	wieldsound = 'sound/weapons/bdraw.ogg'
+	attack_verb = list("powed", "zokked", "whapped", "biffed")
+	hitsound = 'sound/weapons/punch4.ogg'
+	var/koprob = 20
+	var/regvolume = 15
+	var/critvolume = 75
+	var/list/possiblesounds=list('sound/weapons/bhit1.ogg','sound/weapons/bhit2.ogg','sound/weapons/bhit3.ogg')
+
+/obj/item/weapon/twohanded/nanabat/suicide_act(mob/user)
+	user.visible_message("<span class='notice'>[user] is shoving the [src.name] down \his throat! It looks like \he's trying to commit suicide.</span>")
+	return(OXYLOSS)
+
+/obj/item/weapon/twohanded/nanabat/attack(mob/M, mob/user)
+	..()
+	var/knockout = prob(koprob)
+	if (wielded)
+		if (knockout)
+			playsound(loc, pick(possiblesounds), critvolume)
+			M.Weaken(2)
+			M.confused += 2
+		else
+			playsound(loc, pick(possiblesounds), regvolume)
+
+/obj/item/weapon/twohanded/nanabat/IsDeflect()
+	if (wielded)
+		return 1
+
+/obj/item/weapon/twohanded/nanabat/aluminumbat
+	name = "aluminum bat"
+	desc = "You just walked into the wrong maintenance shaft, pal."
+	icon_state = "bata"
+	item_state = "bata"
+	attack_verb = list("bonked", "boinked", "smashed", "lobotomized")
+	hitsound = 'sound/weapons/bata.ogg'
+	force = 2
+	force_unwielded = 5
+	force_wielded = 10
+	koprob = 33
+	regvolume = 0
+	critvolume = 50
+	possiblesounds=list('sound/weapons/batc.ogg')
+	//Deflects small thrown objects with hacky code. See code\modules\mob\living\carbon\carbon_defense.
+
+/*
+/obj/item/weapon/twohanded/nanabat/paddle
+	name = "wooden paddle"
+	desc = "You kids have got it lucky. Back in my day, we didn't have any of them fancy \"chain of command\" things to lash our subordinates with. A man had to learn how to improvise."
+*/
 
 //spears
 
