@@ -1319,7 +1319,9 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/clothing/under/harness/male,
 					/obj/item/clothing/under/harness/female,
 					/obj/item/clothing/under/harness/fat)
+	name = "Degeneracy Crate"
 	cost = 30
+	containername = "degeneracy crate! Brought to you by Bad Xeno Inc., catering to all your natural (and taboo) needs!"
 	contraband = 1
 
 /datum/supply_packs/misc/randomised/toys
