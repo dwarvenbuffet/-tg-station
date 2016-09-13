@@ -1050,15 +1050,15 @@
 				M.unEquip(O)
 				break
 
-	if (prob(2))
-		var/list/tlorgan = M.get_all_internal_organs()
+	if (prob(1))
+		var/list/tlorgan = M.get_all_internal_organs() //no longer refrains from removing vital organs
+		var/toremove = rand(1, tlorgan.len)
 		if (tlorgan)
-			for (var/datum/organ/internal/org_to_remove in tlorgan)
-				var/obj/item/orgitem_to_remove = org_to_remove.organitem
-				if ((orgitem_to_remove) && (org_to_remove.vital == 0))
-					org_to_remove.remove(ORGAN_REMOVED, M.loc)
-					do_teleport(orgitem_to_remove, get_turf(orgitem_to_remove.loc), 20, asoundin = 'sound/effects/phasein.ogg')
-					M << "<span class = 'userdanger'>You feel like you just lost something REALLY important!</span>"
-					break
+			var/datum/organ/internal/orgdatum_to_remove = tlorgan[toremove]
+			var/obj/item/orgitem_to_remove = orgdatum_to_remove.organitem
+			if (orgitem_to_remove)
+				orgdatum_to_remove.remove(ORGAN_REMOVED, M.loc)
+				do_teleport(orgitem_to_remove, get_turf(orgitem_to_remove.loc), 5, asoundin = 'sound/effects/phasein.ogg')
+				M << "<span class = 'userdanger'>You feel like you just lost something REALLY important!</span>"
 	..()
 	return

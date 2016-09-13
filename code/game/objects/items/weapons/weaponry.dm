@@ -294,10 +294,17 @@
 		if (user.zone_sel.selecting == "groin")
 			M << "<span class='danger'>You feel something smack you from behind!</span>" //L-l-lewd!
 			force = 0
-			playsound(loc, 'sound/weapons/slap.ogg', 50) //for some reason this retarded proc doesn't play any hitsound when force = 0
+			playsound(loc, 'sound/weapons/slap.ogg', 50)
+			visible_message ("<span class='danger'>[user.name] has [pick(attack_verb)] [M.name] in the ass with [src.name]!</span>") //UP THE ASS
 		else
 			force = 3
-	..()
+			M.adjustBruteLoss(force)
+			visible_message ("<span class='danger'>[user.name] has [pick(attack_verb)] [M.name] with [src.name]!</span>") //fuck whoever designed this stupid proc
+		playsound(loc, 'sound/weapons/punch3.ogg', 50)
+
+/obj/item/weapon/paddle/suicide_act(mob/user)
+	user.visible_message("<span class='notice'>[user] is furiously paddling \himself with the [src.name]! It looks like \he's trying to commit suicide.</span>") //Ass is bleeding! Ass is bleeding! Ass is-
+	return(BRUTELOSS)
 
 /obj/item/weapon/paddle/bdsm
 	name = "BDSM paddle" //l-l-lewd!
