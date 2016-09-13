@@ -170,8 +170,10 @@
 	if(welding)
 		overlays += "[initial(icon_state)]-on"
 		item_state = "[initial(item_state)]1"
+		set_light(5)
 	else
 		item_state = "[initial(item_state)]"
+		set_light(0)
 
 /obj/item/weapon/weldingtool/update_icon()
 	if(change_icons)

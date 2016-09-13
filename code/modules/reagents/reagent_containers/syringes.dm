@@ -248,3 +248,35 @@
 
 /obj/item/weapon/reagent_containers/syringe/lethal/choral
 	list_reagents = list("chloralhydrate" = 50)
+
+/obj/item/weapon/reagent_containers/syringe/bluespace
+	name = "bluespace syringe"
+	desc = "Stores reagents in an artificial bluespace pocket. Can hold up to 50 units." //The injection syringes can do it; why not these too?
+	volume = 50
+	icon_state = "bluespace0"
+	possible_transfer_amounts = list(5, 10)
+
+/obj/item/weapon/reagent_containers/syringe/bluespace/update_icon() //copypasted because I don't know how to code
+	var/rounded_vol = round(reagents.total_volume,15)
+	overlays.Cut()
+	if(ismob(loc))
+		var/injoverlay
+		switch(mode)
+			if (SYRINGE_DRAW)
+				injoverlay = "draw"
+			if (SYRINGE_INJECT)
+				injoverlay = "inject"
+		overlays += injoverlay
+	icon_state = "bluespace[rounded_vol]"
+	item_state = "syringe_[rounded_vol]"
+
+	if(reagents.total_volume)
+		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "syringe10")
+
+		switch(rounded_vol)
+			if(15)	filling.icon_state = "syringe5"
+			if(30)	filling.icon_state = "syringe10"
+			if(45)	filling.icon_state = "syringe15"
+
+		filling.color = mix_color_from_reagents(reagents.reagent_list)
+		overlays += filling

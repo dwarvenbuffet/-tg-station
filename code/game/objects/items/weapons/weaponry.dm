@@ -19,7 +19,6 @@
 	user << "<font color='red'> You have <b>BANNED</b> [M]</font>"
 	playsound(loc, 'sound/effects/adminhelp.ogg', 15) //keep it at 15% volume so people don't jump out of their skin too much
 
-
 /obj/item/weapon/nullrod
 	name = "null rod"
 	desc = "A rod of pure obsidian, its very presence disrupts and dampens the powers of Nar-Sie's followers."
@@ -165,9 +164,6 @@
 	new /obj/item/weapon/throwing_star(src)
 	new /obj/item/weapon/throwing_star(src)
 
-
-
-
 /obj/item/weapon/switchblade
 	name = "switchblade"
 	icon_state = "switchblade"
@@ -206,8 +202,6 @@
 	user.visible_message("<span class='suicide'>[user] is slitting \his own throat with the [src.name]! It looks like \he's trying to commit suicide.</span>")
 	return (BRUTELOSS)
 
-
-
 /obj/item/weapon/phone
 	name = "red phone"
 	desc = "Should anything ever go wrong..."
@@ -227,7 +221,6 @@
 	else
 		user.visible_message("<span class='notice'>[user] is strangling \himself with the [src.name]'s cord! It looks like \he's trying to commit suicide.</span>")
 	return(OXYLOSS)
-
 
 /obj/item/weapon/staff
 	name = "wizards staff"
@@ -261,8 +254,6 @@
 	w_class = 2.0
 	flags = NOSHIELD
 
-
-
 /obj/item/weapon/c_tube
 	name = "cardboard tube"
 	desc = "A tube... of cardboard."
@@ -272,7 +263,6 @@
 	w_class = 1.0
 	throw_speed = 3
 	throw_range = 5
-
 
 /obj/item/weapon/cane
 	name = "cane"
@@ -285,3 +275,70 @@
 	w_class = 2.0
 	materials = list(MAT_METAL=50)
 	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed")
+
+/obj/item/weapon/paddle
+	name = "wooden paddle"
+	desc = "Back in my day, we didn't have any fancy \"chain of command\" to lash our subordinates with. A man had to learn how to improvise."
+	icon = 'icons/obj/weapons.dmi'
+	icon_state = "paddle"
+	item_state = "paddle"
+	force = 3
+	throwforce = 2
+	w_class = 2
+	attack_verb = list("paddled", "slapped", "smacked", "spanked")
+	hitsound = 'sound/weapons/punch3.ogg'
+
+/obj/item/weapon/paddle/attack(mob/mm, mob/user)
+	if (istype(mm, /mob/living))
+		var/mob/living/M = mm
+		if (user.zone_sel.selecting == "groin")
+			M << "<span class='danger'>You feel something smack you from behind!</span>" //L-l-lewd!
+			force = 0
+			playsound(loc, 'sound/weapons/slap.ogg', 50)
+			visible_message ("<span class='danger'>[user.name] has [pick(attack_verb)] [M.name] in the ass with [src.name]!</span>") //UP THE ASS
+		else
+			force = 3
+			M.adjustBruteLoss(force)
+			visible_message ("<span class='danger'>[user.name] has [pick(attack_verb)] [M.name] with [src.name]!</span>") //fuck whoever designed this stupid proc
+		playsound(loc, 'sound/weapons/punch3.ogg', 50)
+
+/obj/item/weapon/paddle/suicide_act(mob/user)
+	user.visible_message("<span class='notice'>[user] is furiously paddling \himself with the [src.name]! It looks like \he's trying to commit suicide.</span>") //Ass is bleeding! Ass is bleeding! Ass is-
+	return(BRUTELOSS)
+
+/obj/item/weapon/paddle/bdsm
+	name = "BDSM paddle" //l-l-lewd!
+	desc = "Fetish toy made of cheap plastic and black leather. The lettering on top reads \"slut\". That's a paddlin'."
+	icon_state = "paddle0"
+	item_state = "paddle0"
+	attack_verb = list("paddled", "slapped", "smacked", "spanked")
+	hitsound = 'sound/weapons/punch3.ogg'
+	force = 0
+	var/paddlemode = 0
+
+/obj/item/weapon/paddle/bdsm/update_icon()
+	if (paddlemode)
+		icon_state = "paddle1"
+		item_state = "paddle1"
+	else
+		icon_state = "paddle0"
+		item_state = "paddle0"
+
+/obj/item/weapon/paddle/bdsm/attack_self(mob/user as mob)
+	user << "<span class='notice'>You flip the [src] over.</span>"
+
+	if (paddlemode == 1)
+		paddlemode = 0
+	else
+		paddlemode = 1 //oh my.
+	update_icon()
+
+/obj/item/weapon/paddle/bdsm/attack(mob/mm, mob/user)
+	..()
+	if (istype(mm, /mob/living))
+		var/mob/living/M = mm
+		if (paddlemode)
+			M.adjustBruteLoss(0.5)
+			M.adjustStaminaLoss(5)
+			M << "<span class='danger'> It's quite painful!</span>"
+

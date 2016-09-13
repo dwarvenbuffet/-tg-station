@@ -992,3 +992,73 @@
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 
+/datum/reagent/bluespacejelly
+	name = "Bluespace Jelly"
+	id = "bluespacejelly"
+	description = "A strange, viscous pseudo-substance composed of tiny holes in quantum fields. Not recommended for consumption."
+	reagent_state = LIQUID
+	can_synth = 0
+	color = "#3399ff"
+	metabolization_rate = 4*REAGENTS_METABOLISM
+	overdose_threshold = 30
+
+/datum/reagent/bluespacejelly/on_mob_delete(var/mob/living/M as mob)
+	M.adjustToxLoss(current_cycle*REM)
+	M.adjustBruteLoss(current_cycle*REM)
+	..()
+
+/datum/reagent/bluespacejelly/on_mob_life(mob/living/M)
+	var/blink_range = current_cycle
+	if(M && ishuman(M))
+
+		if(blink_range <= 2) //The spacetime continuum hasn't acclimated to your consuming things that weren't supposed to be consumed!
+			do_teleport(M, get_turf(M), blink_range + 1, asoundin = 'sound/effects/phasein.ogg')
+
+		else //The spacetime continuum thinks you've had enough fun.
+			do_teleport(M, get_turf(M), 12/blink_range, asoundin = 'sound/effects/phasein.ogg')
+
+			if (M.confused <= 6)
+				M.confused += 2
+
+			if(prob(17))
+				M.visible_message("<span class = 'danger'>[M]'s hands seem to flicker and vanish for a moment!</span>")
+				var/obj/item/RI = M.get_active_hand()
+				var/obj/item/LI = M.get_inactive_hand()
+				if(RI)
+					M.unEquip(RI)
+				if (LI)
+					M.unEquip(LI) //Not going to let you off with breaking into the captain's office that easily!
+	..()
+	return
+
+/datum/reagent/bluespacejelly/overdose_process(mob/living/M)	//You took too much of this!
+	var/list/droppables = M.get_equipped_items()
+
+	if(prob(33))
+		M << "<span class = 'userdanger'>You don't feel together...</span>"
+		M.adjustBruteLoss(REM)
+		M.adjustCloneLoss(0.5*REM) //NOT FUN!
+
+		if (M.hallucination <= 10)
+			M.hallucination += 5
+
+	if (prob(20))
+		M.visible_message("<span class = 'danger'>[M]'s body seems to flicker and vanish for a moment!</span>")
+		do_teleport(M, get_turf(M), 3, asoundin = 'sound/effects/phasein.ogg')
+		for (var/obj/item/O in droppables)
+			if (O)
+				M.unEquip(O)
+				break
+
+	if (prob(1))
+		var/list/tlorgan = M.get_all_internal_organs() //no longer refrains from removing vital organs
+		var/toremove = rand(1, tlorgan.len)
+		if (tlorgan)
+			var/datum/organ/internal/orgdatum_to_remove = tlorgan[toremove]
+			var/obj/item/orgitem_to_remove = orgdatum_to_remove.organitem
+			if (orgitem_to_remove)
+				orgdatum_to_remove.remove(ORGAN_REMOVED, M.loc)
+				do_teleport(orgitem_to_remove, get_turf(orgitem_to_remove.loc), 5, asoundin = 'sound/effects/phasein.ogg')
+				M << "<span class = 'userdanger'>You feel like you just lost something REALLY important!</span>"
+	..()
+	return

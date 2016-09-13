@@ -9,8 +9,20 @@
 						visible_message("<span class='warning'>[src] catches [I]!</span>")
 						throw_mode_off()
 						return
+		else if(get_active_hand())
+			var obj/item/active_hand = get_active_hand()
+			if (active_hand.IsDeflect()) //deflection for thrown objects - probably already implemented but too lazy to look for it
+				if (istype(AM, /obj/item) && !istype(AM, /obj/item/projectile)) //This doesn't let you deflect bullets or darts
+					var/obj/item/I = AM
+					if(isturf(I.loc) && I.w_class <= 2)
+						playsound(src.loc, 'sound/weapons/bbhit.ogg', 30)
+						visible_message("<span class='warning'>[src] deflects [I] with \an [active_hand.name]!</span>")
+						var/new_x = I.loc.x + rand(-5,5)
+						var/new_y = I.loc.y + rand(-5,5)
+						var/newloc = locate(new_x, new_y, I.loc.z)
+						I.throw_at(newloc,16,3,src,1)
+						return
 	..()
-
 
 /mob/living/carbon/attackby(obj/item/I, mob/user, params)
 	if(lying || isslime(src))

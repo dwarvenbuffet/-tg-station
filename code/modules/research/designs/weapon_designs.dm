@@ -203,7 +203,7 @@
 	id = "wormholeprojector"
 	req_tech = list("combat" = 6, "materials" = 6, "bluespace" = 4)
 	build_type = PROTOLATHE
-	materials = list(MAT_SILVER = 1000, MAT_METAL = 5000, MAT_DIAMOND = 3000)
+	materials = list(MAT_SILVER = 1000, MAT_METAL = 5000, MAT_DIAMOND = 3000, "bluespacejelly" = 30)
 	build_path = /obj/item/weapon/gun/energy/wormhole_projector
 	category = list("Weapons")
 
