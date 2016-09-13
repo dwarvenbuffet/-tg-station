@@ -16,6 +16,7 @@
 					var/obj/item/I = AM
 					if(isturf(I.loc) && I.w_class <= 2)
 						playsound(src.loc, 'sound/weapons/bbhit.ogg', 30)
+						visible_message("<span class='warning'>[src] deflects [I] with \an [active_hand.name]!</span>")
 						var/new_x = I.loc.x + rand(-5,5)
 						var/new_y = I.loc.y + rand(-5,5)
 						var/newloc = locate(new_x, new_y, I.loc.z)

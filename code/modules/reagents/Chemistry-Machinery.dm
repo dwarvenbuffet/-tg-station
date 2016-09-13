@@ -1558,6 +1558,7 @@
 /obj/machinery/reagentgrinder/proc/crystal_fail()
 
 	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
+		visible_message("<span class='warning'>The [src.name] sparkles and fizzes!</span>")
 		var/shouldteleport = prob(5)
 		if (shouldteleport)
 			if (M.rating == 1)

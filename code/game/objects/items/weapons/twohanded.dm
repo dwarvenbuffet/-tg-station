@@ -291,7 +291,7 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "bat"
 	item_state = "bat"
-	force = 2
+	force = 3
 	force_unwielded = 3
 	force_wielded = 7
 	throwforce = 5.0
@@ -311,18 +311,20 @@
 	user.visible_message("<span class='notice'>[user] is shoving the [src.name] down \his throat! It looks like \he's trying to commit suicide.</span>")
 	return(OXYLOSS)
 
-/obj/item/weapon/twohanded/nanabat/attack(mob/M, mob/user)
+/obj/item/weapon/twohanded/nanabat/attack(mob/mm, mob/user)
 	..()
 	var/knockout = prob(koprob)
-	if (wielded)
-		if (knockout)
-			playsound(loc, pick(possiblesounds), critvolume)
-			M.Weaken(2)
-			M.confused += 2
-		else
-			playsound(loc, pick(possiblesounds), regvolume)
+	if (istype(mm, /mob/living))
+		var/mob/living/M = mm
+		if (wielded)
+			if (knockout)
+				playsound(loc, pick(possiblesounds), critvolume)
+				M.Weaken(2)
+				M.confused += 2
+			else
+				playsound(loc, pick(possiblesounds), regvolume)
 
-/obj/item/weapon/twohanded/nanabat/IsDeflect()
+/obj/item/weapon/twohanded/nanabat/IsDeflect() //Only deflects thrown items; doesn't deflect bullets. See items.dm and code\modules\mob\living\carbon\carbon_defense.
 	if (wielded)
 		return 1
 
@@ -333,20 +335,13 @@
 	item_state = "bata"
 	attack_verb = list("bonked", "boinked", "smashed", "lobotomized")
 	hitsound = 'sound/weapons/bata.ogg'
-	force = 2
+	force = 5
 	force_unwielded = 5
 	force_wielded = 10
 	koprob = 33
 	regvolume = 0
 	critvolume = 50
 	possiblesounds=list('sound/weapons/batc.ogg')
-	//Deflects small thrown objects with hacky code. See code\modules\mob\living\carbon\carbon_defense.
-
-/*
-/obj/item/weapon/twohanded/nanabat/paddle
-	name = "wooden paddle"
-	desc = "You kids have got it lucky. Back in my day, we didn't have any of them fancy \"chain of command\" things to lash our subordinates with. A man had to learn how to improvise."
-*/
 
 //spears
 
