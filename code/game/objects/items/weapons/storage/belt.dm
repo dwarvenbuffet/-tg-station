@@ -79,6 +79,37 @@
 		/obj/item/device/sensor_device
 		)
 
+/obj/item/weapon/storage/belt/mining
+	name = "mining belt"
+	desc = "Can hold various mining equipment."
+	icon_state = "minerbelt"
+	item_state = "miner"
+	w_class = 5
+	max_w_class = 5
+	max_combined_w_class = 35
+	can_hold = list(
+		/obj/item/clothing/mask/facehugger/toy,
+		/obj/item/weapon/crowbar,
+		/obj/item/weapon/reagent_containers/hypospray/medipen/stimpack,
+		/obj/item/device/mining_scanner,
+		/obj/item/device/t_scanner/adv_mining_scanner,
+		/obj/item/device/mining_charge,
+		/obj/item/device/laser_pointer,
+		/obj/item/weapon/soap,
+		/obj/item/weapon/mining_voucher,
+		/obj/item/weapon/storage/bag/ore,
+		/obj/item/weapon/pickaxe,
+		/obj/item/weapon/shovel,
+		/obj/item/weapon/gun/energy/kinetic_accelerator,
+		/obj/item/weapon/gun/energy/plasmacutter,
+		/obj/item/clothing/glasses/meson,
+		/obj/item/device/wormhole_jaunter,
+		/obj/item/weapon/resonator,
+		/obj/item/weapon/lazarus_injector,
+		/obj/item/asteroid/hivelord_core,
+		/obj/item/device/hivelord_fridge,
+		/obj/item/asteroid/goliath_hide
+		)
 
 /obj/item/weapon/storage/belt/security
 	name = "security belt"
@@ -107,6 +138,22 @@
 /obj/item/weapon/storage/belt/security/full/New()
 	..()
 	new /obj/item/device/flashlight/seclite(src)
+
+/obj/item/weapon/storage/belt/bluespace
+	name = "Belt of Holding"
+	desc = "A belt that opens into a localized pocket of Blue Space."
+	icon_state = "bluebelt"
+	item_state = "blueb"
+	origin_tech = "bluespace=4"
+	materials = list(MAT_GOLD=500)
+	w_class = 4
+	max_w_class = 4
+	max_combined_w_class = 56
+	storage_slots = 14
+	cant_hold = list(
+		/obj/item/weapon/storage/belt/bluespace,
+		/obj/item/weapon/storage/backpack/holding
+		)
 
 /obj/item/weapon/storage/belt/soulstone
 	name = "soul stone belt"
