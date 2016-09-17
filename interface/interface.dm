@@ -59,6 +59,18 @@
 		src << "<span class='danger'>The Github URL is not set in the server configuration.</span>"
 	return
 
+/client/verb/synchtube()
+	set name = "Synchtube"
+	set desc = "Listen to mucis in space."
+	set hidden = 1
+	if(config.synchtubeurl)
+		if(alert("This will open the synchtube in your browser. Are you sure?",,"Yes","No")=="No")
+			return
+		src << link(config.synchtubeurl)
+	else
+		src << "<span class='danger'>The synchtube URL is not set in the server configuration.</span>"
+	return
+
 /client/verb/hotkeys_help()
 	set name = "hotkeys-help"
 	set category = "OOC"
