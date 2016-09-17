@@ -280,6 +280,8 @@
 					config.rulesurl = value
 				if("githuburl")
 					config.githuburl = value
+				if("synchtubeurl")
+					config.synchtubeurl = value
 				if("guest_jobban")
 					config.guest_jobban = 1
 				if("guest_ban")
