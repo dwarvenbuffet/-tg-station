@@ -43,7 +43,7 @@
 		return 0
 
 	//Make sure are close enough for a valid connection
-	if(new_port.loc != loc)
+	if(new_port.loc != get_turf(src))
 		return 0
 
 	//Perform the connection
@@ -75,6 +75,14 @@
 		user.drop_item()
 		T.loc = src
 		src.holding = T
+		update_icon()
+		return
+	if (istype(W, /obj/item/device/tankmanipulator) && !destroyed)
+		if (src.holding)
+			return
+		var/obj/item/device/tankmanipulator/T = W
+		var/obj/item/weapon/tank/tank = T.pop_tank(src)
+		holding = tank
 		update_icon()
 		return
 

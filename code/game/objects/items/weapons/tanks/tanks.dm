@@ -89,6 +89,9 @@
 
 	if(istype(W, /obj/item/device/assembly_holder))
 		bomb_assemble(W,user)
+	if(istype(W, /obj/item/device/tankmanipulator))
+		var/obj/item/device/tankmanipulator/T = W
+		T.load_tank(src)
 
 /obj/item/weapon/tank/attack_self(mob/user as mob)
 	if (!(src.air_contents))

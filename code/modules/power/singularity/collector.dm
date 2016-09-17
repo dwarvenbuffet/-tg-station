@@ -59,7 +59,7 @@ var/global/list/rad_collectors = list()
 		atmosanalyzer_scan(P.air_contents, user)
 	else if(istype(W, /obj/item/weapon/tank/internals/plasma))
 		if(!src.anchored)
-			user << "<span class='danger'>The [src] needs to be secured to the floor first.</span>"
+			user << "<span class='danger'>The [name] needs to be secured to the floor first.</span>"
 			return 1
 		if(src.P)
 			user << "<span class='danger'>There's already a plasma tank loaded.</span>"
@@ -68,6 +68,22 @@ var/global/list/rad_collectors = list()
 		src.P = W
 		W.loc = src
 		update_icons()
+	else if(istype(W, /obj/item/device/tankmanipulator))
+		if(!src.anchored)
+			user << "<span class='danger'>The [name] needs to be secured to the floor first.</span>"
+			return 1
+		if(src.P)
+			user << "<span class='danger'>There's already a plasma tank loaded.</span>"
+			return 1
+		var/obj/item/device/tankmanipulator/T = W
+		if(istype(T.tank, /obj/item/weapon/tank/internals/plasma))
+			var/obj/item/weapon/tank/internals/plasma/tank = T.pop_tank(src)
+			P = tank
+			update_icons()
+		else
+			user << "<span class='danger'>The [W] does not contain a tank that fits in the [name].</span>"
+			return 1
+
 	else if(istype(W, /obj/item/weapon/crowbar))
 		if(P && !src.locked)
 			eject()
@@ -79,7 +95,7 @@ var/global/list/rad_collectors = list()
 		if(!anchored && !isinspace())
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
 			anchored = 1
-			user.visible_message("[user.name] secures the [src.name].", \
+			user.visible_message("[user.name] secures the [name].", \
 				"You secure the external bolts.", \
 				"You hear a ratchet")
 			connect_to_network()

@@ -147,10 +147,11 @@ update_flag
 
 	if(valve_open)
 		var/datum/gas_mixture/environment
+		var/turf/T = get_turf(src)
 		if(holding)
 			environment = holding.air_contents
 		else
-			environment = loc.return_air()
+			environment = T.return_air()
 
 		var/env_pressure = environment.return_pressure()
 		var/pressure_delta = min(release_pressure - env_pressure, (air_contents.return_pressure() - env_pressure)/2)
@@ -166,7 +167,7 @@ update_flag
 			if(holding)
 				environment.merge(removed)
 			else
-				loc.assume_air(removed)
+				T.assume_air(removed)
 				air_update_turf()
 			src.update_icon()
 
@@ -231,12 +232,13 @@ update_flag
 	return
 
 /obj/machinery/portable_atmospherics/canister/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
-	if(!istype(W, /obj/item/weapon/wrench) && !istype(W, /obj/item/weapon/tank) && !istype(W, /obj/item/device/analyzer) && !istype(W, /obj/item/device/pda))
+	if(!istype(W, /obj/item/weapon/wrench) && !istype(W, /obj/item/weapon/tank) && !istype(W, /obj/item/device/analyzer) && !istype(W, /obj/item/device/pda) && !istype(W, /obj/item/device/tankmanipulator))
 		visible_message("<span class='danger'>[user] hits \the [src] with a [W]!</span>")
 		investigate_log("was smacked with \a [W] by [key_name(user)]", "atmos")
 		src.health -= W.force
 		src.add_fingerprint(user)
 		healthcheck()
+		user.changeNext_move(CLICK_CD_MELEE)
 
 	if(istype(user, /mob/living/silicon/robot) && istype(W, /obj/item/weapon/tank/jetpack))
 		var/datum/gas_mixture/thejetpack = W:air_contents
@@ -297,73 +299,71 @@ update_flag
 /obj/machinery/portable_atmospherics/canister/Topic(href, href_list)
 
 	//Do not use "if(..()) return" here, canisters will stop working in unpowered areas like space or on the derelict.
-	if(!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
+	if (!usr.canmove \
+	|| usr.stat \
+	|| usr.restrained() \
+	||!in_range(loc, usr)\
+	)
 		usr << browse(null, "window=canister")
 		onclose(usr, "canister")
 		return
-
-	if (((get_dist(src, usr) <= 1) && istype(src.loc, /turf)))
-		usr.set_machine(src)
-
-		if(href_list["toggle"])
-			var/logmsg
-			if (valve_open)
-				if (holding)
-					logmsg = "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into the [holding]<br>"
-				else
-					logmsg = "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into the <span class='boldannounce'>air</span><br>"
+	usr.set_machine(src)
+	if(href_list["toggle"])
+		var/logmsg
+		if (valve_open)
+			if (holding)
+				logmsg = "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into the [holding]<br>"
 			else
-				if (holding)
-					logmsg = "Valve was <b>opened</b> by [key_name(usr)], starting the transfer into the [holding]<br>"
-				else
-					logmsg = "Valve was <b>opened</b> by [key_name(usr)], starting the transfer into the <span class='boldannounce'>air</span><br>"
-					if(air_contents.toxins > 0)
-						message_admins("[key_name_admin(usr)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[usr]'>FLW</A>) opened a canister that contains plasma! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-						log_admin("[key_name(usr)] opened a canister that contains plasma at [x], [y], [z]")
-					var/datum/gas/sleeping_agent = locate(/datum/gas/sleeping_agent) in air_contents.trace_gases
-					if(sleeping_agent && (sleeping_agent.moles > 1))
-						message_admins("[key_name_admin(usr)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[usr]'>FLW</A>) opened a canister that contains N2O! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-						log_admin("[key_name(usr)] opened a canister that contains N2O at [x], [y], [z]")
-			investigate_log(logmsg, "atmos")
-			release_log += logmsg
-			valve_open = !valve_open
-
-		if (href_list["remove_tank"])
-			if(holding)
-				if(valve_open)
-					investigate_log("[key_name(usr)] removed the [holding], leaving the valve open and transfering into the <span class='boldannounce'>air</span><br>", "atmos")
-				holding.loc = loc
-				holding = null
-
-		if (href_list["pressure_adj"])
-			var/diff = text2num(href_list["pressure_adj"])
-			if(diff > 0)
-				release_pressure = min(10*ONE_ATMOSPHERE, release_pressure+diff)
+				logmsg = "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into the <span class='boldannounce'>air</span><br>"
+		else
+			if (holding)
+				logmsg = "Valve was <b>opened</b> by [key_name(usr)], starting the transfer into the [holding]<br>"
 			else
-				release_pressure = max(ONE_ATMOSPHERE/10, release_pressure+diff)
+				logmsg = "Valve was <b>opened</b> by [key_name(usr)], starting the transfer into the <span class='boldannounce'>air</span><br>"
+				if(air_contents.toxins > 0)
+					message_admins("[key_name_admin(usr)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[usr]'>FLW</A>) opened a canister that contains plasma! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+					log_admin("[key_name(usr)] opened a canister that contains plasma at [x], [y], [z]")
+				var/datum/gas/sleeping_agent = locate(/datum/gas/sleeping_agent) in air_contents.trace_gases
+				if(sleeping_agent && (sleeping_agent.moles > 1))
+					message_admins("[key_name_admin(usr)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[usr]'>FLW</A>) opened a canister that contains N2O! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+					log_admin("[key_name(usr)] opened a canister that contains N2O at [x], [y], [z]")
+		investigate_log(logmsg, "atmos")
+		release_log += logmsg
+		valve_open = !valve_open
 
-		if (href_list["relabel"])
-			if (can_label)
-				var/list/colors = list(\
-					"\[N2O\]" = "redws", \
-					"\[N2\]" = "red", \
-					"\[O2\]" = "blue", \
-					"\[Toxin (Bio)\]" = "orange", \
-					"\[CO2\]" = "black", \
-					"\[Air\]" = "grey", \
-					"\[CAUTION\]" = "yellow", \
-				)
-				var/label = input("Choose canister label", "Gas canister") as null|anything in colors
-				if (label)
-					src.canister_color = colors[label]
-					src.icon_state = colors[label]
-					src.name = "canister: [label]"
-		src.updateUsrDialog()
+	if (href_list["remove_tank"])
+		if(holding)
+			if(valve_open)
+				investigate_log("[key_name(usr)] removed the [holding], leaving the valve open and transfering into the <span class='boldannounce'>air</span><br>", "atmos")
+			holding.loc = loc
+			holding = null
+
+	if (href_list["pressure_adj"])
+		var/diff = text2num(href_list["pressure_adj"])
+		if(diff > 0)
+			release_pressure = min(10*ONE_ATMOSPHERE, release_pressure+diff)
+		else
+			release_pressure = max(ONE_ATMOSPHERE/10, release_pressure+diff)
+
+	if (href_list["relabel"])
+		if (can_label)
+			var/list/colors = list(\
+                "\[N2O\]" = "redws", \
+                "\[N2\]" = "red", \
+                "\[O2\]" = "blue", \
+                "\[Toxin (Bio)\]" = "orange", \
+                "\[CO2\]" = "black", \
+                "\[Air\]" = "grey", \
+                "\[CAUTION\]" = "yellow", \
+			)
+			var/label = input("Choose canister label", "Gas canister") as null|anything in colors
+			if (label)
+				src.canister_color = colors[label]
+				src.icon_state = colors[label]
+				src.name = "canister: [label]"
+		src.ui_interact(usr)
 		src.add_fingerprint(usr)
 		update_icon()
-	else
-		usr << browse(null, "window=canister")
-		return
 	return
 
 
