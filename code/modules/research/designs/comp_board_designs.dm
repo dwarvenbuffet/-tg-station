@@ -340,6 +340,15 @@
 	build_path = /obj/item/weapon/circuitboard/message_monitor
 	category = list("Computer Boards")
 
+/datum/design/camera_advanced
+	name = "Computer Design (Advanced security cameras)"
+	desc = "Allows for the construction of circuit boards used to build advanced security camera console."
+	id = "camera_advanced"
+	req_tech = list("programming" = 6, "engineering" = 6, "magnets" = 7)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, "sacid" = 20, MAT_DIAMOND = 100)
+	build_path = /obj/item/weapon/circuitboard/advanced_security
+	category = list("Computer Boards")
 
 /datum/design/telesci_console
 	name = "Computer Design (Telepad Control Console Board)"

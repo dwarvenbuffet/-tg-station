@@ -697,6 +697,30 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containername = "virus crate"
 	access = access_cmo
 
+/datum/supply_packs/medical/chemistry_machines
+	name = "Chemistry machines"
+	contains = list(/obj/item/weapon/stock_parts/console_screen,
+					/obj/item/weapon/stock_parts/console_screen,
+					/obj/item/weapon/stock_parts/console_screen,
+					/obj/item/weapon/reagent_containers/glass/beaker,
+					/obj/item/weapon/reagent_containers/glass/beaker,
+					/obj/item/weapon/stock_parts/manipulator/nano,
+					/obj/item/weapon/stock_parts/manipulator/nano,
+					/obj/item/weapon/stock_parts/matter_bin/adv,
+					/obj/item/weapon/stock_parts/matter_bin/adv,
+					/obj/item/weapon/stock_parts/capacitor/adv,
+					/obj/item/weapon/stock_parts/micro_laser/high,
+					/obj/item/weapon/stock_parts/cell/high,
+					/obj/item/weapon/circuitboard/chem_dispenser,
+					/obj/item/weapon/circuitboard/chem_heater,
+					/obj/item/weapon/circuitboard/chem_master,
+					/obj/item/stack/cable_coil,
+					/obj/item/stack/sheet/metal)
+	amount = 15
+	cost = 150
+	containertype = /obj/structure/closet/crate/secure
+	containername = "\improper Chemistry machines crate"
+	access = access_cmo
 
 /datum/supply_packs/medical/bloodpacks
 	name = "Blood Pack Variety Crate"
@@ -779,6 +803,52 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containername = "plasma assembly crate"
 	access = access_tox_storage
 	group = supply_science
+
+/datum/supply_packs/science/research_and_development
+	name = "RnD machines"
+	contains = list(/obj/item/weapon/reagent_containers/glass/beaker/sulphuric,
+					/obj/item/weapon/reagent_containers/glass/beaker,
+					/obj/item/weapon/reagent_containers/glass/beaker,
+					/obj/item/weapon/reagent_containers/glass/beaker,
+					/obj/item/weapon/reagent_containers/glass/beaker,
+					/obj/item/weapon/stock_parts/manipulator,
+					/obj/item/weapon/stock_parts/manipulator,
+					/obj/item/weapon/stock_parts/manipulator,
+					/obj/item/weapon/stock_parts/manipulator,
+					/obj/item/weapon/stock_parts/matter_bin,
+					/obj/item/weapon/stock_parts/matter_bin,
+					/obj/item/weapon/stock_parts/matter_bin,
+					/obj/item/weapon/stock_parts/scanning_module,
+					/obj/item/weapon/stock_parts/micro_laser,
+					/obj/item/weapon/circuitboard/rdconsole,
+					/obj/item/weapon/circuitboard/destructive_analyzer,
+					/obj/item/weapon/circuitboard/protolathe,
+					/obj/item/weapon/circuitboard/circuit_imprinter,
+					/obj/item/stack/cable_coil,
+					/obj/item/stack/sheet/metal,
+					/obj/item/stack/sheet/metal,
+					/obj/item/stack/sheet/glass)
+	amount = 50
+	cost = 100
+	containertype = /obj/structure/closet/crate/secure
+	containername = "\improper RnD machines crate"
+	access = access_rd
+
+/datum/supply_packs/science/autolathe
+	name = "Autolathe"
+	contains = list(/obj/item/weapon/stock_parts/console_screen,
+					/obj/item/weapon/stock_parts/manipulator,
+					/obj/item/weapon/stock_parts/matter_bin,
+					/obj/item/weapon/stock_parts/matter_bin,
+					/obj/item/weapon/stock_parts/matter_bin,
+					/obj/item/weapon/circuitboard/autolathe,
+					/obj/item/stack/cable_coil,
+					/obj/item/stack/sheet/metal,
+					/obj/item/stack/sheet/glass)
+	amount = 30
+	cost = 60
+	containertype = /obj/structure/closet/crate/secure
+	containername = "autolathe crate"
 
 /datum/supply_packs/science/shieldwalls
 	name = "Shield Generators"
