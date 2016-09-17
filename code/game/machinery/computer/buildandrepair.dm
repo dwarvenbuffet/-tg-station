@@ -46,6 +46,10 @@
 /obj/item/weapon/circuitboard/security
 	name = "circuit board (Security)"
 	build_path = /obj/machinery/computer/security
+/obj/item/weapon/circuitboard/advanced_security
+	name = "circuit board (Advanced security cameras)"
+	build_path = /obj/machinery/computer/camera_advanced
+	origin_tech = "programming=5;engineering=4"
 /obj/item/weapon/circuitboard/aicore
 	name = "circuit board (AI core)"
 	origin_tech = "programming=4;biotech=2"

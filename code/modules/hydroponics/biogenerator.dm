@@ -66,6 +66,7 @@
 	else if(processing)
 		user << "<span class='warning'>The biogenerator is currently processing.</span>"
 	else if(istype(O, /obj/item/weapon/storage/bag/plants))
+		var/obj/item/weapon/storage/bag/plants/pb = O
 		var/i = 0
 		for(var/obj/item/weapon/reagent_containers/food/snacks/grown/G in contents)
 			i++
@@ -75,7 +76,7 @@
 			for(var/obj/item/weapon/reagent_containers/food/snacks/grown/G in O.contents)
 				if(i >= max_items)
 					break
-				G.loc = src
+				pb.remove_from_storage(G, src) //goddamn just use the fucking proc they give you
 				i++
 			if(i<max_items)
 				user << "<span class='info'>You empty the plant bag into the biogenerator.</span>"

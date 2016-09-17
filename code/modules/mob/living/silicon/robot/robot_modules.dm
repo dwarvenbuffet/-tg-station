@@ -135,7 +135,7 @@
 //	modules += new /obj/item/borg/sight/meson(src)
 	emag = new /obj/item/borg/stun(src)
 	modules += new /obj/item/weapon/rcd/borg(src)
-	modules += new /obj/item/weapon/pipe_dispenser(src) //What could possibly go wrong?
+//  modules += new /obj/item/weapon/pipe_dispenser(src) WHAT ARE ATMOSBORGS
 	modules += new /obj/item/weapon/extinguisher(src)
 	modules += new /obj/item/weapon/airlock_painter/cyborg(src)
 	modules += new /obj/item/weapon/weldingtool/largetank/cyborg(src)
@@ -224,6 +224,20 @@
 	emag.name = "lube spray"
 	fix_modules()
 
+/obj/item/weapon/robot_module/atmospheric
+	name = "atmospheric robot module"
+
+/obj/item/weapon/robot_module/atmospheric/New()
+	..()
+	modules += new /obj/item/device/flashlight(src)
+	emag = new /obj/item/borg/stun(src) //replace with something cool when I can. -Sierra
+	modules += new /obj/item/weapon/pipe_dispenser(src) //removed from engi borg to give atmosborg some requirement/use.
+	modules += new /obj/item/weapon/weldingtool/largetank/cyborg(src)
+	modules += new /obj/item/weapon/wrench(src)
+	modules += new /obj/item/device/t_scanner(src)
+	modules += new /obj/item/device/analyzer(src)
+	sensors += "Night Vision"
+	sensors += "Meson"
 
 /obj/item/weapon/robot_module/butler
 	name = "service robot module"
