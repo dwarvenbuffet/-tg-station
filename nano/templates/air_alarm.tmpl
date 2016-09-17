@@ -112,7 +112,7 @@ Used In File(s): \code\game\machinery\alarm.dm
 					Mode:
 				</div>
 				<div class="itemContent">
-					{{:direction == "siphon" ? 'Siphoning' : 'Pressurizing'}}
+          {{:~link(direction == "siphon" ? 'Siphoning' : 'Pressurizing', null, { 'id_tag' : id_tag, 'command' : 'reverse', 'val' : direction == "release" ? 0 : 1}, null, direction == "release" ? null : 'redButton')}}
 				</div>
 			</div>
 			<div class="item">
