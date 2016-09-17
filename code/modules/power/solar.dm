@@ -223,11 +223,28 @@
 		S.amount = 2
 		glass_type = null
 
+/obj/item/solar_assembly/proc/check_loc_clear() //Checks the location to make sure there are no dense objects or other anchored assemblies already present in the tile
+	var/loc_ok = 1
+	for(var/atom/movable/AM in loc)
+		if(istype(AM, /obj/item/solar_assembly))
+			var/obj/item/solar_assembly/A = AM
+			if(A != src && A.anchored)
+				loc_ok = 0
+				break
+		if(AM.density)
+			loc_ok = 0
+			break
+	return loc_ok
+
+
 
 /obj/item/solar_assembly/attackby(var/obj/item/weapon/W, var/mob/user, params)
 
 	if(!anchored && isturf(loc))
 		if(istype(W, /obj/item/weapon/wrench))
+			if(!check_loc_clear())
+				user << "<span class='warning'>There is something in the way of the assembly.</span>"
+				return 1
 			anchored = 1
 			user.visible_message("<span class='notice'>[user] wrenches the solar assembly into place.</span>")
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
