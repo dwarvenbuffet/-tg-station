@@ -115,9 +115,10 @@
 		else
 			break
 
-	if(stat == 2) //why the fuck are you doing icon updating here
+	if(stat == DEAD) //why the fuck are you doing icon updating here
 		if(!is_adult)
 			icon_state = "[colour] baby slime dead"
+			overlays.Cut()
 
 	else
 		if(is_adult)
