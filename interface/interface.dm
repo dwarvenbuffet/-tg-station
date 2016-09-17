@@ -61,7 +61,7 @@
 
 /client/verb/synchtube()
 	set name = "Synchtube"
-	set desc = "Listen to mucis in space."
+	set desc = "Listen to music in space."
 	set hidden = 1
 	if(config.synchtubeurl)
 		if(alert("This will open the synchtube in your browser. Are you sure?",,"Yes","No")=="No")
