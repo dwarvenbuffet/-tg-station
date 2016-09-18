@@ -18,7 +18,7 @@
 
 	stat = DEAD
 	icon_state = "[colour] baby slime dead"
-	overlays.len = 0
+	overlays.Cut()
 
 	update_canmove()
 	if(blind)	blind.layer = 0
