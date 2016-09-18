@@ -351,7 +351,7 @@ var/list/slot_equipment_priority = list( \
 		src << "<span class='notice'>Something is there but you can't see it.</span>"
 		return
 
-		A.examine(src)
+	A.examine(src)
 	if(!stunned)
 		face_atom(A)
 
