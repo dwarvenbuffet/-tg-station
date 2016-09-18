@@ -351,8 +351,9 @@ var/list/slot_equipment_priority = list( \
 		src << "<span class='notice'>Something is there but you can't see it.</span>"
 		return
 
-	face_atom(A)
-	A.examine(src)
+	if(!stunned)
+		face_atom(A)
+		A.examine(src)
 
 //same as above
 //note: ghosts can point, this is intended
@@ -784,7 +785,6 @@ var/list/slot_equipment_priority = list( \
 	if(restrained())					return 0
 	return 1
 
-
 //Updates canmove, lying and icons. Could perhaps do with a rename but I can't think of anything to describe it.
 //Robots and brains have their own version so don't worry about them
 /mob/proc/update_canmove()
@@ -792,7 +792,7 @@ var/list/slot_equipment_priority = list( \
 	var/buckle_lying = !(buckled && !buckled.buckle_lying)
 	var/has_legs = get_num_legs()
 //	var/has_arms = get_num_arms()
-	if(ko || resting || stunned)
+	if(ko || resting)
 		drop_r_hand()
 		drop_l_hand()
 		if(pulling)
@@ -803,7 +803,7 @@ var/list/slot_equipment_priority = list( \
 	if(buckled)
 		lying = 90*buckle_lying
 	else
-		if((ko || resting || !has_legs) && !lying)
+		if((ko || resting || stunned || !has_legs) && !lying)
 			fall(ko)
 	//canmove = !(ko || resting || stunned || buckled || (!has_legs && !has_arms)) //Use this if you want people legless and armless to be totally unable to move
 	canmove = !(ko || resting || stunned || buckled)

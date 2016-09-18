@@ -107,6 +107,9 @@
 		paralysis = max(paralysis-1,0)
 	if(stunned)
 		stunned = max(stunned-1,0)
+		var/obj/item/A = get_active_hand()
+		var/obj/item/B = get_inactive_hand()
+		spasmodic(A, B)
 		if(!stunned)
 			update_icons()
 

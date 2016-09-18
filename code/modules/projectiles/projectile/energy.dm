@@ -11,7 +11,7 @@
 	color = "#FFFF00"
 	nodamage = 1
 	stun = 10
-	weaken = 10
+	weaken = 0
 	stutter = 5
 	jitter = 20
 	hitsound = 'sound/weapons/taserhit.ogg'

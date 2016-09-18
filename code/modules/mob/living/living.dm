@@ -140,6 +140,27 @@ Sorry Giacom. Please don't be mad :(
 		src.start_pulling(AM)
 	return
 
+/mob/living/proc/spasmodic(var/obj/item/active, var/obj/item/inactive)
+	var/list/havegun = new/list()
+	havegun.Add(active, inactive)
+	for (var/obj/item/toshoot in havegun)
+		var/willshoot = prob(min(stunned*5, 70))
+		if(willshoot && !istype(toshoot, /obj/item/weapon/gun) && !istype(toshoot,/obj/item/weapon/grenade))
+			toshoot.attack_self(src)
+		else if (willshoot && istype(toshoot, /obj/item/weapon/gun))
+			var/obj/item/weapon/gun/cannon = toshoot
+			var/target = loc
+			for (var/i = 1, i <= 8, i++)
+				target = get_step(target, src.dir)
+			var/target_turf = get_turf(target)
+			src << "<span class='danger'>You accidentally pull the [cannon.name]'s trigger!</span>"
+			cannon.afterattack(target_turf, src)
+		else if (willshoot && istype(toshoot, /obj/item/weapon/grenade))
+			var/obj/item/weapon/grenade/nade = toshoot
+			src << "<span class='danger'>The [nade.name] in your hand jolts...</span>"
+			spawn(nade.det_time)
+			nade.prime()
+
 //same as above
 /mob/living/pointed(atom/A as mob|obj|turf in view())
 	if(src.stat || !src.canmove || src.restrained())
