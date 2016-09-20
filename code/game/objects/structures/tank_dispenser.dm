@@ -31,6 +31,9 @@
 		if(1 to 4)	overlays += "plasma-[plasmatanks]"
 		if(5 to INFINITY) overlays += "plasma-5"
 
+/obj/structure/dispenser/attack_robot(mob/user)
+	return attack_hand(user)
+
 /obj/structure/dispenser/attack_paw(mob/user as mob)
 	return src.attack_hand(user)
 
@@ -86,7 +89,7 @@
 
 
 /obj/structure/dispenser/Topic(href, href_list)
-	if(usr.stat || usr.restrained())
+	if(usr.stat || usr.restrained() || !usr.canmove)
 		return
 	if(Adjacent(usr))
 		usr.set_machine(src)
