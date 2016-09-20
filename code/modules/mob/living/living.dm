@@ -144,7 +144,7 @@ Sorry Giacom. Please don't be mad :(
 	var/list/havegun = new/list()
 	havegun.Add(active, inactive)
 	for (var/obj/item/toshoot in havegun)
-		var/willshoot = prob(min(stunned*5, 70))
+		var/willshoot = prob(min(tased*5, 70))
 		if(willshoot && !istype(toshoot, /obj/item/weapon/gun) && !istype(toshoot,/obj/item/weapon/grenade))
 			toshoot.attack_self(src)
 		else if (willshoot && istype(toshoot, /obj/item/weapon/gun))
@@ -159,7 +159,7 @@ Sorry Giacom. Please don't be mad :(
 			var/obj/item/weapon/grenade/nade = toshoot
 			src << "<span class='danger'>The [nade.name] in your hand jolts...</span>"
 			spawn(nade.det_time)
-			nade.prime()
+				nade.prime()
 
 //same as above
 /mob/living/pointed(atom/A as mob|obj|turf in view())
@@ -436,6 +436,7 @@ Sorry Giacom. Please don't be mad :(
 	SetParalysis(0)
 	SetStunned(0)
 	SetWeakened(0)
+	SetTased(0)
 	radiation = 0
 	nutrition = NUTRITION_LEVEL_FED + 50
 	bodytemperature = 310

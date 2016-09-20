@@ -352,7 +352,7 @@ var/list/slot_equipment_priority = list( \
 		return
 
 	A.examine(src)
-	if(!stunned)
+	if(!tased)
 		face_atom(A)
 
 
@@ -793,7 +793,7 @@ var/list/slot_equipment_priority = list( \
 	var/buckle_lying = !(buckled && !buckled.buckle_lying)
 	var/has_legs = get_num_legs()
 //	var/has_arms = get_num_arms()
-	if(ko || resting)
+	if(ko || resting || stunned)
 		drop_r_hand()
 		drop_l_hand()
 		if(pulling)
@@ -804,10 +804,10 @@ var/list/slot_equipment_priority = list( \
 	if(buckled)
 		lying = 90*buckle_lying
 	else
-		if((ko || resting || stunned || !has_legs) && !lying)
+		if((ko || resting || tased || !has_legs) && !lying)
 			fall(ko)
 	//canmove = !(ko || resting || stunned || buckled || (!has_legs && !has_arms)) //Use this if you want people legless and armless to be totally unable to move
-	canmove = !(ko || resting || stunned || buckled)
+	canmove = !(ko || resting || stunned || tased || buckled)
 	density = !lying
 	if(lying)
 		if(layer == initial(layer)) //to avoid special cases like hiding larvas.
@@ -889,6 +889,24 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/AdjustStunned(amount)
 	if(status_flags & CANSTUN)
 		stunned = max(stunned + amount,0)
+		update_canmove()
+	return
+
+/mob/proc/Tase(amount)
+	if(status_flags & CANSTUN)
+		tased = max(max(tased,amount),0)
+		update_canmove()
+	return
+
+/mob/proc/SetTased(amount)
+	if(status_flags & CANSTUN)
+		tased = max(amount,0)
+		update_canmove()
+	return
+
+/mob/proc/AdjustTased(amount)
+	if(status_flags & CANSTUN)
+		tased = max(tased + amount,0)
 		update_canmove()
 	return
 

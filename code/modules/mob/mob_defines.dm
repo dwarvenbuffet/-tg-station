@@ -79,6 +79,7 @@
 	var/overeatduration = 0		// How long this guy is overeating //Carbon
 	var/paralysis = 0
 	var/stunned = 0
+	var/tased = 0
 	var/weakened = 0
 	var/losebreath = 0//Carbon
 	var/shakecamera = 0
