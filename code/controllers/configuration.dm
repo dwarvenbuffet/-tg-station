@@ -59,6 +59,7 @@
 	var/forumurl = "http://tgstation13.org/phpBB/index.php" //default forums
 	var/rulesurl = "http://www.tgstation13.org/wiki/Rules" // default rules
 	var/githuburl = "https://www.github.com/tgstation/-tg-station" //default github
+	var/synchtubeurl = "https://synctube.org/r/CPstationSS13" //default synchtube
 
 	var/forbid_singulo_possession = 0
 	var/useircbot = 0
@@ -279,6 +280,8 @@
 					config.rulesurl = value
 				if("githuburl")
 					config.githuburl = value
+				if("synchtubeurl")
+					config.synchtubeurl = value
 				if("guest_jobban")
 					config.guest_jobban = 1
 				if("guest_ban")

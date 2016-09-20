@@ -114,7 +114,7 @@ GUEST_BAN
 FORUMURL https://8ch.net/nt/index.html
 
 ## Wiki address
-WIKIURL http://8station.miraheze.org/
+WIKIURL http://8station.miraheze.org/wiki
 
 ##Rules address
 RULESURL http://cpstation.16mb.com/rules.html
@@ -124,6 +124,9 @@ GITHUBURL https://github.com/SierraCode/-tg-station
 
 ## Ban appeals URL - usually for a forum or wherever people should go to contact your admins.
 # BANAPPEALS http://justanotherday.example.com
+
+##Synchtube address
+SYNCHTUBE https://synctube.org/r/CPstationSS13
 
 ## In-game features
 ##Toggle for having jobs load up from the .txt

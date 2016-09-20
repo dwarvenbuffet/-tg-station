@@ -15,7 +15,9 @@ var/datum/subsystem/nano/SSnano
 
 /datum/subsystem/nano/New()
 	NEW_SS_GLOBAL(SSnano)
+	generate_assets()
 
+/datum/subsystem/nano/proc/generate_assets()
 	//Generate list of files to send to client for nano UI's
 	var/list/nano_asset_dirs = list(\
 		"nano/css/",\

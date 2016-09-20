@@ -1,0 +1,34 @@
+<h3>Tank Status</h3>
+{{if hasTank}}
+<div class="item">
+	<div class="itemLabel">
+		Tank Name:
+	</div>
+	<div class="itemContent">
+		{{:tankName}}
+	</div>
+</div>
+<div class="item">
+	<div class="itemLabel">
+		Tank Pressure:
+	</div>
+	<div class="itemContent">
+		{{:~displayBar(tankPressure, 0, 1013, (tankPressure > 200) ? 'good' : ((tankPressure > 100) ? 'average' : 'bad'))}}
+		<div class="statusValue">
+			{{:tankPressure}} kPa
+		</div>
+	</div>
+</div>
+<div class="item">
+	<div class="itemLavel">
+		Eject Tank:
+	</div>
+	<div class="itemContent">
+		{{:~link('Eject', 'eject', {'eject' : 1})}}
+	</div>
+</div>
+{{else}}
+<div class="item">
+	<span class="average">No holding tank in manipulator</span>
+</div>
+{{/if}}

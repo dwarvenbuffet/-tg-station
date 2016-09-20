@@ -12,5 +12,6 @@ Dopaper = Game Master
 Sheylos = Game Master
 Octareenroon91 = Game Admin
 SpaghettiScience = Midimin
-Doubleplus = Midimin
+Doubleplus = Trial Admin
+Ddraigg = Trial Admin
 Zaers = Coder

@@ -152,7 +152,6 @@
 	var/animation_length=0
 	if(module)
 		return
-	updatename()
 	switch(designation)
 		if("Standard")
 			module = new /obj/item/weapon/robot_module/standard(src)
@@ -233,7 +232,7 @@
 			animation_length = 45
 			modtype = "Atm"
 			feedback_inc("atmos_borg",1)
-
+	updatename()
 	transform_animation(animation_length)
 	notify_ai(2)
 	update_icons()
