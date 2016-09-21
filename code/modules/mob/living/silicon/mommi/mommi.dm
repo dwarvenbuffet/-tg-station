@@ -199,6 +199,9 @@ They can only use one tool at a time, they can't choose modules, and they have 1
 		mmi = null
 		nmmi.icon = 'icons/obj/assemblies.dmi'
 		nmmi.invisibility = 0
+	else
+		if(mind)
+			mind.current = null //Not the most elegant solution, but this fixes issues with dusting
 	..()
 
 /mob/living/silicon/robot/mommi/updatename(var/prefix as text)
