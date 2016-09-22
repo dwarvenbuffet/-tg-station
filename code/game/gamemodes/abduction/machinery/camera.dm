@@ -51,9 +51,13 @@
 		vest_disguise_action.Grant(user)
 
 /obj/machinery/computer/camera_advanced/abductor/proc/IsAbductor(var/mob/living/carbon/human/H)
+	if(!istype(H))
+		return 0
 	return H.dna.species.id == "abductor"
 
 /obj/machinery/computer/camera_advanced/abductor/proc/IsScientist(var/mob/living/carbon/human/H)
+	if(!istype(H))
+		return 0
 	var/datum/species/abductor/S = H.dna.species
 	return S.scientist
 
