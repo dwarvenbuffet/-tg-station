@@ -15,3 +15,8 @@
 	var/turf/T = get_turf(A)
 	if(T)
 		create_shield(T)
+
+/mob/camera/blob/DblClickOn(var/atom/A)
+	var/turf/T = get_turf(A)
+	if(T)
+		Move(T)
