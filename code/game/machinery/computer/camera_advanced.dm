@@ -33,6 +33,9 @@
 		return
 	var/mob/living/carbon/L = user
 
+	if(current_user)
+		check_eye(current_user)
+
 	if(!current_user)
 		if(!eyeobj)
 			CreateEye()
