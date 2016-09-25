@@ -14,5 +14,4 @@ Octareenroon91 = Game Admin
 SpaghettiScience = Trial Admin
 Doubleplus = Trial Admin
 Ddraigg = Trial Admin
-DerFlammenwerfer = Trial Admin
 Zaers = Coder
