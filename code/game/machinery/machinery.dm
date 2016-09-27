@@ -139,6 +139,11 @@ Class Procs:
 	var/wrench_time = 20
 	var/weld_time = 20
 	var/speed_process = 0
+	//Special research vars below
+	var/lubricity = 0
+	var/machinetemp = 293.15 //In kelvin; more or less room temp
+	var/system_output = ""
+	var/overheated = 0 //1 = low reliability, 2 = disconnect, 3 = fail to produce, 4 = https://www.youtube.com/watch?v=RLG1ys2CGcI; do >= checks
 
 /obj/machinery/New()
 	..()
@@ -255,7 +260,116 @@ Class Procs:
 /obj/machinery/proc/is_operational()
 	return !(stat & (NOPOWER|BROKEN|MAINT))
 
+/obj/machinery/proc/is_lubricant(datum/reagent/C) //does it have a lub_c value? If so, return 1. You should probably indicate a lub_l value as well
+	if (C.lub_c)
+		return 1
 
+/obj/machinery/proc/is_coolant(datum/reagent/C) //ditto
+	if (C.cool_c)
+		return 1
+
+/obj/machinery/proc/lubricate(datum/reagents/R, datum/reagent/C, volume = 0, mode = 1)
+	if (C)
+		if (mode == 1) //lubrication
+			if (is_lubricant(C))
+				if ((lubricity + volume*C.lub_c) < C.lub_l) //lub_l is an upper limit to lubricity using various chems
+					lubricity += volume*C.lub_c
+					playsound(loc, 'sound/machines/pneumatic.ogg', 50)
+					R.remove_reagent(C.id, volume)
+					system_output = "SUCCESS: Lubricant deployed. [volume] units of [C.name] were consumed in the operation. Lubricity increased to [lubricity]%."
+					return
+				else if (lubricity < C.lub_l)
+					var/lube_used = (C.lub_l - lubricity)/C.lub_c
+					if (lube_used < volume)
+						lubricity = C.lub_l
+						playsound(loc, 'sound/machines/pneumatic.ogg', 20)
+						R.remove_reagent(C.id, lube_used)
+						system_output = "SUCCESS: Lubricant deployed to temperature threshold. [lube_used] units of [C.name] were consumed in the operation. Lubricity increased to [lubricity]%. Not all of the selected volume was consumed."
+						return
+					else
+						system_output = "ERROR: Insufficient lubricant for this operation."
+						return
+				else
+					system_output = "ERROR: Lubricity cannot be increased any higher with current lubricant. A higher grade of lubricant is recommended."
+					return
+			else
+				system_output = "ERROR: Invalid lubricant."
+				return
+		else if (mode == 2) //cooling
+			if (is_coolant(C))
+				if ((machinetemp - volume*C.cool_c*(1.6-R.chem_temp/500)) > C.cool_l) //cool_l is a lower limit, and no, you don't get to pump compressed steam into the machine to try to cool it down
+					playsound(loc, 'sound/machines/pneumatic.ogg', 50)
+					machinetemp -= volume*C.cool_c*(1.6-R.chem_temp/500) //say chems in the machine at the regular temperature, 300 K. machinetemp -= volume*cool_c.
+					R.remove_reagent(C.id, volume) //say all chems in the machine at 1 K (you had a "chem heater" very nearby). machinetemp -= volume*cool_c*(1.3-1/1000) = volume*cool_c*1.299
+					system_output = "SUCCESS: Coolant deployed. [volume] units of [C.name] were consumed in the operation. Temperature is now at [machinetemp] K." //Why the fuck do some of these machines still use Celsius? This is a RESEARCH station, goddammit. People ought to be familiar with Kelvin.
+					R.chem_temp = machinetemp //A MAGICAL REFRIGERATION MECHANISM COOLS THE MACHINE WITH COOLANT AND DOES THIS
+					return //say chems in the machine at 1000 K (and you're a fucking dumbass). machinetemp -= volume*cool_c*(1.6-1000/500); aka machinetemp += 0.4*volume*cool_c.
+				else if (machinetemp > C.cool_l) //Fun fact: if you heat 600 blube to a nice, red-hot 1000 K and dump it into the machine for some reason, you can raise the machine's temperature by 480 K by trying to flush all of the "coolant" through the system.
+					var/coolant_used = (machinetemp - C.cool_l)/(C.cool_c*(1.6-R.chem_temp/500)) //This scenario requires that you acquire at least 120 bluespace crystals and grind them all into jelly, then mix them into lube.
+					if (coolant_used < volume)
+						playsound(loc, 'sound/machines/pneumatic.ogg', 20)
+						machinetemp = C.cool_l
+						R.remove_reagent(C.id, coolant_used)
+						system_output = "SUCCESS: Coolant deployed to temperature threshold. [coolant_used] units of [C.name] were consumed in the operation. Temperature is now at [machinetemp] K. Not all of the selected volume was consumed."
+						R.chem_temp = machinetemp
+						return
+					else
+						system_output = "ERROR: Insufficient coolant for this operation."
+						return
+				else
+					system_output = "ERROR: Temperature cannot be decreased any further with current coolant. A higher grade of coolant is recommended."
+					return
+			else
+				system_output = "ERROR: Invalid coolant." //various sanity checks
+				return
+		else
+			system_output = "ERROR: Invalid operation."
+			return
+	else
+		system_output = "ERROR: Unknown error."
+		return
+
+/obj/machinery/proc/atmos_machine_heat(turf/simulated/L, mole_coeff = 0.1, target_temp = 293.15) //specify turf, percentage of gas to cycle, and target temp
+	if (istype(L)) //duly copy-pasted from space heater
+		var/datum/gas_mixture/atmo = L.return_air()
+		var/transfer_moles = mole_coeff*atmo.total_moles()
+		var/datum/gas_mixture/inp = atmo.remove(transfer_moles)
+		if (inp) //heat exchange is just naturally slower when the machine is cold because fuck thermodynamics
+			if (atmo.temperature < target_temp) //heat flows out of machine
+				inp.temperature += target_temp/293.15 //pseudoscience
+				machinetemp = max(machinetemp - target_temp/293.15, 0.025)
+			else if (atmo.temperature > target_temp) //heat flows into machine
+				inp.temperature = max(inp.temperature - target_temp/293.15, 10)
+				machinetemp += target_temp/293.15
+			atmo.merge(inp)
+			air_update_turf()
+	return
+
+/obj/machinery/proc/chem_machine_heat(datum/reagents/R, target_temp = 300)
+	var/maybe = prob(1) //Don't want to fuck people over with this mechanic, let's see how it runs
+	if(R.chem_temp && maybe)
+		if((R.chem_temp < target_temp) && R.chem_temp < 1000)
+			R.chem_temp++
+			machinetemp-- //not physically correct at all, but who gives a shit; liquids basically don't even have heat capacities in this game
+		else if ((R.chem_temp > target_temp) && R.chem_temp > 1)
+			R.chem_temp--
+			machinetemp++
+	return
+
+/obj/machinery/proc/overheat_check()
+	if(machinetemp < 293.15) //normal
+		overheated = 0
+	if(machinetemp >= 328.15) //low reliability
+		overheated = 1
+	if(machinetemp >= 398.15) //disconnection
+		overheated = 2
+	if(machinetemp >= 468.15) //failed production
+		overheated = 3
+	if(machinetemp >= 538.15) //porkchop sandwiches.
+		overheated = 4
+	if(machinetemp >= 600.15) //"OH SHIT! GET THE FUCK OUT OF HERE! WHAT ARE YOU DOING? GO! GET THE FUCK OUT OF HERE, YOU STUPID IDIOT! FUCK, WE'RE ALL DEAD! GET THE FUCK OUT!"
+		overheated = 5
+	return
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 /mob/proc/canUseTopic() //TODO: once finished, place these procs on the respective mob files
@@ -394,11 +508,15 @@ Class Procs:
 		var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(src.loc)
 		M.status = 2
 		M.icon_state = "box_1"
+		M.machinetemp = src.machinetemp
 		for(var/obj/item/I in component_parts)
 			if(I.reliability != 100 && crit_fail)
 				I.crit_fail = 1
 			if(machine_flags & DELNOTEJECT)
 				qdel(I)
+			if(src.machinetemp >= 700)
+				qdel(I)
+				visible_message("<span class = 'danger'>A disfigured piece of metal falls out of the machine!</span>")
 			else
 				I.loc = src.loc
 		qdel(src)

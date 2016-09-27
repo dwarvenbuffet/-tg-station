@@ -15,6 +15,7 @@
 	var/shocked = 0
 	var/obj/machinery/computer/rdconsole/linked_console
 	var/datum/wires/rnd/wires = null
+	var/visible_output = ""
 
 /obj/machinery/r_n_d/New()
 	..()

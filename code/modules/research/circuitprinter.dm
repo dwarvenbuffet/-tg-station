@@ -16,6 +16,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	var/max_material_amount = 75000.0
 	var/efficiency_coeff
 	reagents = new(0)
+	lubricity = 20 //% of lubricity
 
 	var/list/categories = list(
 								"AI Modules",
@@ -67,9 +68,17 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			return (gold_amount - (being_built.materials[M]/efficiency_coeff) >= 0)
 		if(MAT_DIAMOND)
 			return (diamond_amount - (being_built.materials[M]/efficiency_coeff) >= 0)
+		if("sacid") //duly copy-pasted from rdconsole.dm
+			if(reagents.has_reagent("pacid", being_built.materials["sacid"]/(4*efficiency_coeff))) //if we can use pacid first and exclusively pacid, we will
+				return 1
+			else if(reagents.has_reagent("pacid", 1)) //if we still have pacid but not enough to cover the whole cost, we use all of our pacid and back it up with sacid
+				var/pacid_to_use = reagents.get_reagent_amount("pacid")
+				var/sacid_to_use = (being_built.materials["sacid"] - pacid_to_use*4*efficiency_coeff)/efficiency_coeff
+				return (reagents.has_reagent("pacid", pacid_to_use) && reagents.has_reagent("sacid", sacid_to_use))
+			else //if we only have sacid
+				return (reagents.has_reagent("sacid", being_built.materials["sacid"]/efficiency_coeff))
 		else
 			return (reagents.has_reagent(M, (being_built.materials[M]/efficiency_coeff)) != 0)
-
 
 /obj/machinery/r_n_d/circuit_imprinter/proc/TotalMaterials()
 	return g_amount + gold_amount + diamond_amount
@@ -144,3 +153,16 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	stack.use(amount)
 	busy = 0
 	src.updateUsrDialog()
+
+/obj/machinery/r_n_d/circuit_imprinter/proc/get_acid_amt() //not same args as get_lube_volume because this is a unique, creative machine with special needs
+	var/amt = 0
+	if (reagents.has_reagent("sacid", 1) || reagents.has_reagent("pacid", 1))
+		amt += reagents.get_reagent_amount("sacid")
+		amt += 2*reagents.get_reagent_amount("pacid")
+	return amt
+
+/obj/machinery/r_n_d/circuit_imprinter/process()
+	var/turf/simulated/here = get_turf(loc)
+	if(istype(here))
+		atmos_machine_heat(here, 0.25, machinetemp)
+	chem_machine_heat(reagents, machinetemp)

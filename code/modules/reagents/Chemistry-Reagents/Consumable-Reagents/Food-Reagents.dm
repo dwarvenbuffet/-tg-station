@@ -474,7 +474,9 @@
 	description = "It's disgusting. But so tempting."
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	metabolization_rate = 1 * REAGENTS_METABOLISM
-	color = "#C8A5DC"
+	color = "#DCD7A5"
+	lub_c = 0.6
+	lub_l = 75
 
 /datum/reagent/consumable/fat/on_mob_life(var/mob/living/M as mob)
 		M.overeatduration += 20 //Eating more than 10u will make you fat, 10u will give 500 overeatduration
@@ -491,7 +493,9 @@
 	description = "You feel fat just from looking at it."
 	nutriment_factor = 10 * REAGENTS_METABOLISM
 	metabolization_rate = 1 * REAGENTS_METABOLISM
-	color = "#C8A5DC"
+	color = "#DCD7A5"
+	lub_c = 1
+	lub_l = 80
 
 /datum/reagent/consumable/fat/concentrated/on_mob_life(var/mob/living/M as mob)
 		M.overeatduration += 40 //Eating 5u or more will make you fat, 4.8u will give 500 overeatduration

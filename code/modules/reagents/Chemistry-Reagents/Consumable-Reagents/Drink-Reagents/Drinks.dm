@@ -347,6 +347,8 @@
 	description = "Frozen water, your dentist wouldn't like you chewing this."
 	reagent_state = SOLID
 	color = "#619494" // rgb: 97, 148, 148
+	cool_c = 1.5 //Why the fuck are you pouring ice into expensive scientific equipment? Who gives a shit, that's why.
+	cool_l = 100
 
 /datum/reagent/consumable/ice/on_mob_life(var/mob/living/M as mob)
 	M.bodytemperature -= 5 * TEMPERATURE_DAMAGE_COEFFICIENT

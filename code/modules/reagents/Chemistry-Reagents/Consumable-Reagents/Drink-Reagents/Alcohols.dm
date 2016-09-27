@@ -409,6 +409,8 @@
 	description = "Ultimate refreshment."
 	color = "#664300" // rgb: 102, 67, 0
 	boozepwr = 25
+	cool_c = 2
+	cool_l = 150
 
 /datum/reagent/consumable/ethanol/antifreeze/on_mob_life(var/mob/living/M as mob)
 	if (M.bodytemperature < 330)

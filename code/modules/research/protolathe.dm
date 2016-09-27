@@ -41,7 +41,7 @@ Note: Must be placed west/left of and R&D console to function.
 								)
 
 	reagents = new()
-
+	lubricity = 20 //What, you thought Nanotrasen was going to start you off with a clean, well-oiled machine? Give me a break.
 
 /obj/machinery/r_n_d/protolathe/New()
 	..()
@@ -63,6 +63,7 @@ Note: Must be placed west/left of and R&D console to function.
 /obj/machinery/r_n_d/protolathe/RefreshParts()
 	var/T = 0
 	for(var/obj/item/weapon/reagent_containers/glass/G in component_parts)
+		reagents.maximum_volume += G.volume
 		G.reagents.trans_to(src, G.reagents.total_volume)
 	for(var/obj/item/weapon/stock_parts/matter_bin/M in component_parts)
 		T += M.rating
@@ -207,3 +208,11 @@ Note: Must be placed west/left of and R&D console to function.
 
 /obj/machinery/r_n_d/protolathe/proc/get_resource_cost_w_coeff(datum/design/D, resource, roundto = 1)
 	return round(D.materials[resource]*efficiency_coeff, roundto)
+
+/obj/machinery/r_n_d/protolathe/process()
+	var/turf/simulated/here = get_turf(loc)
+	if(istype(here))
+		atmos_machine_heat(here, 0.25, machinetemp)
+	chem_machine_heat(reagents, machinetemp)
+
+

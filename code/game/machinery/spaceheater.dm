@@ -10,7 +10,7 @@
 	var/open = 0
 	var/set_temperature = 50		// in celcius, add T0C for kelvin
 	var/heating_power = 40000
-
+	var/running_mode = "heat"
 
 /obj/machinery/space_heater/New()
 	..()
@@ -22,7 +22,12 @@
 
 /obj/machinery/space_heater/update_icon()
 	overlays.Cut()
-	icon_state = "sheater[on]"
+	if(running_mode == "heat" && on)
+		icon_state = "sheater1"
+	else if (running_mode == "cool" && on)
+		icon_state = "sheater2"
+	else
+		icon_state = "sheater0"
 	if(open)
 		overlays  += "sheater-open"
 	return
@@ -79,27 +84,25 @@
 	if(open)
 
 		var/dat
-		dat = "Power cell: "
+		dat = "<div class='statusDisplay'>Power cell: "
 		if(cell)
-			dat += "<A href='byond://?src=\ref[src];op=cellremove'>Installed</A><BR>"
+			dat += "<A href='?src=\ref[src];op=cellremove'>Installed</A><BR>"
 		else
-			dat += "<A href='byond://?src=\ref[src];op=cellinstall'>Removed</A><BR>"
+			dat += "<A href='?src=\ref[src];op=cellinstall'>Removed</A><BR>"
 
-		dat += "Power Level: [cell ? round(cell.percent(),1) : 0]%<BR><BR>"
+		dat += "Power Level: [cell ? round(cell.percent(),1) : 0]%<BR>"
 
 		dat += "Set Temperature: "
 
 		dat += "<A href='?src=\ref[src];op=temp;val=-5'>-</A>"
 
 		dat += " [set_temperature]&deg;C "
-		dat += "<A href='?src=\ref[src];op=temp;val=5'>+</A><BR>"
+		dat += "<A href='?src=\ref[src];op=temp;val=5'>+</A><BR></div>"
 
 		user.set_machine(src)
-		user << browse("<HEAD><TITLE>Space Heater Control Panel</TITLE></HEAD><TT>[dat]</TT>", "window=spaceheater")
-		onclose(user, "spaceheater")
-
-
-
+		var/datum/browser/popup = new(user, "spaceheater", name, 460, 550)
+		popup.set_content(dat)
+		popup.open()
 
 	else
 		on = !on
@@ -151,31 +154,32 @@
 			var/turf/simulated/L = loc
 			if(istype(L))
 				var/datum/gas_mixture/env = L.return_air()
+				var/transfer_moles = 0.25 * env.total_moles()
+				var/datum/gas_mixture/removed = env.remove(transfer_moles)
+
 				if(env.temperature < (set_temperature+T0C))
-
-					var/transfer_moles = 0.25 * env.total_moles()
-
-					var/datum/gas_mixture/removed = env.remove(transfer_moles)
-
+					running_mode = "heat"
 					//world << "got [transfer_moles] moles at [removed.temperature]"
-
 					if(removed)
-
 						var/heat_capacity = removed.heat_capacity()
 						//world << "heating ([heat_capacity])"
 						if(heat_capacity == 0 || heat_capacity == null) // Added check to avoid divide by zero (oshi-) runtime errors
 							heat_capacity = 1
 						removed.temperature = min((removed.temperature*heat_capacity + heating_power)/heat_capacity, 1000) // Added min() check to try and avoid wacky superheating issues in low gas scenarios
 						cell.use(heating_power/20000)
-
 						//world << "now at [removed.temperature]"
-
 					env.merge(removed)
 					air_update_turf()
-
-					//world << "turf now at [env.temperature]"
-
-
+				else if (env.temperature > (set_temperature+T0C))
+					running_mode = "cool"
+					if(removed)
+						var/heat_capacity = removed.heat_capacity()
+						if(heat_capacity == 0 || heat_capacity == null)
+							heat_capacity = 1
+						removed.temperature = max((removed.temperature*heat_capacity - heating_power)/heat_capacity, 100)
+						cell.use(heating_power/20000)
+					env.merge(removed)
+					air_update_turf()
 		else
 			on = 0
 			update_icon()
