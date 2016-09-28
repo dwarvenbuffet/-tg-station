@@ -292,7 +292,7 @@ Class Procs:
 				coolinate(R, C, volume)
 				return
 			else
-				system_output = "ERROR: Invalid cooolant."
+				system_output = "ERROR: Invalid coolant."
 				return
 		else
 			system_output = "ERROR: Invalid operation."
