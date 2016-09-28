@@ -372,7 +372,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			overclock = 2
 		if(linked_lathe)
 			var/coeff = linked_lathe.efficiency_coeff
-			var/coolness = min(293.15/linked_lathe.machinetemp, 2) //Believe it or not, it's not actually worth it to lower your coolant's temperature to absolute 0.
+			var/coolness = min(T20C/linked_lathe.machinetemp, 2) //Believe it or not, it's not actually worth it to lower your coolant's temperature to absolute 0.
 			var/datum/design/being_built = null
 			for(var/datum/design/D in files.known_designs)
 				if(D.id == href_list["build"])
@@ -443,7 +443,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 								if( new_item.type == /obj/item/weapon/storage/backpack/holding )
 									new_item.investigate_log("built by [key]","singulo")
 								new_item.reliability = R
-								if((linked_lathe.overheated >= 1 && effect >= 50) || (overclock && effect >= 50))
+								if((linked_lathe.overheated >= OVERHEAT_LOW_RELIABILITY && effect >= 50) || (overclock && effect >= 50))
 									new_item.reliability = max(R/2, 0)
 /*								new_item.materials[MAT_METAL] /= coeff
 								new_item.materials[MAT_GLASS] /= coeff
@@ -480,13 +480,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 								new_item.loc = linked_lathe.loc
 								if(istype(here))
 									linked_lathe.atmos_machine_heat(here, 0.5, linked_lathe.machinetemp)
-								if(linked_lathe.overheated >= 3 && effect >= 70) //HAHAHA JUST KIDDING FUCK YOU
+								if(linked_lathe.overheated >= OVERHEAT_FAIL_PRODUCE && effect >= 70) //HAHAHA JUST KIDDING FUCK YOU
 									system_output = "ERROR: Construction process halted. Last known temperature of imprinter: [linked_lathe.machinetemp] K."
 									linked_lathe.system_output = "Construction operation of \"[new_item.name]\" ([amount]x) terminated (R=[new_item.reliability], P=[round(power)], F=[load_total], Ff=[fric_total], Q=[load_total/1000 + fric_total/(5000*lube_coeff) + 10*overclock], QL=[linked_lathe.lubricity] - [(fric_total + (50*machinetemp)/20000) + 2*overclock], TTC=[32*amount/(coeff*lube_coeff*coolness)])"
 									linked_lathe.visible_output = ("<span class='danger'>The [linked_lathe.name] beeps, \"Critical error: Severe overheating detected. Thermal shutdown has been initiated to prevent damage to the system. Last known temperature of imprinter: [linked_lathe.machinetemp] K.\"</span>")
 									playsound(loc, 'sound/machines/buzz-two.ogg', 20)
 									qdel(new_item)
-								if(linked_lathe.overheated >= 4 && effect >= 90) //You're gonna burn
+								if(linked_lathe.overheated >= OVERHEAT_FIRE && effect >= 90) //You're gonna burn
 									system_output = "ERROR: Critical failure reported by linked protolathe."
 									linked_lathe.system_output = "Construction operation of \"[new_item.name]\" ([amount]x) terminated (R=[new_item.reliability], P=[round(power)], F=[load_total], Ff=[fric_total], Q=[load_total/1000 + fric_total/(5000*lube_coeff) + 10*overclock], QL=[linked_lathe.lubricity] - [(fric_total + (50*machinetemp)/20000) + 2*overclock], TTC=[32*amount/(coeff*lube_coeff*coolness)])"
 									linked_lathe.visible_output = ("<span class='danger'>The [linked_lathe.name] alarms, \"CRITICAL FAILURE. THERMAL SHUTDOWN HAS BEEN INITIATED TO PREVENT DAMAGE TO THE SYSTEM. EMERGENCY VENTING ACTIVATED. LAST KNOWN TEMPERATURE: [linked_lathe.machinetemp] K.\"</span>")
@@ -497,7 +497,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 										T.atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 10)
 										machinetemp -= 300
 									qdel(new_item)
-								if(linked_lathe.overheated == 5 && effect >= 95) //My god, did that smell good.
+								if(linked_lathe.overheated == OVERHEAT_EXPLOSION && effect >= 95) //My god, did that smell good.
 									system_output = "ERROR"
 									linked_lathe.system_output = "Construction operation of \"[new_item.name]\" ([amount]x) terminated (R=[new_item.reliability], P=[round(power)], F=[load_total], Ff=[fric_total], Q=[load_total/1000 + fric_total/(5000*lube_coeff) + 10*overclock], QL=[linked_lathe.lubricity] - [(fric_total + (50*machinetemp)/20000) + 2*overclock], TTC=[32*amount/(coeff*lube_coeff*coolness)])"
 									linked_lathe.visible_output = ("<span class='danger'>The [linked_lathe.name] alarms, \"CRITICAL FAILURE\"</span>")
@@ -513,7 +513,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 						screen = old_screen
 						updateUsrDialog()
 						linked_lathe.visible_message(linked_lathe.visible_output)
-						if(linked_lathe.overheated >= 2 && effect >= 70)
+						if(linked_lathe.overheated >= OVERHEAT_DISCONNECT && effect >= 70)
 							system_output = "ERROR: Protolathe disconnected from console."
 							src.visible_message("<span class='danger'>The [src.name] beeps, \"ERROR: Protolathe disconnected from server.\"</span>")
 							playsound(loc, 'sound/machines/buzz-sigh.ogg', 20)
@@ -529,7 +529,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			overclock = 2
 		if(linked_imprinter)
 			var/coeff = linked_imprinter.efficiency_coeff
-			var/coolness = min(293.15/linked_imprinter.machinetemp, 2)
+			var/coolness = min(T20C/linked_imprinter.machinetemp, 2)
 			var/datum/design/being_built = null
 			for(var/datum/design/D in files.known_designs)
 				if(D.id == href_list["imprint"])
@@ -590,7 +590,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 						if(g2g)
 							var/obj/item/new_item = new P(src)
 							new_item.reliability = R
-							if(linked_imprinter.overheated >= 1 && effect >= 30)
+							if(linked_imprinter.overheated >= OVERHEAT_LOW_RELIABILITY && effect >= 30)
 								new_item.reliability = max(R/2, 0)
 							var/turf/simulated/here = get_turf(linked_imprinter.loc)
 							if(istype(here))
@@ -607,13 +607,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 							else
 								linked_imprinter.lubricity = 0
 							new_item.loc = linked_imprinter.loc
-							if(linked_imprinter.overheated >= 3 && effect >= 50)
+							if(linked_imprinter.overheated >= OVERHEAT_FAIL_PRODUCE && effect >= 50)
 								system_output = "ERROR: Construction process halted. Last known temperature of imprinter: [linked_imprinter.machinetemp] K."
 								linked_imprinter.system_output = "Construction operation of \"[new_item.name]\" halted (R=[new_item.reliability], P=[round(power)], F=[load_total], Ff=[fric_total], Q=[load_total/400 + fric_total/(500*lube_coeff) + 10*overclock], QL=[linked_imprinter.lubricity] - [fric_total + machinetemp/500 + overclock], TTC=[16/(coeff*lube_coeff*coolness)])"
 								linked_imprinter.visible_output = ("<span class='danger'>The [linked_imprinter.name] beeps, \"Critical error: Severe overheating detected. Thermal shutdown has been initiated to prevent damage to the system. Last known temperature of imprinter: [linked_imprinter.machinetemp] K.\"</span>")
 								playsound(loc, 'sound/machines/buzz-two.ogg', 20)
 								qdel(new_item)
-							if(linked_imprinter.overheated >= 4 && effect >= 70)
+							if(linked_imprinter.overheated >= OVERHEAT_FIRE && effect >= 70)
 								system_output = "ERROR: Critical failure reported by linked imprinter."
 								linked_imprinter.system_output = "Construction operation of \"[new_item.name]\" terminated (R=[new_item.reliability], P=[round(power)], F=[load_total], Ff=[fric_total], Q=[load_total/400 + fric_total/(500*lube_coeff) + 10*overclock], QL=[linked_imprinter.lubricity] - [fric_total + machinetemp/500 + overclock], TTC=[16/(coeff*lube_coeff*coolness)])"
 								linked_imprinter.visible_output = ("<span class='danger'>The [linked_imprinter.name] alarms, \"CRITICAL FAILURE. THERMAL SHUTDOWN HAS BEEN INITIATED TO PREVENT DAMAGE TO THE SYSTEM. EMERGENCY VENTING ACTIVATED. LAST KNOWN TEMPERATURE: [linked_imprinter.machinetemp] K.\"</span>")
@@ -624,7 +624,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 									T.atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 10)
 									machinetemp -= 300
 								qdel(new_item)
-							if(linked_imprinter.overheated == 5 && effect >= 95)
+							if(linked_imprinter.overheated == OVERHEAT_EXPLOSION && effect >= 95)
 								system_output = "ERROR"
 								linked_imprinter.system_output = "Construction operation of \"[new_item.name]\" terminated (R=[new_item.reliability], P=[round(power)], F=[load_total], Ff=[fric_total], Q=[load_total/400 + fric_total/(500*lube_coeff) + 10*overclock], QL=[linked_imprinter.lubricity] - [fric_total + machinetemp/500 + overclock], TTC=[16/(coeff*lube_coeff*coolness)])"
 								linked_imprinter.visible_output = ("<span class='danger'>The [linked_imprinter.name] alarms, \"CRITICAL FAILURE\"</span>")
@@ -640,7 +640,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 						linked_imprinter.busy = 0
 						screen = old_screen
 						updateUsrDialog()
-						if(linked_imprinter.overheated >= 2 && effect >= 30)
+						if(linked_imprinter.overheated >= OVERHEAT_DISCONNECT && effect >= 30)
 							system_output = "ERROR: Circuit imprinter disconnected from console."
 							src.visible_message("<span class='danger'>The [src.name] beeps, \"ERROR: Imprinter disconnected from server.\"</span>")
 							playsound(loc, 'sound/machines/buzz-sigh.ogg', 20)
@@ -662,22 +662,22 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	else if(href_list["lubricateIR"] && linked_imprinter) //Lubricates imprinter
 		var/datum/reagents/R = linked_imprinter.reagents
 		var/datum/reagent/C = R.has_reagent(href_list["lubricateIR"])
-		linked_imprinter.lubricate(R, C, text2num(href_list["lubricateIV"]))
+		linked_imprinter.lubricant_process(R, C, text2num(href_list["lubricateIV"]), MODE_LUBRICATION)
 
 	else if(href_list["flushIR"] && linked_imprinter) //flushes imprinter with coolant
 		var/datum/reagents/R = linked_imprinter.reagents
 		var/datum/reagent/C = R.has_reagent(href_list["flushIR"])
-		linked_imprinter.lubricate(R, C, text2num(href_list["flushIV"]), 2)
+		linked_imprinter.lubricant_process(R, C, text2num(href_list["flushIV"]), MODE_COOLING)
 
 	else if(href_list["lubricatePR"] && linked_lathe) //Lubricates protolathe
 		var/datum/reagents/R = linked_lathe.reagents
 		var/datum/reagent/C = R.has_reagent(href_list["lubricatePR"])
-		linked_lathe.lubricate(R, C, text2num(href_list["lubricatePV"]))
+		linked_lathe.lubricant_process(R, C, text2num(href_list["lubricatePV"]), MODE_LUBRICATION)
 
 	else if(href_list["flushPR"] && linked_lathe) //flushes protolathe with coolant
 		var/datum/reagents/R = linked_lathe.reagents
 		var/datum/reagent/C = R.has_reagent(href_list["flushPR"])
-		linked_lathe.lubricate(R, C, text2num(href_list["flushPV"]), 2)
+		linked_lathe.lubricant_process(R, C, text2num(href_list["flushPV"]), MODE_COOLING)
 
 	else if(href_list["lathe_ejectsheet"] && linked_lathe) //Causes the protolathe to eject a sheet of material
 		var/desired_num_sheets = text2num(href_list["lathe_ejectsheet_amt"])

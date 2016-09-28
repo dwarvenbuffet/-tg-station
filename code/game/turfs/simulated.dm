@@ -17,18 +17,18 @@
 
 /turf/simulated/proc/burn_tile()
 
-/turf/simulated/proc/MakeSlippery(var/wet_setting = 1) // 1 = Water, 2 = Lube, 3 = Bluespace Lube
+/turf/simulated/proc/MakeSlippery(var/wet_setting = SLIPPERY_TURF_WATER) // 1 = Water, 2 = Lube, 3 = Bluespace Lube
 	if(wet >= wet_setting)
 		return
 	wet = wet_setting
-	if(wet_setting == 1)
+	if(wet_setting == SLIPPERY_TURF_WATER)
 		if(wet_overlay)
 			overlays -= wet_overlay
 			wet_overlay = null
 		wet_overlay = image('icons/effects/water.dmi', src, "wet_floor_static")
 		overlays += wet_overlay
 
-	if(wet_setting == 3)
+	if(wet_setting == SLIPPERY_TURF_BLUBE)
 		if(wet_overlay)
 			overlays -= wet_overlay
 			wet_overlay = null

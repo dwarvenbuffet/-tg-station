@@ -115,7 +115,7 @@
 	var/cooling_temperature = 2
 	lub_c = 0.5
 	lub_l = 50
-	cool_c = 1
+	cool_c = 1.5
 	cool_l = 273.15
 /*
  *	Water reaction to turf
@@ -125,7 +125,7 @@
 	if (!istype(T)) return
 	var/CT = cooling_temperature
 	if(reac_volume >= 10)
-		T.MakeSlippery()
+		T.MakeSlippery(SLIPPERY_TURF_WATER)
 
 	for(var/mob/living/carbon/slime/M in T)
 		M.apply_water()
@@ -257,15 +257,15 @@
 	synth_cost = 3
 	description = "Lubricant is a substance introduced between two moving surfaces to reduce the friction and wear between them. giggity."
 	color = "#009CA8" // rgb: 0, 156, 168
-	lub_c = 1.25
+	lub_c = 2
 	lub_l = 99
-	cool_c = 0.5
+	cool_c = 1
 	cool_l = 260
 
 /datum/reagent/lube/reaction_turf(turf/simulated/T, reac_volume)
 	if (!istype(T)) return
 	if(reac_volume >= 1)
-		T.MakeSlippery(2)
+		T.MakeSlippery(SLIPPERY_TURF_LUBE)
 
 /datum/reagent/slimetoxin
 	name = "Mutation Toxin"
@@ -706,7 +706,7 @@
 	description = "A caustic substance commonly used in fertilizer or household cleaners."
 	reagent_state = GAS
 	color = "#404030" // rgb: 64, 64, 48
-	cool_c = 1.5
+	cool_c = 2
 	cool_l = 100
 
 /datum/reagent/diethylamine
@@ -829,9 +829,9 @@
 	description = "Burns in a small smoky fire; mostly used to get Ash."
 	reagent_state = LIQUID
 	color = "#6B6860"
-	lub_c = 0.7
+	lub_c = 1
 	lub_l = 100
-	cool_c = 1.25
+	cool_c = 1.5
 	cool_l = 150
 
 /datum/reagent/stable_plasma
@@ -1081,11 +1081,11 @@
 	color = "#00c3e6"
 	lub_c = 4
 	lub_l = 200
-	cool_c = 2
+	cool_c = 4
 	cool_l = 0.0025 //Wew.
 
 /datum/reagent/bluespacejelly/blube/reaction_turf(turf/simulated/T, reac_volume)
 	if (!istype(T)) return
 	if(reac_volume >= 15) //You need access to the command/AI teleporter to get crystals for this much jelly at roundstart. It's like the hand tele, but more conspicuous yet transient.
-		T.MakeSlippery(3) //Does fun things.
+		T.MakeSlippery(SLIPPERY_TURF_BLUBE) //Does fun things.
 

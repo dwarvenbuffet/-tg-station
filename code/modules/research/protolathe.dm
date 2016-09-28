@@ -212,7 +212,7 @@ Note: Must be placed west/left of and R&D console to function.
 /obj/machinery/r_n_d/protolathe/process()
 	var/turf/simulated/here = get_turf(loc)
 	if(istype(here))
-		atmos_machine_heat(here, 0.25, machinetemp)
+		atmos_machine_heat(here, 0.1, machinetemp)
 	chem_machine_heat(reagents, machinetemp)
 
 

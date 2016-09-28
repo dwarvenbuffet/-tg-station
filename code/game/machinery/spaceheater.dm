@@ -1,3 +1,6 @@
+#define SPACEHEATER_MODE_HEAT "heat"
+#define SPACEHEATER_MODE_COOL "cool"
+
 /obj/machinery/space_heater
 	anchored = 0
 	density = 1
@@ -10,7 +13,7 @@
 	var/open = 0
 	var/set_temperature = 50		// in celcius, add T0C for kelvin
 	var/heating_power = 40000
-	var/running_mode = "heat"
+	var/running_mode = SPACEHEATER_MODE_HEAT
 
 /obj/machinery/space_heater/New()
 	..()
@@ -122,7 +125,7 @@
 			var/value = text2num(href_list["val"])
 
 			// limit to 20-90 degC
-			set_temperature = dd_range(20, 90, set_temperature + value)
+			set_temperature = dd_range(10, 90, set_temperature + value)
 
 		if("cellremove")
 			if(open && cell && !usr.get_active_hand())
@@ -158,7 +161,7 @@
 				var/datum/gas_mixture/removed = env.remove(transfer_moles)
 
 				if(env.temperature < (set_temperature+T0C))
-					running_mode = "heat"
+					running_mode = SPACEHEATER_MODE_HEAT
 					//world << "got [transfer_moles] moles at [removed.temperature]"
 					if(removed)
 						var/heat_capacity = removed.heat_capacity()
@@ -171,7 +174,7 @@
 					env.merge(removed)
 					air_update_turf()
 				else if (env.temperature > (set_temperature+T0C))
-					running_mode = "cool"
+					running_mode = SPACEHEATER_MODE_COOL
 					if(removed)
 						var/heat_capacity = removed.heat_capacity()
 						if(heat_capacity == 0 || heat_capacity == null)
