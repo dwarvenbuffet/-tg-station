@@ -140,12 +140,14 @@ research holder datum.
 	return
 
 //Refreshes the levels of a given tech.
-//Input: Tech's ID and Level; Output: null
+//Input: Tech's ID and Level; Output: string if successful, null if not
 /datum/research/proc/UpdateTech(var/ID, var/level)
 	for(var/datum/tech/KT in known_tech)
 		if(KT.id == ID)
+			var/level_init = KT.level
 			if(KT.level <= level)
 				KT.level = max((KT.level + 1), (level - 1))
+			return "[KT.name]: [level_init] -> [KT.level]"
 	return
 
 /datum/research/proc/UpdateDesigns(var/obj/item/I, var/list/temp_tech)
