@@ -112,6 +112,7 @@
 		icon_state = "heart-off"
 
 /obj/item/organ/internal/heart/examine(mob/user)
+	..()
 	if(beating)
 		user << "It's still beating."
 	else
