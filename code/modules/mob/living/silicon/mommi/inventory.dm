@@ -158,17 +158,6 @@
 	var/obj/item/TS
 	if(isnull(module_active))
 		return
-/*	if(sight_state == module_active)
-		TS = sight_state
-		if(istype(sight_state,/obj/item/borg/sight))
-			sight_mode &= ~sight_state:sight_mode
-		if (client)
-			client.screen -= sight_state
-		contents -= sight_state
-		module_active = null
-		sight_state = null
-		//inv_sight.icon_state = "sight"
-*/
 	if(tool_state == module_active)
 		//var/obj/item/found = locate(tool_state) in src.module.modules
 		TS = tool_state
@@ -181,7 +170,6 @@
 			sight_mode &= ~tool_state:sight_mode
 		if (client)
 			client.screen -= tool_state
-		contents -= tool_state
 		module_active = null
 		tool_state = null
 		inv_tool.icon_state = "inv1"

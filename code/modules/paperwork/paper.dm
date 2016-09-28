@@ -47,7 +47,7 @@
 
 /obj/item/weapon/paper/examine(mob/user)
 	..()
-	if(in_range(user, src))
+	if(in_range(user, src) || isobserver(user))
 		if( !(ishuman(user) || isobserver(user) || issilicon(user)) )
 			user << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[stars(info)]<HR>[stamps]</BODY></HTML>", "window=[name]")
 			onclose(user, "[name]")

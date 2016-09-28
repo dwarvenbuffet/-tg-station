@@ -17,7 +17,8 @@
 		sight_mode &= ~S.sight_mode
 	if(client)
 		client.screen -= O
-	contents -= O
+
+	//Manually removing it from contents is not needed
 	if(module)
 		O.loc = module	//Return item to module so it appears in its contents, so it can be taken out again.
 
