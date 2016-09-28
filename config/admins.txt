@@ -13,6 +13,6 @@ Sheylos = Game Master
 Octareenroon91 = Game Admin
 SpaghettiScience = Game Admin
 Doubleplus = Game Admin
-Ddraigg = Trial Admin
 TowerShield = Moderator
+Ddraigg = Admin Candidate
 Zaers = Coder
