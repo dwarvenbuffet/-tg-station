@@ -56,6 +56,7 @@
 			eyeobj.initialized = 1
 		else
 			eyeobj.setLoc(eyeobj.loc)
+		L.client.eye = eyeobj
 	else
 		user << "The console is already in use!"
 
@@ -87,7 +88,6 @@
 				user.client.images -= user_image
 				user_image = image(icon,loc,icon_state,FLY_LAYER)
 				user.client.images += user_image
-			user.client.eye = src
 
 /mob/camera/aiEye/remote/relaymove(mob/user,direct)
 	var/initial = initial(sprint)
