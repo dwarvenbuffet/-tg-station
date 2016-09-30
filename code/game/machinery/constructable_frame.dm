@@ -138,6 +138,7 @@
 						O.loc = null
 						new_machine.component_parts += O
 					circuit.loc = null
+					new_machine.machinetemp = src.machinetemp
 					new_machine.RefreshParts()
 					qdel(src)
 

@@ -153,7 +153,7 @@ text("<A href='?src=\ref[src];power=1'>[on ? "On" : "Off"]</A>"))
 
 			if(prob(10)) //Wets floors randomly
 				var/turf/simulated/T = loc
-				T.MakeSlippery()
+				T.MakeSlippery(SLIPPERY_TURF_WATER)
 
 			if(prob(5)) //Spawns foam!
 				visible_message("<span class='danger'>[src] whirs and bubbles violently, before releasing a plume of froth!</span>")

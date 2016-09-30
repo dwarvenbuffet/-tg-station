@@ -356,7 +356,7 @@
 	if (!istype(T))
 		return
 	if(reac_volume >= 3)
-		T.MakeSlippery()
+		T.MakeSlippery(SLIPPERY_TURF_WATER)
 
 	var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in T)
 
@@ -474,16 +474,18 @@
 	description = "It's disgusting. But so tempting."
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	metabolization_rate = 1 * REAGENTS_METABOLISM
-	color = "#C8A5DC"
+	color = "#DCD7A5"
+	lub_c = 1
+	lub_l = 75
 
 /datum/reagent/consumable/fat/on_mob_life(var/mob/living/M as mob)
 		M.overeatduration += 20 //Eating more than 10u will make you fat, 10u will give 500 overeatduration
 		..()
 
-/datum/reagent/lube/reaction_turf(turf/simulated/T, reac_volume)
+/datum/reagent/consumable/fat/reaction_turf(turf/simulated/T, reac_volume) //Whoa nelly.
 	if (!istype(T)) return
 	if(reac_volume >= 1)
-		T.MakeSlippery(1)
+		T.MakeSlippery(SLIPPERY_TURF_WATER)
 
 /datum/reagent/consumable/fat/concentrated
 	name = "Concentrated Fat"
@@ -491,7 +493,9 @@
 	description = "You feel fat just from looking at it."
 	nutriment_factor = 10 * REAGENTS_METABOLISM
 	metabolization_rate = 1 * REAGENTS_METABOLISM
-	color = "#C8A5DC"
+	color = "#DCD7A5"
+	lub_c = 1.5
+	lub_l = 80
 
 /datum/reagent/consumable/fat/concentrated/on_mob_life(var/mob/living/M as mob)
 		M.overeatduration += 40 //Eating 5u or more will make you fat, 4.8u will give 500 overeatduration
@@ -500,4 +504,4 @@
 /datum/reagent/fat/concentrated/reaction_turf(turf/simulated/T, reac_volume)
 	if (!istype(T)) return
 	if(reac_volume >= 1)
-		T.MakeSlippery(2)
+		T.MakeSlippery(SLIPPERY_TURF_LUBE)
