@@ -594,13 +594,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 								new_item.reliability = max(R/2, 0)
 							var/turf/simulated/here = get_turf(linked_imprinter.loc)
 							if(istype(here))
-								linked_imprinter.atmos_machine_heat(here, 0.5, linked_lathe.machinetemp)
+								linked_imprinter.atmos_machine_heat(here, 0.5, linked_imprinter.machinetemp)
 							load_total += being_built.materials[MAT_GLASS]/coeff*GLASS_HARDNESS_COEFFICIENT
 							load_total += being_built.materials[MAT_GOLD]/coeff*GOLD_HARDNESS_COEFFICIENT
 							load_total += being_built.materials[MAT_DIAMOND]/coeff*DIAMOND_HARDNESS_COEFFICIENT
 							fric_total += being_built.materials[MAT_GOLD]/coeff/GOLD_HARDNESS_COEFFICIENT
 							linked_imprinter.system_output = "Construction operation of \"[new_item.name]\" completed (R=[new_item.reliability], P=[round(power)], F=[load_total], Ff=[fric_total], Q=[load_total/400 + fric_total/(500*lube_coeff) + 10*overclock], QL=[linked_imprinter.lubricity] - [fric_total + machinetemp/500 + overclock], TTC=[16/(coeff*lube_coeff*coolness)])"
-							linked_lathe.visible_output = "<span class ='notice'>The [linked_imprinter.name] beeps, \"Construction operation of [new_item.name]\" completed.</span>"
+							linked_imprinter.visible_output = "<span class ='notice'>The [linked_imprinter.name] beeps, \"Construction operation of [new_item.name]\" completed.</span>"
 							linked_imprinter.machinetemp += load_total/400 + fric_total/(500*lube_coeff) + 10*overclock
 							if (linked_imprinter.lubricity - fric_total + machinetemp/500 + overclock > 0)
 								linked_imprinter.lubricity -= fric_total + machinetemp/500 + overclock
