@@ -15,6 +15,11 @@
 		M.adjustToxLoss(toxpwr*REM)
 	..()
 	return
+	
+/datum/reagent/toxin/reaction_hydroponics_tray(var/obj/machinery/hydroponics/H, var/reac_volume, var/mob/user)
+	if(reac_volume >= 1)
+		H.adjustToxic(round(reac_volume) * 2) //never go full retard
+	return
 
 /datum/reagent/toxin/amatoxin
 	name = "Amatoxin"
@@ -54,6 +59,23 @@
 	..()
 	return
 
+/datum/reagent/toxin/mutagen/reaction_hydroponics_tray(var/obj/machinery/hydroponics/H, var/reac_volume, var/mob/user)
+	if(reac_volume >= 5)
+		switch(rand(100))
+			if(91 to 100)	H.plantdies()
+			if(81 to 90)	H.mutatespecie()
+			if(66 to 80)	H.hardmutate()
+			if(41 to 65)	H.mutate()
+			if(21 to 41)	user << "The plants don't seem to react..."
+			if(11 to 20)	H.mutateweed()
+			if(1 to 10)		H.mutatepest()
+			else 			user << "Nothing happens..."
+	else if (reac_volume >= 2)
+		H.hardmutate()
+	else if (reac_volume >= 1)
+		H.mutate()
+	return
+	
 /datum/reagent/toxin/plasma
 	name = "Plasma"
 	id = "plasma"
@@ -215,12 +237,24 @@
 			var/damage = min(round(0.4*reac_volume, 0.1),10)
 			C.adjustToxLoss(damage)
 
+/datum/reagent/toxin/plantbgone/reaction_hydroponics_tray(var/obj/machinery/hydroponics/H, var/reac_volume, var/mob/user)
+	if(reac_volume >= 1)
+		H.adjustHealth(-round(reac_volume) * 5)
+		H.adjustToxic(-round(reac_volume) * 6) //Actual proper plant removal chemical
+		H.adjustWeeds(-rand(4,8))
+	return
+
 /datum/reagent/toxin/plantbgone/weedkiller
 	name = "Weed Killer"
 	id = "weedkiller"
 	description = "A harmful toxic mixture to kill weeds. Do not ingest!"
 	color = "#4B004B" // rgb: 75, 0, 75
-
+	
+/datum/reagent/toxin/plantbgone/weedkiller/reaction_hydroponics_tray(var/obj/machinery/hydroponics/H, var/reac_volume, var/mob/user)
+	if(reac_volume >= 1)
+		H.adjustToxic(round(reac_volume) * 0.5)
+		H.adjustWeeds(-rand(1,2)) //pretty shit for dedicated weed killer
+	return
 
 /datum/reagent/toxin/pestkiller
 	name = "Pest Killer"
@@ -236,6 +270,12 @@
 		if(!C.wear_mask) // If not wearing a mask
 			var/damage = min(round(0.4*reac_volume, 0.1),10)
 			C.adjustToxLoss(damage)
+			
+/datum/reagent/toxin/plantbgone/pestkiller/reaction_hydroponics_tray(var/obj/machinery/hydroponics/H, var/reac_volume, var/mob/user)
+	if(reac_volume >= 1)
+		H.adjustToxic(round(reac_volume) * 0.5)
+		H.adjustPests(-rand(1,2))
+	return
 
 /datum/reagent/toxin/spore
 	name = "Spore Toxin"
@@ -670,6 +710,14 @@
 	reac_volume = round(reac_volume,0.1)
 	for(var/obj/O in T)
 		O.acid_act(acidpwr, toxpwr, reac_volume)
+		
+/datum/reagent/toxin/acid/reaction_hydroponics_tray(var/obj/machinery/hydroponics/H, var/reac_volume, var/mob/user)
+	if(reac_volume >= 1)
+		H.adjustHealth(-round(reac_volume) * 1)
+		H.adjustToxic(round(reac_volume) * 1.5)
+		H.adjustWeeds(-rand(1,2))
+	return
+
 
 //2acid
 //lmao 2acid
@@ -693,6 +741,12 @@
 	toxpwr = 2
 	acidpwr = 20
 
+/datum/reagent/toxin/polyacid/reaction_hydroponics_tray(var/obj/machinery/hydroponics/H, var/reac_volume, var/mob/user)
+	if(reac_volume >= 1) //Every year, millions of defenseless cabbages die to senseless plant abuse perpetrated by retards like you
+		H.adjustHealth(-round(reac_volume) * 2)
+		H.adjustToxic(round(reac_volume) * 3)
+		H.adjustWeeds(-rand(1,4))
+	return
 
 /datum/reagent/toxin/impedrezene
 	name = "Impedrezene"

@@ -2,6 +2,7 @@
 	name = "weapon"
 	icon = 'icons/obj/weapons.dmi'
 	var/no_hitsound = 0 //Make this 1 if you want no hitsounds
+	var/rating = 1 //Research rating. Moved here because I'm lazy. Good thing beakers and stock parts both apparently count as weapons.
 
 /obj/item/weapon/New()
 	..()

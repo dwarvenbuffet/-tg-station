@@ -31,6 +31,12 @@
 		M.heal_organ_damage(1,0)
 	..()
 	return
+	
+/datum/reagent/consumable/nutriment/reaction_hydroponics_tray(var/obj/machinery/hydroponics/H, var/reac_volume, var/mob/user)
+	if(reac_volume >= 1)
+		H.adjustHealth(round(reac_volume) * 0.5)
+		H.adjustNutri(round(reac_volume) * 1)
+	return
 
 /datum/reagent/consumable/vitamin
 	name = "Vitamin"
@@ -66,6 +72,13 @@
 /datum/reagent/consumable/sugar/overdose_process(var/mob/living/M as mob)
 	M.sleeping += 3
 	..()
+	return
+	
+/datum/reagent/consumable/sugar/reaction_hydroponics_tray(var/obj/machinery/hydroponics/H, var/reac_volume, var/mob/user) //PURGE
+	if(reac_volume >= 1)
+		H.adjustWeeds(rand(1,2))
+		H.adjustPests(rand(1,2))
+		H.adjustNutri(round(reac_volume) * 0.1)
 	return
 
 /datum/reagent/consumable/crack

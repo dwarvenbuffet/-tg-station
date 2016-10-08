@@ -185,6 +185,20 @@
 	else
 		name = initial(name)
 	update_icon()
+	
+/obj/item/device/lightreplacer/storage_contents_dump_act(obj/item/weapon/storage/src_object, mob/user)
+	var/lights_added = 0
+	for(var/obj/item/weapon/light/L in src_object)
+		if(L.status == 0) // LIGHT OKAY
+			if(uses < max_uses)
+				AddUses(1)
+				lights_added += 1
+				src_object.remove_from_storage(L, src)
+				qdel(L)
+			else
+				break
+	user << "You insert [lights_added] [(lights_added == 1) ? "light" : "lights"] into the [src.name]. You have [uses] lights remaining."
+	return
 
 //Can you use it?
 

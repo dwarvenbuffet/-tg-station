@@ -79,13 +79,12 @@
 
 	var/list/connected = list()
 	var/list/processing_atoms = list(src)
-
+	
 	while(processing_atoms.len)
-
 		var/atom/a = processing_atoms[1]
 
-		for(var/step_dir in cardinal)
-			var/obj/machinery/hydroponics/h = locate() in get_step(a, step_dir)
+		for(var/step_dir in cardinal) //4
+			var/obj/machinery/hydroponics/h = locate(/obj/machinery/hydroponics/) in get_step(a, step_dir)
 			// Soil plots aren't dense.  anchored == 2 means the hoses are screwed in place
 			if(h && h.anchored==2 && h.density && !(h in connected) && !(h in processing_atoms))
 				processing_atoms += h
@@ -467,174 +466,9 @@
 		return
 	myseed.on_chem_reaction(S) //In case seeds have some special interactions with special chems, currently only used by vines
 
-	// Requires 5 mutagen to possibly change species.// Poor man's mutagen.
-	if(S.has_reagent("mutagen", 5) || S.has_reagent("radium", 10) || S.has_reagent("uranium", 10))
-		switch(rand(100))
-			if(91 to 100)	plantdies()
-			if(81 to 90)	mutatespecie()
-			if(66 to 80)	hardmutate()
-			if(41 to 65)	mutate()
-			if(21 to 41)	usr << "The plants don't seem to react..."
-			if(11 to 20)	mutateweed()
-			if(1 to 10)		mutatepest()
-			else 			usr << "Nothing happens..."
-
-	// 2 or 1 units is enough to change the yield and other stats.// Can change the yield and other stats, but requires more than mutagen
-	else if(S.has_reagent("mutagen", 2) || S.has_reagent("radium", 5) || S.has_reagent("uranium", 5))
-		hardmutate()
-	else if(S.has_reagent("mutagen", 1) || S.has_reagent("radium", 2) || S.has_reagent("uranium", 2))
-		mutate()
-
-	// After handling the mutating, we now handle the damage from adding crude radioactives...
-	if(S.has_reagent("uranium", 1))
-		adjustHealth(-round(S.get_reagent_amount("uranium") * 1))
-		adjustToxic(round(S.get_reagent_amount("uranium") * 2))
-	if(S.has_reagent("radium", 1))
-		adjustHealth(-round(S.get_reagent_amount("radium") * 1))
-		adjustToxic(round(S.get_reagent_amount("radium") * 3)) // Radium is harsher (OOC: also easier to produce)
-
-	// Nutriments  //Don't touch these nutrient values, they're used in comparisons
-	if(S.has_reagent("eznutriment", 1))
-		yieldmod = 1
-		mutmod = 1
-		adjustNutri(round(S.get_reagent_amount("eznutriment") * 1))
-
-	if(S.has_reagent("left4zednutriment", 1))
-		yieldmod = 0
-		mutmod = 2
-		adjustNutri(round(S.get_reagent_amount("left4zednutriment") * 1))
-
-	if(S.has_reagent("robustharvestnutriment", 1))
-		yieldmod = 2
-		mutmod = 0
-		adjustNutri(round(S.get_reagent_amount("robustharvestnutriment") *1 ))
-
-	// Antitoxin binds shit pretty well. So the tox goes significantly down
-	if(S.has_reagent("anti_toxin", 1))
-		adjustToxic(-round(S.get_reagent_amount("anti_toxin") * 2))
-
-	// NIGGA, YOU JUST WENT ON FULL RETARD.
-	if(S.has_reagent("toxin", 1))
-		adjustToxic(round(S.get_reagent_amount("toxin") * 2))
-
-	// Milk is good for humans, but bad for plants. The sugars canot be used by plants, and the milk fat fucks up growth. Not shrooms though. I can't deal with this now...
-	if(S.has_reagent("milk", 1))
-		adjustNutri(round(S.get_reagent_amount("milk") * 0.1))
-		adjustWater(round(S.get_reagent_amount("milk") * 0.9))
-
-	// Beer is a chemical composition of alcohol and various other things. It's a shitty nutrient but hey, it's still one. Also alcohol is bad, mmmkay?
-	if(S.has_reagent("beer", 1))
-		adjustHealth(-round(S.get_reagent_amount("beer") * 0.05))
-		adjustNutri(round(S.get_reagent_amount("beer") * 0.25))
-		adjustWater(round(S.get_reagent_amount("beer") * 0.7))
-
-	// You're an idiot for thinking that one of the most corrosive and deadly gasses would be beneficial
-	if(S.has_reagent("fluorine", 1))
-		adjustHealth(-round(S.get_reagent_amount("fluorine") * 2))
-		adjustToxic(round(S.get_reagent_amount("flourine") * 2.5))
-		adjustWater(-round(S.get_reagent_amount("flourine") * 0.5))
-		adjustWeeds(-rand(1,4))
-
-	// You're an idiot for thinking that one of the most corrosive and deadly gasses would be beneficial
-	if(S.has_reagent("chlorine", 1))
-		adjustHealth(-round(S.get_reagent_amount("chlorine") * 1))
-		adjustToxic(round(S.get_reagent_amount("chlorine") * 1.5))
-		adjustWater(-round(S.get_reagent_amount("chlorine") * 0.5))
-		adjustWeeds(-rand(1,3))
-
-	// White Phosphorous + water -> phosphoric acid. That's not a good thing really. Phosphoric salts are beneficial though. And even if the plant suffers, in the long run the tray gets some nutrients. The benefit isn't worth that much.
-	if(S.has_reagent("phosphorus", 1))
-		adjustHealth(-round(S.get_reagent_amount("phosphorus") * 0.75))
-		adjustNutri(round(S.get_reagent_amount("phosphorus") * 0.1))
-		adjustWater(-round(S.get_reagent_amount("phosphorus") * 0.5))
-		adjustWeeds(-rand(1,2))
-
-	// Plants should not have sugar, they can't use it and it prevents them getting water/ nutients, it is good for mold though...
-	if(S.has_reagent("sugar", 1))
-		adjustWeeds(rand(1,2))
-		adjustPests(rand(1,2))
-		adjustNutri(round(S.get_reagent_amount("sugar") * 0.1))
-
-	// It is water!
-	if(S.has_reagent("water", 1))
-		adjustWater(round(S.get_reagent_amount("water") * 1))
-
-	// Holy water. Mostly the same as water, it also heals the plant a little with the power of the spirits~
-	if(S.has_reagent("holywater", 1))
-		adjustWater(round(S.get_reagent_amount("holywater") * 1))
-		adjustHealth(round(S.get_reagent_amount("holywater") * 0.1))
-
-	// A variety of nutrients are dissolved in club soda, without sugar. These nutrients include carbon, oxygen, hydrogen, phosphorous, potassium, sulfur and sodium, all of which are needed for healthy plant growth.
-	if(S.has_reagent("sodawater", 1))
-		adjustWater(round(S.get_reagent_amount("sodawater") * 1))
-		adjustHealth(round(S.get_reagent_amount("sodawater") * 0.1))
-		adjustNutri(round(S.get_reagent_amount("sodawater") * 0.1))
-
-	// Man, you guys are retards
-	if(S.has_reagent("sacid", 1))
-		adjustHealth(-round(S.get_reagent_amount("sacid") * 1))
-		adjustToxic(round(S.get_reagent_amount("sacid") * 1.5))
-		adjustWeeds(-rand(1,2))
-
-	// SERIOUSLY
-	if(S.has_reagent("pacid", 1))
-		adjustHealth(-round(S.get_reagent_amount("pacid") * 2))
-		adjustToxic(round(S.get_reagent_amount("pacid") * 3))
-		adjustWeeds(-rand(1,4))
-
-	// Plant-B-Gone is just as bad
-	if(S.has_reagent("plantbgone", 1))
-		adjustHealth(-round(S.get_reagent_amount("plantbgone") * 5))
-		adjustToxic(-round(S.get_reagent_amount("plantbgone") * 6))
-		adjustWeeds(-rand(4,8))
-
-	//Weed Spray
-	if(S.has_reagent("weedkiller", 1))
-		adjustToxic(round(S.get_reagent_amount("weedkiller") * 0.5))
-		//old toxicity was 4, each spray is default 10 (minimal of 5) so 5 and 2.5 are the new ammounts
-		adjustWeeds(-rand(1,2))
-
-	//Pest Spray
-	if(S.has_reagent("pestkiller", 1))
-		adjustToxic(round(S.get_reagent_amount("pestkiller") * 0.5))
-		adjustPests(-rand(1,2))
-
-	// Healing
-	if(S.has_reagent("cryoxadone", 1))
-		adjustHealth(round(S.get_reagent_amount("cryoxadone") * 3))
-		adjustToxic(-round(S.get_reagent_amount("cryoxadone") * 3))
-
-	// Ammonia is bad ass.
-	if(S.has_reagent("ammonia", 1))
-		adjustHealth(round(S.get_reagent_amount("ammonia") * 0.5))
-		adjustNutri(round(S.get_reagent_amount("ammonia") * 1))
-		adjustSYield(round(S.get_reagent_amount("ammonia") * 0.01))
-
-	// This is more bad ass, and pests get hurt by the corrosive nature of it, not the plant.
-	if(S.has_reagent("diethylamine", 1))
-		adjustHealth(round(S.get_reagent_amount("diethylamine") * 1))
-		adjustNutri(round(S.get_reagent_amount("diethylamine") * 2))
-		adjustSYield(round(S.get_reagent_amount("diethylamine") * 0.02))
-		adjustPests(-rand(1,2))
-
-	// Compost, effectively
-	if(S.has_reagent("nutriment", 1))
-		adjustHealth(round(S.get_reagent_amount("nutriment") * 0.5))
-		adjustNutri(round(S.get_reagent_amount("nutriment") * 1))
-
-	// The best stuff there is. For testing/debugging.
-	if(S.has_reagent("adminordrazine", 1))
-		adjustWater(round(S.get_reagent_amount("adminordrazine") * 1))
-		adjustHealth(round(S.get_reagent_amount("adminordrazine") * 1))
-		adjustNutri(round(S.get_reagent_amount("adminordrazine") * 1))
-		adjustPests(-rand(1,5))
-		adjustWeeds(-rand(1,5))
-	if(S.has_reagent("adminordrazine", 5))
-		switch(rand(100))
-			if(66  to 100)	mutatespecie()
-			if(33	to 65)	mutateweed()
-			if(1   to 32)	mutatepest()
-			else 			usr << "Nothing happens..."
+	//It's called an "object-oriented programming language" for a reason
+	for(var/datum/reagent/R in S.reagent_list)
+		R.reaction_hydroponics_tray(src, R.volume, usr)
 
 /obj/machinery/hydroponics/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 
@@ -689,7 +523,6 @@
 
 		for(var/obj/machinery/hydroponics/H in trays)
 		//cause I don't want to feel like im juggling 15 tamagotchis and I can get to my real work of ripping flooring apart in hopes of validating my life choices of becoming a space-gardener
-
 			var/datum/reagents/S = new /datum/reagents()
 			S.my_atom = H
 

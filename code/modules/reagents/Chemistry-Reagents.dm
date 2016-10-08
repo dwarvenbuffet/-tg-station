@@ -52,6 +52,9 @@
 
 /datum/reagent/proc/reaction_turf(turf/T, volume)
 	return
+	
+/datum/reagent/proc/reaction_hydroponics_tray(obj/machinery/hydroponics/H, reac_volume, mob/user) //called by hydroponics irrigation
+	return
 
 /datum/reagent/proc/on_mob_life(var/mob/living/M as mob)
 	current_cycle++
