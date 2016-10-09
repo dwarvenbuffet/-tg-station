@@ -25,6 +25,7 @@
 	var/rating = 1
 	var/unwrenchable = 1
 	var/co2mod = 1
+	var/list/connected = list() //Take any and all stress possible off that irrigation loop.
 
 	pixel_y=8
 
@@ -74,25 +75,31 @@
 		default_deconstruction_crowbar(I, 1)
 	..()
 
+/obj/machinery/hydroponics/New()
+	FindConnected() //Juuuust in case
+	..()
 
 /obj/machinery/hydroponics/proc/FindConnected()
 
-	var/list/connected = list()
+	var/list/found_trays = list() //all the trays this proc finds end up here
 	var/list/processing_atoms = list(src)
-	
-	while(processing_atoms.len)
-		var/atom/a = processing_atoms[1]
 
-		for(var/step_dir in cardinal) //4
-			var/obj/machinery/hydroponics/h = locate(/obj/machinery/hydroponics/) in get_step(a, step_dir)
+	while(processing_atoms.len)
+		var/obj/machinery/hydroponics/a = processing_atoms[1]
+
+		for(var/obj/machinery/hydroponics/h in range(1, a))
 			// Soil plots aren't dense.  anchored == 2 means the hoses are screwed in place
-			if(h && h.anchored==2 && h.density && !(h in connected) && !(h in processing_atoms))
+			if(h && (get_dir(loc, h.loc) in cardinal) && h.anchored==2 && h.density && !(h in found_trays) && !(h in processing_atoms))
 				processing_atoms += h
 
 		processing_atoms -= a
-		connected += a
+		found_trays += a
 
-	return connected
+	connected = found_trays
+	for(var/obj/machinery/hydroponics/h in found_trays)
+		h.connected = found_trays
+
+	return found_trays
 
 
 /obj/machinery/hydroponics/bullet_act(var/obj/item/projectile/Proj) //Works with the Somatoray to modify plant variables.
@@ -512,7 +519,7 @@
 
 		// anchored == 2 means the hoses are screwed in place
 		if(irrigate && reagent_source.amount_per_transfer_from_this > 30 && reagent_source.reagents.total_volume >= 30 && anchored == 2)
-			trays = FindConnected()
+			trays = connected
 			if (trays.len > 1)
 				visi_msg += ", setting off the irrigation system"
 
@@ -520,21 +527,21 @@
 			visible_message("<span class='notice'>[visi_msg].</span>")
 
 		var/split = round(reagent_source.amount_per_transfer_from_this/trays.len)
+		var/datum/reagents/S = new /datum/reagents()
 
-		for(var/obj/machinery/hydroponics/H in trays)
+		for(var/obj/machinery/hydroponics/H in trays) //I have a feeling this is where bad shit starts to actually happen
 		//cause I don't want to feel like im juggling 15 tamagotchis and I can get to my real work of ripping flooring apart in hopes of validating my life choices of becoming a space-gardener
-			var/datum/reagents/S = new /datum/reagents()
 			S.my_atom = H
-
 			reagent_source.reagents.trans_to(S,split)
-			if(istype(reagent_source, /obj/item/weapon/reagent_containers/food/snacks) || istype(reagent_source, /obj/item/weapon/reagent_containers/pill))
-				qdel(reagent_source)
-
 			H.applyChemicals(S)
-
 			S.clear_reagents()
-			del(S)
 			H.update_icon()
+		
+		qdel(S)
+		
+		if(istype(reagent_source, /obj/item/weapon/reagent_containers/food/snacks) || istype(reagent_source, /obj/item/weapon/reagent_containers/pill))
+			qdel(reagent_source)
+		
 		if(reagent_source) // If the source wasn't composted and destroyed
 			reagent_source.update_icon()
 		return 1
@@ -635,10 +642,12 @@
 				playsound(src.loc, 'sound/items/Wirecutter.ogg', 50, 1)
 				anchored = 2
 				user << "<span class='notice'>You reconnect \the [src]'s hoses.</span>"
+				FindConnected()
 
 			for(var/obj/machinery/hydroponics/h in range(1,src))
 				spawn()
 					h.update_icon()
+					h.FindConnected()
 
 	return
 
