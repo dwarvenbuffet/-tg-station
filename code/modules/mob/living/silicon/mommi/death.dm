@@ -1,6 +1,6 @@
 /mob/living/silicon/robot/mommi/gib(var/animation = 1)
 	if(generated)
-		src.dust()
+		return dust(animation)
 	if(src.module && istype(src.module))
 		var/obj/item/found = locate(tool_state) in src.module.modules
 		if(!found && tool_state != src.module.emag)

@@ -27,6 +27,10 @@
 	var/addiction_threshold = 0
 	var/addiction_stage = 0
 	var/overdosed = 0 // You fucked up and this is now triggering it's overdose effects, purge that shit quick.
+	var/lub_c = 0 //This handles lubrication and cooling in machines, not slipping
+	var/lub_l = 0 //_c is coefficient of lubrication and coolant; basically it increases the amount of lubricity/temp change you get out of a reagent per unit.
+	var/cool_c = 0 //_l is limit of lubrication and coolant; it sets the temperature/lubricity threshold to which you can raise/decrease lubricity/machinetemp with a reagent
+	var/cool_l = 0
 
 /datum/reagent/Destroy() // This should only be called by the holder, so it's already handled clearing its references
 	..()

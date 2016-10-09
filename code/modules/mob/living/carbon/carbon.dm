@@ -396,6 +396,7 @@ var/const/NO_SLIP_WHEN_WALKING = 1
 var/const/STEP = 2
 var/const/SLIDE = 4
 var/const/GALOSHES_DONT_HELP = 8
+var/const/BLUESPACE_SLIPPERY = 16
 /mob/living/carbon/slip(var/s_amount, var/w_amount, var/obj/O, var/lube)
 	loc.handle_slip(src, s_amount, w_amount, O, lube)
 
@@ -411,7 +412,6 @@ var/const/GALOSHES_DONT_HELP = 8
 	else
 		show_message("<span class='userdanger'>The blob attacks!</span>")
 		adjustBruteLoss(10)
-
 
 //Brain slug proc for voluntary removal of control.
 /mob/living/carbon/proc/release_control()

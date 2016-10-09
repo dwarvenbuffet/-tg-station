@@ -1,4 +1,4 @@
-metal/*
+/*
 Research and Development (R&D) Console
 
 This is the main work horse of the R&D system. It contains the menus/controls for the Destructive Analyzer, Protolathe, and Circuit
@@ -28,6 +28,15 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 
 */
+
+#define METAL_HARDNESS_COEFFICIENT 0.4
+#define GLASS_HARDNESS_COEFFICIENT 0.4
+#define GOLD_HARDNESS_COEFFICIENT 0.25
+#define SILVER_HARDNESS_COEFFICIENT 0.25
+#define PLASMA_HARDNESS_COEFFICIENT 0.3
+#define URANIUM_HARDNESS_COEFFICIENT 0.6
+#define DIAMOND_HARDNESS_COEFFICIENT 1 //hell yeah bitch dis shit go hard as hell flocka
+#define BANANIUM_HARDNESS_COEFFICIENT 0.1 //flaccid like any self-respecting man listening to WGW
 
 /obj/machinery/computer/rdconsole
 	name = "R&D Console"
@@ -169,7 +178,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(!emagged)
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 		emagged = 1
-		user << "<span class='notice'> You disable the security protocols</span>"
+		user << "<span class='notice'>You disable the security protocols.</span>"
 
 /obj/machinery/computer/rdconsole/Topic(href, href_list)
 	if(..())
@@ -267,10 +276,20 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 								return
 							if((linked_destroy.loaded_item.reliability >= 99 - (linked_destroy.decon_mod * 3)) || linked_destroy.loaded_item.crit_fail)
 								var/list/temp_tech = linked_destroy.ConvertReqString2List(linked_destroy.loaded_item.origin_tech)
+								var/list/da_msg_list = new()
+								linked_destroy.system_output = ""
 								for(var/T in temp_tech)
 									if(prob(linked_destroy.loaded_item.reliability))               //If deconstructed item is not reliable enough its just being wasted, else it is pocessed
-										files.UpdateTech(T, temp_tech[T])                          //Check if deconstructed item has research levels higher/same/one less than current ones
+										var/returnmessage = files.UpdateTech(T, temp_tech[T])      //Check if deconstructed item has research levels higher/same/one less than current ones
+										if(returnmessage)
+											da_msg_list.Add(returnmessage)
 								files.UpdateDesigns(linked_destroy.loaded_item, temp_tech, src)    //If if such reseach type found all the known designs are checked for having this research type in them
+								if (da_msg_list.len == 1)
+									linked_destroy.system_output += da_msg_list[1]
+								else if (da_msg_list.len > 1)
+									for (var/i = 1, i < da_msg_list.len, i++)
+										linked_destroy.system_output += da_msg_list[i] + " | "
+									linked_destroy.system_output += da_msg_list[da_msg_list.len]
 								screen = 1.0                                                       //If design have it it gains some reliability
 							else                                                                   //Same design always gain quality
 								screen = 2.3                                                       //Crit fail gives the same design a lot of reliability, like really a lot
@@ -340,20 +359,29 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 							S.produce_heat(100)
 					screen = 1.6
 					updateUsrDialog()
+					src.visible_message("<span class='danger'>The [src.name] beeps, \"Research successfully synced.\"</span>")
 
 	else if(href_list["togglesync"]) //Prevents the console from being synced by other consoles. Can still send data.
 		sync = !sync
 
 	else if(href_list["build"]) //Causes the Protolathe to build something.
 		var/g2g = 1
+		var/effect = rand(1,100)
+		var/overclock = 0
+		if (linked_lathe.hacked)
+			overclock = 2
 		if(linked_lathe)
 			var/coeff = linked_lathe.efficiency_coeff
+			var/coolness = min(T20C/linked_lathe.machinetemp, 2) //Believe it or not, it's not actually worth it to lower your coolant's temperature to absolute 0.
 			var/datum/design/being_built = null
 			for(var/datum/design/D in files.known_designs)
 				if(D.id == href_list["build"])
 					being_built = D
 					break
 			if(being_built)
+				var/load_total = 0
+				var/fric_total = 0 //lewd
+				var/lube_coeff = 1+(linked_lathe.lubricity/200)
 				var/power = 2000
 				var/amount=text2num(href_list["amount"])
 				var/old_screen = screen
@@ -374,6 +402,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				if (g2g) //If input is incorrect, nothing happens
 					var/enough_materials = 1
 					linked_lathe.busy = 1
+					playsound(loc, 'sound/machines/protolathe.ogg', 20)
 					flick("protolathe_n",linked_lathe)
 					use_power(power)
 
@@ -404,16 +433,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 									linked_lathe.clown_amount = max(0, (linked_lathe.clown_amount-(being_built.materials[M]/coeff * amount)))
 								else
 									linked_lathe.reagents.remove_reagent(M, being_built.materials[M]/coeff * amount)
-
 					var/P = being_built.build_path //lets save these values before the spawn() just in case. Nobody likes runtimes.
 					var/R = being_built.reliability
-					spawn(32*amount/coeff)
+					linked_lathe.overheat_check()
+					spawn(32*amount/(coeff*lube_coeff*coolness*(overclock+1))) //The maximum efficiency you can achieve is somewhere around 8*2*2*3 = 96x speed, at 200% lubricity and ~140 K (bluespace lube and max part upgrades + overclocking).
 						if(g2g) //And if we only fail the material requirements, we still spend time and power
 							for(var/i = 0, i<amount, i++)
 								var/obj/item/new_item = new P(src)
 								if( new_item.type == /obj/item/weapon/storage/backpack/holding )
 									new_item.investigate_log("built by [key]","singulo")
 								new_item.reliability = R
+								if((linked_lathe.overheated >= OVERHEAT_LOW_RELIABILITY && effect >= 50) || (overclock && effect >= 50))
+									new_item.reliability = max(R/2, 0)
 /*								new_item.materials[MAT_METAL] /= coeff
 								new_item.materials[MAT_GLASS] /= coeff
 								new_item.materials[MAT_SILVER] /= coeff
@@ -427,23 +458,87 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 								new_item.materials[MAT_DIAMOND] = being_built.materials[MAT_DIAMOND]/coeff
 								new_item.materials[MAT_URANIUM] = being_built.materials[MAT_URANIUM]/coeff
 								new_item.materials[MAT_BANANIUM] = being_built.materials[MAT_BANANIUM]/coeff
-								if(linked_lathe.hacked)
-									R = max((new_item.reliability/2), 0)
+								load_total += being_built.materials[MAT_METAL]*amount/coeff*METAL_HARDNESS_COEFFICIENT //100% pseudoscience
+								load_total += being_built.materials[MAT_GLASS]*amount/coeff*GLASS_HARDNESS_COEFFICIENT
+								load_total += being_built.materials[MAT_GOLD]*amount/coeff*GOLD_HARDNESS_COEFFICIENT
+								load_total += being_built.materials[MAT_PLASMA]*amount/coeff*PLASMA_HARDNESS_COEFFICIENT
+								load_total += being_built.materials[MAT_URANIUM]*amount/coeff*URANIUM_HARDNESS_COEFFICIENT
+								load_total += being_built.materials[MAT_SILVER]*amount/coeff*SILVER_HARDNESS_COEFFICIENT
+								load_total += being_built.materials[MAT_DIAMOND]*amount/coeff*DIAMOND_HARDNESS_COEFFICIENT
+								load_total += being_built.materials[MAT_BANANIUM]*amount/coeff*BANANIUM_HARDNESS_COEFFICIENT //sum load for building an elite tier firing pin with stock parts is around 5000
+								fric_total += being_built.materials[MAT_GOLD]*amount/coeff/GOLD_HARDNESS_COEFFICIENT //YOU FRICKS
+								fric_total += being_built.materials[MAT_SILVER]*amount/coeff/SILVER_HARDNESS_COEFFICIENT
+								fric_total += being_built.materials[MAT_PLASMA]*amount/coeff/PLASMA_HARDNESS_COEFFICIENT //everything else just chips or some shit
+								linked_lathe.system_output = "Construction operation of \"[new_item.name]\" ([amount]x) completed (R=[new_item.reliability], P=[round(power)], F=[load_total], Ff=[fric_total], Q=[load_total/1000 + fric_total/(5000*lube_coeff) + 10*overclock], QL=[linked_lathe.lubricity] - [(fric_total + (50*machinetemp)/20000) + 2*overclock], TTC=[32*amount/(coeff*lube_coeff*coolness)])"
+								linked_lathe.visible_output = "<span class ='notice'>The [linked_lathe.name] beeps, \"Construction operation of [new_item.name]\" ([amount]x) completed.</span>"
+								linked_lathe.machinetemp += load_total/1000 + fric_total/(5000*lube_coeff) + 10*overclock
+								if (linked_lathe.lubricity - (fric_total + (50*machinetemp))/20000 + 2*overclock > 0)
+									linked_lathe.lubricity -= (fric_total + (50*machinetemp))/20000 + 2*overclock
+								else
+									linked_lathe.lubricity = 0
+								var/turf/simulated/here = get_turf(linked_lathe.loc)
 								new_item.loc = linked_lathe.loc
+								if(istype(here))
+									linked_lathe.atmos_machine_heat(here, 0.5, linked_lathe.machinetemp)
+								if(linked_lathe.overheated >= OVERHEAT_FAIL_PRODUCE && effect >= 70) //HAHAHA JUST KIDDING FUCK YOU
+									system_output = "ERROR: Construction process halted. Last known temperature of imprinter: [linked_lathe.machinetemp] K."
+									linked_lathe.system_output = "Construction operation of \"[new_item.name]\" ([amount]x) terminated (R=[new_item.reliability], P=[round(power)], F=[load_total], Ff=[fric_total], Q=[load_total/1000 + fric_total/(5000*lube_coeff) + 10*overclock], QL=[linked_lathe.lubricity] - [(fric_total + (50*machinetemp)/20000) + 2*overclock], TTC=[32*amount/(coeff*lube_coeff*coolness)])"
+									linked_lathe.visible_output = ("<span class='danger'>The [linked_lathe.name] beeps, \"Critical error: Severe overheating detected. Thermal shutdown has been initiated to prevent damage to the system. Last known temperature of imprinter: [linked_lathe.machinetemp] K.\"</span>")
+									playsound(loc, 'sound/machines/buzz-two.ogg', 20)
+									qdel(new_item)
+								if(linked_lathe.overheated >= OVERHEAT_FIRE && effect >= 90) //You're gonna burn
+									system_output = "ERROR: Critical failure reported by linked protolathe."
+									linked_lathe.system_output = "Construction operation of \"[new_item.name]\" ([amount]x) terminated (R=[new_item.reliability], P=[round(power)], F=[load_total], Ff=[fric_total], Q=[load_total/1000 + fric_total/(5000*lube_coeff) + 10*overclock], QL=[linked_lathe.lubricity] - [(fric_total + (50*machinetemp)/20000) + 2*overclock], TTC=[32*amount/(coeff*lube_coeff*coolness)])"
+									linked_lathe.visible_output = ("<span class='danger'>The [linked_lathe.name] alarms, \"CRITICAL FAILURE. THERMAL SHUTDOWN HAS BEEN INITIATED TO PREVENT DAMAGE TO THE SYSTEM. EMERGENCY VENTING ACTIVATED. LAST KNOWN TEMPERATURE: [linked_lathe.machinetemp] K.\"</span>")
+									playsound(loc, 'sound/machines/warning-buzzer.ogg', 20)
+									playsound(loc, 'sound/machines/hiss.ogg', 20)
+									var/turf/simulated/T = get_turf(linked_lathe.loc)
+									if(istype(T))
+										T.atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 10)
+										machinetemp -= 300
+									qdel(new_item)
+								if(linked_lathe.overheated == OVERHEAT_EXPLOSION && effect >= 95) //My god, did that smell good.
+									system_output = "ERROR"
+									linked_lathe.system_output = "Construction operation of \"[new_item.name]\" ([amount]x) terminated (R=[new_item.reliability], P=[round(power)], F=[load_total], Ff=[fric_total], Q=[load_total/1000 + fric_total/(5000*lube_coeff) + 10*overclock], QL=[linked_lathe.lubricity] - [(fric_total + (50*machinetemp)/20000) + 2*overclock], TTC=[32*amount/(coeff*lube_coeff*coolness)])"
+									linked_lathe.visible_output = ("<span class='danger'>The [linked_lathe.name] alarms, \"CRITICAL FAILURE\"</span>")
+									playsound(loc, 'sound/machines/oshi.ogg', 20)
+									playsound(loc, 'sound/machines/hiss.ogg', 20)
+									var/turf/simulated/T = get_turf(linked_lathe.loc)
+									if(istype(T))
+										T.atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 50)
+										spawn(10)
+											explosion(T,1,2,3,4)
+									qdel(new_item)
 						linked_lathe.busy = 0
 						screen = old_screen
 						updateUsrDialog()
+						linked_lathe.visible_message(linked_lathe.visible_output)
+						if(linked_lathe.overheated >= OVERHEAT_DISCONNECT && effect >= 70)
+							system_output = "ERROR: Protolathe disconnected from console."
+							src.visible_message("<span class='danger'>The [src.name] beeps, \"ERROR: Protolathe disconnected from server.\"</span>")
+							playsound(loc, 'sound/machines/buzz-sigh.ogg', 20)
+							linked_lathe.linked_console = null
+							linked_lathe = null
+
 
 	else if(href_list["imprint"]) //Causes the Circuit Imprinter to build something.
 		var/g2g = 1
+		var/effect = rand(1,100)
+		var/overclock = 0
+		if (linked_imprinter.hacked)
+			overclock = 2
 		if(linked_imprinter)
 			var/coeff = linked_imprinter.efficiency_coeff
+			var/coolness = min(T20C/linked_imprinter.machinetemp, 2)
 			var/datum/design/being_built = null
 			for(var/datum/design/D in files.known_designs)
 				if(D.id == href_list["imprint"])
 					being_built = D
 					break
 			if(being_built)
+				var/load_total = 0
+				var/fric_total = 0
+				var/lube_coeff = 1+(linked_imprinter.lubricity/200)
 				var/power = 2000
 				var/old_screen = screen
 				for(var/M in being_built.materials)
@@ -458,6 +553,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 				if (g2g) //Again, if input is wrong, do nothing
 					linked_imprinter.busy = 1
+					playsound(loc, 'sound/machines/circuitimprinter.ogg', 20)
 					flick("circuit_imprinter_ani",linked_imprinter)
 					use_power(power)
 
@@ -474,18 +570,82 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 							if(MAT_DIAMOND)
 								linked_imprinter.diamond_amount = max(0, (linked_imprinter.diamond_amount-being_built.materials[M]/coeff))
 							else
-								linked_imprinter.reagents.remove_reagent(M, being_built.materials[M]/coeff)
+								if (M == "sacid") //sorry this isn't exactly conducive to expansion
+									if(linked_imprinter.reagents.has_reagent("pacid", being_built.materials["sacid"]/(4*coeff))) //if we can use pacid first and exclusively pacid, we will
+										linked_imprinter.reagents.remove_reagent("pacid", being_built.materials["sacid"]/(4*coeff))
+									else if(linked_imprinter.reagents.has_reagent("pacid", 1)) //if we still have pacid but not enough to cover the whole cost, we use all of our pacid and back it up with sacid
+										var/pacid_to_use = linked_imprinter.reagents.get_reagent_amount("pacid")
+										var/sacid_to_use = (being_built.materials["sacid"] - pacid_to_use*4*coeff)/coeff
+										linked_imprinter.reagents.remove_reagent("pacid", pacid_to_use)
+										linked_imprinter.reagents.remove_reagent("sacid", sacid_to_use)
+									else //if we only have sacid
+										linked_imprinter.reagents.remove_reagent("sacid", being_built.materials["sacid"]/coeff)
+								else
+									linked_imprinter.reagents.remove_reagent(M, being_built.materials[M]/coeff)
 
 					var/P = being_built.build_path //lets save these values before the spawn() just in case. Nobody likes runtimes.
 					var/R = being_built.reliability
-					spawn(16)
+					linked_imprinter.overheat_check()
+					spawn(32/(coeff*lube_coeff*coolness*(overclock+1)))
 						if(g2g)
 							var/obj/item/new_item = new P(src)
 							new_item.reliability = R
+							if(linked_imprinter.overheated >= OVERHEAT_LOW_RELIABILITY && effect >= 30)
+								new_item.reliability = max(R/2, 0)
+							var/turf/simulated/here = get_turf(linked_imprinter.loc)
+							if(istype(here))
+								linked_imprinter.atmos_machine_heat(here, 0.5, linked_imprinter.machinetemp)
+							load_total += being_built.materials[MAT_GLASS]/coeff*GLASS_HARDNESS_COEFFICIENT
+							load_total += being_built.materials[MAT_GOLD]/coeff*GOLD_HARDNESS_COEFFICIENT
+							load_total += being_built.materials[MAT_DIAMOND]/coeff*DIAMOND_HARDNESS_COEFFICIENT
+							fric_total += being_built.materials[MAT_GOLD]/coeff/GOLD_HARDNESS_COEFFICIENT
+							linked_imprinter.system_output = "Construction operation of \"[new_item.name]\" completed (R=[new_item.reliability], P=[round(power)], F=[load_total], Ff=[fric_total], Q=[load_total/400 + fric_total/(500*lube_coeff) + 10*overclock], QL=[linked_imprinter.lubricity] - [fric_total + machinetemp/500 + overclock], TTC=[16/(coeff*lube_coeff*coolness)])"
+							linked_imprinter.visible_output = "<span class ='notice'>The [linked_imprinter.name] beeps, \"Construction operation of [new_item.name]\" completed.</span>"
+							linked_imprinter.machinetemp += load_total/400 + fric_total/(500*lube_coeff) + 10*overclock
+							if (linked_imprinter.lubricity - fric_total + machinetemp/500 + overclock > 0)
+								linked_imprinter.lubricity -= fric_total + machinetemp/500 + overclock
+							else
+								linked_imprinter.lubricity = 0
 							new_item.loc = linked_imprinter.loc
+							if(linked_imprinter.overheated >= OVERHEAT_FAIL_PRODUCE && effect >= 50)
+								system_output = "ERROR: Construction process halted. Last known temperature of imprinter: [linked_imprinter.machinetemp] K."
+								linked_imprinter.system_output = "Construction operation of \"[new_item.name]\" halted (R=[new_item.reliability], P=[round(power)], F=[load_total], Ff=[fric_total], Q=[load_total/400 + fric_total/(500*lube_coeff) + 10*overclock], QL=[linked_imprinter.lubricity] - [fric_total + machinetemp/500 + overclock], TTC=[16/(coeff*lube_coeff*coolness)])"
+								linked_imprinter.visible_output = ("<span class='danger'>The [linked_imprinter.name] beeps, \"Critical error: Severe overheating detected. Thermal shutdown has been initiated to prevent damage to the system. Last known temperature of imprinter: [linked_imprinter.machinetemp] K.\"</span>")
+								playsound(loc, 'sound/machines/buzz-two.ogg', 20)
+								qdel(new_item)
+							if(linked_imprinter.overheated >= OVERHEAT_FIRE && effect >= 70)
+								system_output = "ERROR: Critical failure reported by linked imprinter."
+								linked_imprinter.system_output = "Construction operation of \"[new_item.name]\" terminated (R=[new_item.reliability], P=[round(power)], F=[load_total], Ff=[fric_total], Q=[load_total/400 + fric_total/(500*lube_coeff) + 10*overclock], QL=[linked_imprinter.lubricity] - [fric_total + machinetemp/500 + overclock], TTC=[16/(coeff*lube_coeff*coolness)])"
+								linked_imprinter.visible_output = ("<span class='danger'>The [linked_imprinter.name] alarms, \"CRITICAL FAILURE. THERMAL SHUTDOWN HAS BEEN INITIATED TO PREVENT DAMAGE TO THE SYSTEM. EMERGENCY VENTING ACTIVATED. LAST KNOWN TEMPERATURE: [linked_imprinter.machinetemp] K.\"</span>")
+								playsound(loc, 'sound/machines/warning-buzzer.ogg', 20)
+								playsound(loc, 'sound/machines/hiss.ogg', 20)
+								var/turf/simulated/T = get_turf(linked_imprinter.loc)
+								if(istype(T))
+									T.atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 10)
+									machinetemp -= 300
+								qdel(new_item)
+							if(linked_imprinter.overheated == OVERHEAT_EXPLOSION && effect >= 95)
+								system_output = "ERROR"
+								linked_imprinter.system_output = "Construction operation of \"[new_item.name]\" terminated (R=[new_item.reliability], P=[round(power)], F=[load_total], Ff=[fric_total], Q=[load_total/400 + fric_total/(500*lube_coeff) + 10*overclock], QL=[linked_imprinter.lubricity] - [fric_total + machinetemp/500 + overclock], TTC=[16/(coeff*lube_coeff*coolness)])"
+								linked_imprinter.visible_output = ("<span class='danger'>The [linked_imprinter.name] alarms, \"CRITICAL FAILURE\"</span>")
+								playsound(loc, 'sound/machines/oshi.ogg', 20)
+								playsound(loc, 'sound/machines/hiss.ogg', 20)
+								var/turf/simulated/T = get_turf(linked_lathe.loc)
+								if(istype(T))
+									T.atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 50)
+									spawn(10)
+										explosion(T,1,2,3,4)
+								qdel(new_item)
+							linked_imprinter.visible_message(linked_imprinter.visible_output)
 						linked_imprinter.busy = 0
 						screen = old_screen
 						updateUsrDialog()
+						if(linked_imprinter.overheated >= OVERHEAT_DISCONNECT && effect >= 30)
+							system_output = "ERROR: Circuit imprinter disconnected from console."
+							src.visible_message("<span class='danger'>The [src.name] beeps, \"ERROR: Imprinter disconnected from server.\"</span>")
+							playsound(loc, 'sound/machines/buzz-sigh.ogg', 20)
+							linked_imprinter.linked_console = null
+							linked_imprinter = null
 
 	else if(href_list["disposeI"] && linked_imprinter)  //Causes the circuit imprinter to dispose of a single reagent (all of it)
 		linked_imprinter.reagents.del_reagent(href_list["disposeI"])
@@ -498,6 +658,26 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	else if(href_list["disposeallP"] && linked_lathe) //Causes the protolathe to dispose of all it's reagents.
 		linked_lathe.reagents.clear_reagents()
+
+	else if(href_list["lubricateIR"] && linked_imprinter) //Lubricates imprinter
+		var/datum/reagents/R = linked_imprinter.reagents
+		var/datum/reagent/C = R.has_reagent(href_list["lubricateIR"])
+		linked_imprinter.lubricant_process(R, C, text2num(href_list["lubricateIV"]), MODE_LUBRICATION)
+
+	else if(href_list["flushIR"] && linked_imprinter) //flushes imprinter with coolant
+		var/datum/reagents/R = linked_imprinter.reagents
+		var/datum/reagent/C = R.has_reagent(href_list["flushIR"])
+		linked_imprinter.lubricant_process(R, C, text2num(href_list["flushIV"]), MODE_COOLING)
+
+	else if(href_list["lubricatePR"] && linked_lathe) //Lubricates protolathe
+		var/datum/reagents/R = linked_lathe.reagents
+		var/datum/reagent/C = R.has_reagent(href_list["lubricatePR"])
+		linked_lathe.lubricant_process(R, C, text2num(href_list["lubricatePV"]), MODE_LUBRICATION)
+
+	else if(href_list["flushPR"] && linked_lathe) //flushes protolathe with coolant
+		var/datum/reagents/R = linked_lathe.reagents
+		var/datum/reagent/C = R.has_reagent(href_list["flushPR"])
+		linked_lathe.lubricant_process(R, C, text2num(href_list["flushPV"]), MODE_COOLING)
 
 	else if(href_list["lathe_ejectsheet"] && linked_lathe) //Causes the protolathe to eject a sheet of material
 		var/desired_num_sheets = text2num(href_list["lathe_ejectsheet_amt"])
@@ -560,6 +740,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	else if(href_list["find_device"]) //The R&D console looks for devices nearby to link up with.
 		screen = 0.0
 		spawn(20)
+			system_output = ""
 			SyncRDevices()
 			screen = 1.7
 			updateUsrDialog()
@@ -679,8 +860,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				dat += "<A href='?src=\ref[src];menu=4.1'>Circuit Construction Menu</A><BR>"
 			else
 				dat += "<span class='linkOff'>Circuit Construction Menu</span><BR>"
-			dat += "<A href='?src=\ref[src];menu=1.6'>Settings</A>"
+			dat += "<A href='?src=\ref[src];menu=1.6'>Settings</A><BR>"
+			if(linked_destroy)
+				dat += "<HR>DESTRUCTIVE ANALYZER SYSTEM OUTPUT: [linked_destroy.system_output]"
+			if(system_output)
+				dat += "<HR>[system_output]"
 			dat += "</div>"
+
 
 		if(1.1) //Research viewer
 			dat += "<A href='?src=\ref[src];menu=1.0'>Main Menu</A>"
@@ -828,7 +1014,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			dat += "<A href='?src=\ref[src];menu=3.3'>Chemical Storage</A><div class='statusDisplay'>"
 			dat += "<h3>Protolathe Menu:</h3><BR>"
 			dat += "<B>Material Amount:</B> [linked_lathe.TotalMaterials()] / [linked_lathe.max_material_storage]<BR>"
-			dat += "<B>Chemical Volume:</B> [linked_lathe.reagents.total_volume] / [linked_lathe.reagents.maximum_volume]<BR>"
+			dat += "<B>Chemical Volume:</B> [linked_lathe.reagents.total_volume] / [linked_lathe.reagents.maximum_volume] ([linked_lathe.reagents.chem_temp] K)<BR>"
+			dat += "<B>Lubricity:</B> [linked_lathe.lubricity]%<BR>"
+			dat += "<B>Temperature:</B> [round(linked_lathe.machinetemp)] K<HR>"
+			dat += "SYSTEM OUTPUT: [linked_lathe.system_output]"
+			dat +="<HR>"
 
 			dat += "<form name='search' action='?src=\ref[src]'> \
 			<input type='hidden' name='src' value='\ref[src]'> \
@@ -841,12 +1031,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			dat += list_categories(linked_lathe.categories, 3.15)
 
 		//Grouping designs by categories, to improve readability
+		//Sure, "readability". It took me 2 fucking hours just to figure out how this mess worked. And now I've added more to it ;^)
+
 		if(3.15)
 			dat += "<A href='?src=\ref[src];menu=1.0'>Main Menu</A>"
 			dat += "<A href='?src=\ref[src];menu=3.1'>Protolathe Menu</A>"
 			dat += "<div class='statusDisplay'><h3>Browsing [selected_category]:</h3><BR>"
 			dat += "<B>Material Amount:</B> [linked_lathe.TotalMaterials()] / [linked_lathe.max_material_storage]<BR>"
-			dat += "<B>Chemical Volume:</B> [linked_lathe.reagents.total_volume] / [linked_lathe.reagents.maximum_volume]<HR>"
+			dat += "<B>Chemical Volume:</B> [linked_lathe.reagents.total_volume] / [linked_lathe.reagents.maximum_volume] ([linked_lathe.reagents.chem_temp] K)<BR>"
+			dat += "<B>Lubricity:</B> [linked_lathe.lubricity]%<BR>"
+			dat += "<B>Temperature:</B> [round(linked_lathe.machinetemp)] K<HR>"
+			dat += "SYSTEM OUTPUT: [linked_lathe.system_output]"
+			dat +="<HR>"
 
 			var/coeff = linked_lathe.efficiency_coeff
 			for(var/datum/design/D in files.known_designs)
@@ -881,7 +1077,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			dat += "<A href='?src=\ref[src];menu=3.1'>Protolathe Menu</A>"
 			dat += "<div class='statusDisplay'><h3>Search results:</h3><BR>"
 			dat += "<B>Material Amount:</B> [linked_lathe.TotalMaterials()] / [linked_lathe.max_material_storage]<BR>"
-			dat += "<B>Chemical Volume:</B> [linked_lathe.reagents.total_volume] / [linked_lathe.reagents.maximum_volume]<HR>"
+			dat += "<B>Chemical Volume:</B> [linked_lathe.reagents.total_volume] / [linked_lathe.reagents.maximum_volume] ([linked_lathe.reagents.chem_temp] K)<BR>"
+			dat += "<B>Lubricity:</B> [linked_lathe.lubricity]%<BR>"
+			dat += "<B>Temperature:</B> [round(linked_lathe.machinetemp)] K<HR>"
+			dat += "SYSTEM OUTPUT: [linked_lathe.system_output]"
+			dat +="<HR>"
 
 			var/coeff = linked_lathe.efficiency_coeff
 			for(var/datum/design/D in matching_designs)
@@ -965,11 +1165,36 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if(3.3)
 			dat += "<A href='?src=\ref[src];menu=1.0'>Main Menu</A>"
 			dat += "<A href='?src=\ref[src];menu=3.1'>Protolathe Menu</A>"
-			dat += "<A href='?src=\ref[src];disposeallP=1'>Disposal All Chemicals in Storage</A><div class='statusDisplay'>"
-			dat += "<h3>Chemical Storage:</h3><BR><HR>"
+			dat += "<A href='?src=\ref[src];disposeallP=1'>Dispose All Chemicals in Storage</A><div class='statusDisplay'>"
+			dat += "<h3>Chemical Storage:</h3><BR>"
+			dat +="<HR>"
+			dat += "SYSTEM OUTPUT: [linked_lathe.system_output]"
+			dat +="<HR>"
+			dat += "<B>CURRENT REAGENT BUFFER TEMPERATURE AVERAGE:</B> ([linked_lathe.reagents.chem_temp] K)<BR>"
 			for(var/datum/reagent/R in linked_lathe.reagents.reagent_list)
-				dat += "[R.name]: [R.volume]"
-				dat += "<A href='?src=\ref[src];disposeP=[R.id]'>Purge</A><BR>"
+				if(is_lubricant(R) || is_coolant(R))
+					dat += "<B>[R.name]</B>: [R.volume]"
+					dat += "<A href='?src=\ref[src];disposeP=[R.id]'>Purge</A> <BR>"
+					if(is_lubricant(R))
+						if(R.volume >= 1) dat += "<A href='?src=\ref[src];lubricatePR=[R.id];lubricatePV=1'>Lubricate</A>"
+						if(R.volume >= 5) dat += "<A href='?src=\ref[src];lubricatePR=[R.id];lubricatePV=5'>5</A>"
+						if(R.volume >= 10) dat += "<A href='?src=\ref[src];lubricatePR=[R.id];lubricatePV=10'>10</A>"
+						if(R.volume >= 25) dat += "<A href='?src=\ref[src];lubricatePR=[R.id];lubricatePV=25'>25</A>"
+						if(R.volume >= 50) dat += "<A href='?src=\ref[src];lubricatePR=[R.id];lubricatePV=50'>50</A>"
+						if(R.volume >= 1) dat += "<A href='?src=\ref[src];lubricatePR=[R.id];lubricatePV=[R.volume]'>All</A>"
+						dat += "<BR>"
+					if (is_coolant(R))
+						if(R.volume >= 1) dat += "<A href='?src=\ref[src];flushPR=[R.id];flushPV=1'>Flush</A>"
+						if(R.volume >= 5) dat += "<A href='?src=\ref[src];flushPR=[R.id];flushPV=5'>5</A>"
+						if(R.volume >= 10) dat += "<A href='?src=\ref[src];flushPR=[R.id];flushPV=10'>10</A>"
+						if(R.volume >= 25) dat += "<A href='?src=\ref[src];flushPR=[R.id];flushPV=25'>25</A>"
+						if(R.volume >= 50) dat += "<A href='?src=\ref[src];flushPR=[R.id];flushPV=50'>50</A>"
+						if(R.volume >= 1) dat += "<A href='?src=\ref[src];flushPR=[R.id];flushPV=[R.volume]'>All</A>"
+						dat += "<BR>"
+				else
+					dat += "[R.name]: [R.volume]"
+					dat += "<A href='?src=\ref[src];disposeP=[R.id]'>Purge</A>"
+					dat += "<BR>"
 
 		///////////////////CIRCUIT IMPRINTER SCREENS////////////////////
 		if(4.0)
@@ -982,7 +1207,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			dat += "<A href='?src=\ref[src];menu=4.2'>Chemical Storage</A><div class='statusDisplay'>"
 			dat += "<h3>Circuit Imprinter Menu:</h3><BR>"
 			dat += "Material Amount: [linked_imprinter.TotalMaterials()]<BR>"
-			dat += "Chemical Volume: [linked_imprinter.reagents.total_volume]<HR>"
+			dat += "Chemical Volume: [linked_imprinter.reagents.total_volume] ([linked_imprinter.get_acid_amt()] \[A\]) ([linked_imprinter.reagents.chem_temp] K) <BR>"
+			dat += "<B>Lubricity:</B> [linked_imprinter.lubricity]%<BR>"
+			dat += "<B>Temperature:</B> [round(linked_imprinter.machinetemp)] K<HR>"
+			dat += "SYSTEM OUTPUT: [linked_imprinter.system_output]"
+			dat +="<HR>"
 
 			dat += "<form name='search' action='?src=\ref[src]'> \
 			<input type='hidden' name='src' value='\ref[src]'> \
@@ -999,7 +1228,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			dat += "<A href='?src=\ref[src];menu=4.1'>Circuit Imprinter Menu</A>"
 			dat += "<div class='statusDisplay'><h3>Browsing [selected_category]:</h3><BR>"
 			dat += "Material Amount: [linked_imprinter.TotalMaterials()]<BR>"
-			dat += "Chemical Volume: [linked_imprinter.reagents.total_volume]<HR>"
+			dat += "Chemical Volume: [linked_imprinter.reagents.total_volume] ([linked_imprinter.get_acid_amt()] \[A\]) ([linked_imprinter.reagents.chem_temp] K) <BR>"
+			dat += "<B>Lubricity:</B> [linked_imprinter.lubricity]%<BR>"
+			dat += "<B>Temperature:</B> [round(linked_imprinter.machinetemp)] K<HR>"
+			dat += "SYSTEM OUTPUT: [linked_imprinter.system_output]"
+			dat +="<HR>"
 
 			var/coeff = linked_imprinter.efficiency_coeff
 			for(var/datum/design/D in files.known_designs)
@@ -1025,7 +1258,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			dat += "<A href='?src=\ref[src];menu=4.1'>Circuit Imprinter Menu</A>"
 			dat += "<div class='statusDisplay'><h3>Search results:</h3><BR>"
 			dat += "Material Amount: [linked_imprinter.TotalMaterials()]<BR>"
-			dat += "Chemical Volume: [linked_imprinter.reagents.total_volume]<HR>"
+			dat += "Chemical Volume: [linked_imprinter.reagents.total_volume] ([linked_imprinter.get_acid_amt()] \[A\]) ([linked_imprinter.reagents.chem_temp] K)<BR>"
+			dat += "<B>Lubricity:</B> [linked_imprinter.lubricity]%<BR>"
+			dat += "<B>Temperature:</B> [round(linked_imprinter.machinetemp)] K<HR>"
+			dat += "SYSTEM OUTPUT: [linked_imprinter.system_output]"
+			dat +="<HR>"
 
 			var/coeff = linked_imprinter.efficiency_coeff
 			for(var/datum/design/D in matching_designs)
@@ -1047,11 +1284,44 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if(4.2)
 			dat += "<A href='?src=\ref[src];menu=1.0'>Main Menu</A>"
 			dat += "<A href='?src=\ref[src];menu=4.1'>Imprinter Menu</A>"
-			dat += "<A href='?src=\ref[src];disposeallI=1'>Disposal All Chemicals in Storage</A><div class='statusDisplay'>"
-			dat += "<h3>Chemical Storage:</h3><BR><HR>"
+			dat += "<A href='?src=\ref[src];disposeallI=1'>Dispose All Chemicals in Storage</A><div class='statusDisplay'>"
+			dat += "<h3>Chemical Storage:</h3><BR>"
+			dat +="<HR>"
+			dat += "SYSTEM OUTPUT: [linked_imprinter.system_output]"
+			dat +="<HR>"
+			dat += "<B>CURRENT REAGENT BUFFER TEMPERATURE AVERAGE:</B> ([linked_imprinter.reagents.chem_temp] K)<BR>"
 			for(var/datum/reagent/R in linked_imprinter.reagents.reagent_list)
-				dat += "[R.name]: [R.volume]"
-				dat += "<A href='?src=\ref[src];disposeI=[R.id]'>Purge</A><BR>"
+				if (istype(R, /datum/reagent/toxin/acid) && !istype(R, /datum/reagent/toxin/acid/polyacid))
+					dat += "<b>Sulphuric Acid:</b> [R.volume]"
+					dat += "<A href='?src=\ref[src];disposeI=[R.id]'>Purge</A><BR>"
+				else if (istype(R, /datum/reagent/toxin/acid/polyacid))
+					dat += "<b>Polytrinic Acid:</b> [R.volume]"
+					dat += "<A href='?src=\ref[src];disposeI=[R.id]'>Purge</A><BR>"
+				else if(is_lubricant(R) || is_coolant(R))
+					dat += "<B>[R.name]</B>: [R.volume]"
+					dat += "<A href='?src=\ref[src];disposeP=[R.id]'>Purge</A>"
+					if(is_lubricant(R))
+						dat += "<BR>"
+						if(R.volume >= 1) dat += "<A href='?src=\ref[src];lubricateIR=[R.id];lubricateIV=1'>Lubricate</A>"
+						if(R.volume >= 5) dat += "<A href='?src=\ref[src];lubricateIR=[R.id];lubricateIV=5'>5</A>"
+						if(R.volume >= 10) dat += "<A href='?src=\ref[src];lubricateIR=[R.id];lubricateIV=10'>10</A>"
+						if(R.volume >= 25) dat += "<A href='?src=\ref[src];lubricateIR=[R.id];lubricateIV=25'>25</A>"
+						if(R.volume >= 50) dat += "<A href='?src=\ref[src];lubricateIR=[R.id];lubricateIV=50'>50</A>"
+						if(R.volume >= 1) dat += "<A href='?src=\ref[src];lubricateIR=[R.id];lubricateIV=[R.volume]'>All</A>"
+						dat += "<BR>"
+					if (is_coolant(R))
+						dat += "<BR>"
+						if(R.volume >= 1) dat += "<A href='?src=\ref[src];flushIR=[R.id];flushIV=1'>Flush</A>"
+						if(R.volume >= 5) dat += "<A href='?src=\ref[src];flushIR=[R.id];flushIV=5'>5</A>"
+						if(R.volume >= 10) dat += "<A href='?src=\ref[src];flushIR=[R.id];flushIV=10'>10</A>"
+						if(R.volume >= 25) dat += "<A href='?src=\ref[src];flushIR=[R.id];flushIV=25'>25</A>"
+						if(R.volume >= 50) dat += "<A href='?src=\ref[src];flushIR=[R.id];flushIV=50'>50</A>"
+						if(R.volume >= 1) dat += "<A href='?src=\ref[src];flushIR=[R.id];flushIV=[R.volume]'>All</A>"
+						dat += "<BR>"
+				else
+					dat += "[R.name]: [R.volume]"
+					dat += "<A href='?src=\ref[src];disposeP=[R.id]'>Purge</A>"
+					dat += "<BR>"
 
 		if(4.3)
 			dat += "<A href='?src=\ref[src];menu=1.0'>Main Menu</A>"

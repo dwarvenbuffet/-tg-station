@@ -165,7 +165,7 @@
 	else
 		if(istype(loc, /turf/simulated))
 			var/turf/simulated/tile = loc
-			tile.MakeSlippery()
+			tile.MakeSlippery(SLIPPERY_TURF_WATER)
 
 
 /obj/machinery/shower/attackby(obj/item/I, mob/user, params)

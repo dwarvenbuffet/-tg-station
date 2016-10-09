@@ -351,8 +351,10 @@ var/list/slot_equipment_priority = list( \
 		src << "<span class='notice'>Something is there but you can't see it.</span>"
 		return
 
-	face_atom(A)
 	A.examine(src)
+	if(!tased)
+		face_atom(A)
+
 
 //same as above
 //note: ghosts can point, this is intended
@@ -784,7 +786,6 @@ var/list/slot_equipment_priority = list( \
 	if(restrained())					return 0
 	return 1
 
-
 //Updates canmove, lying and icons. Could perhaps do with a rename but I can't think of anything to describe it.
 //Robots and brains have their own version so don't worry about them
 /mob/proc/update_canmove()
@@ -803,10 +804,10 @@ var/list/slot_equipment_priority = list( \
 	if(buckled)
 		lying = 90*buckle_lying
 	else
-		if((ko || resting || !has_legs) && !lying)
+		if((ko || resting || tased || !has_legs) && !lying)
 			fall(ko)
 	//canmove = !(ko || resting || stunned || buckled || (!has_legs && !has_arms)) //Use this if you want people legless and armless to be totally unable to move
-	canmove = !(ko || resting || stunned || buckled)
+	canmove = !(ko || resting || stunned || tased || buckled)
 	density = !lying
 	if(lying)
 		if(layer == initial(layer)) //to avoid special cases like hiding larvas.
@@ -888,6 +889,24 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/AdjustStunned(amount)
 	if(status_flags & CANSTUN)
 		stunned = max(stunned + amount,0)
+		update_canmove()
+	return
+
+/mob/proc/Tase(amount)
+	if(status_flags & CANSTUN)
+		tased = max(max(tased,amount),0)
+		update_canmove()
+	return
+
+/mob/proc/SetTased(amount)
+	if(status_flags & CANSTUN)
+		tased = max(amount,0)
+		update_canmove()
+	return
+
+/mob/proc/AdjustTased(amount)
+	if(status_flags & CANSTUN)
+		tased = max(tased + amount,0)
 		update_canmove()
 	return
 

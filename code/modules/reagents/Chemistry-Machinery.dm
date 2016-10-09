@@ -1558,10 +1558,10 @@
 /obj/machinery/reagentgrinder/proc/crystal_fail()
 
 	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
-		visible_message("<span class='warning'>The [src.name] sparkles and fizzes!</span>")
 		var/shouldteleport = prob(5)
 		if (shouldteleport)
 			if (M.rating == 1)
+				visible_message("<span class='warning'>The [src.name] sparkles and fizzes!</span>") //boy indenting is fucking hard
 				explosion(get_turf(src.loc),0,1,2,3)
 				for (var/atom/movable/teleportthis in view(3, src.loc)) //purloined from anomaly code
 					if(istype(teleportthis, /obj/item/device/beacon))

@@ -277,6 +277,8 @@
 						M.spin(1,1)
 				if(M.lying) //did I fall over?
 					M.adjustBruteLoss(2)
+			if(lube&BLUESPACE_SLIPPERY)
+				do_teleport(M, get_turf(M), 3, asoundin = 'sound/effects/phasein.ogg')
 			if(O)
 				M << "<span class='notice'>You slipped on the [O.name]!</span>"
 			else

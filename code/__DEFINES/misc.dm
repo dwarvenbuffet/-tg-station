@@ -145,6 +145,11 @@
 #define INV_SLOT_SIGHT "sight_slot"
 #define INV_SLOT_TOOL "tool_slot"
 
+//things that are funny
+#define SLIPPERY_TURF_WATER 1
+#define SLIPPERY_TURF_LUBE 2
+#define SLIPPERY_TURF_BLUBE 3
+
 //take your time
 #define SECONDS * 10
 #define MINUTES * 600
