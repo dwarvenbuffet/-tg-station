@@ -29,6 +29,7 @@
 	var/list/datum/design/matching_designs
 	var/selected_category
 	var/screen = 1
+	var/user_message = ""
 
 	var/list/categories = list(
 							"Tools",
@@ -117,8 +118,16 @@
 	if(!materials.has_space(material_amount))
 		user << "<span class='warning'>The autolathe is full. Please remove metal or glass from the autolathe in order to insert more.</span>"
 		return 1
+
 	busy = 1
 
+	user_message = autolathe_insert_item(O)
+	user << user_message
+
+	busy = 0
+	src.updateUsrDialog()
+
+/obj/machinery/autolathe/proc/autolathe_insert_item(obj/item/O)
 	var/inserted = materials.insert_item(O)
 	if(inserted)
 		if(istype(O,/obj/item/stack))
@@ -126,14 +135,30 @@
 				flick("autolathe_o",src)//plays metal insertion animation
 			if (O.materials[MAT_GLASS])
 				flick("autolathe_r",src)//plays glass insertion animation
-			user << "<span class='notice'>You insert [inserted] sheet[inserted>1 ? "s" : ""] to the autolathe.</span>"
 			use_power(inserted*100)
+			return "<span class='notice'>You insert [inserted] sheet[inserted>1 ? "s" : ""] to the autolathe.</span>"
 		else
-			user << "<span class='notice'>You insert a material total of [inserted] to the autolathe.</span>"
 			use_power(max(500,inserted/10))
 			qdel(O)
-	busy = 0
-	src.updateUsrDialog()
+			return "<span class='notice'>You insert a material total of [inserted] to the autolathe.</span>"
+
+/obj/machinery/autolathe/storage_contents_dump_act(obj/item/weapon/storage/src_object, mob/user) //add to processing
+	if(busy || panel_open || stat)
+		return 1
+	var/processed_material = 0
+	for(var/obj/item/I in src_object)
+		var/datum/material/item_metal = I.materials[MAT_METAL]
+		var/datum/material/item_glass = I.materials[MAT_GLASS]
+		var/material_amount = materials.can_insert(I)
+		if(material_amount && materials.has_space(material_amount))
+			if(item_metal)
+				processed_material += item_metal
+			if(item_glass)
+				processed_material += item_glass
+			src_object.remove_from_storage(I, src)
+			autolathe_insert_item(I)
+	user << "You insert a material total of [processed_material] to the autolathe."
+	return 1
 
 /obj/machinery/autolathe/attack_paw(mob/user)
 	return attack_hand(user)

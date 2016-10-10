@@ -265,8 +265,8 @@
 /obj/structure/reagent_dispensers/mutagen
 	name = "Unstable Mutagen Dispenser"
 	desc = "A dispenser of unstable mutagen."
-	icon = 'icons/obj/objects.dmi'
-	icon_state = "virusfoodtank"
+	icon = 'icons/obj/hydroponics/equipment.dmi'
+	icon_state = "mutagen_dispenser"
 	amount_per_transfer_from_this = 10
 	anchored = 1
 

@@ -231,7 +231,7 @@
 
 //This proc return 1 if the item can be picked up and 0 if it can't.
 //Set the stop_messages to stop it from printing messages
-/obj/item/weapon/storage/proc/can_be_inserted(obj/item/W, stop_messages = 0, mob/user)
+/obj/item/weapon/storage/proc/can_be_inserted(obj/item/W, stop_messages = 0, mob/user, var/quick_flag = 0) //quick_flag means we're quick-gathering.
 	if(!istype(W) || (W.flags & ABSTRACT)) return //Not an item
 
 	if(loc == W)
@@ -282,6 +282,11 @@
 	if(W.flags & NODROP) //SHOULD be handled in unEquip, but better safe than sorry.
 		usr << "<span class='notice'>\the [W] is stuck to your hand, you can't put it in \the [src]</span>"
 		return 0
+
+	if(W.flags & NO_QUICK_GATHER) //You can insert it manually, but not via quick-gather (see attackby proc in items.dm)
+		if(quick_flag) //if we're quick-gathering, relay this message
+			usr << "<span class='notice'>You can't seem to fit the [W] into \the [src] properly. Try manually inserting it instead.</span>"
+		return NO_QUICK_GATHER //No quick gather.
 
 	return 1
 
