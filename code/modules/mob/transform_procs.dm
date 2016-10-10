@@ -95,6 +95,8 @@
 	if (tr_flags & TR_DEFAULTMSG)
 		O << "<B>You are now a monkey.</B>"
 
+	O.update_pipe_vision()
+
 	for(var/A in loc.vars)
 		if(loc.vars[A] == src)
 			loc.vars[A] = O
@@ -218,6 +220,8 @@
 	if (tr_flags & TR_DEFAULTMSG)
 		O << "<B>You are now a human.</B>"
 
+	O.update_pipe_vision()
+
 	updateappearance(O)
 	. = O
 
@@ -263,6 +267,8 @@
 		mind.transfer_to(O)
 	else
 		O.key = key
+
+	O.update_pipe_vision()
 
 	var/obj/loc_landmark
 	for(var/obj/effect/landmark/start/sloc in landmarks_list)
@@ -345,6 +351,8 @@
 	else
 		O.key = key
 
+	O.update_pipe_vision()
+
 	O.loc = loc
 	O.job = "Cyborg"
 	O.notify_ai(1)
@@ -384,6 +392,7 @@
 	O.loc = loc
 	O.job = "MoMMI"
 	O.updateicon()
+	O.update_pipe_vision()
 	qdel(src)
 	return O
 
@@ -415,6 +424,7 @@
 	new_xeno.key = key
 
 	new_xeno << "<B>You are now an alien.</B>"
+	new_xeno.update_pipe_vision()
 	. = new_xeno
 	qdel(src)
 
@@ -444,7 +454,7 @@
 		new_slime = new /mob/living/carbon/slime(loc)
 	new_slime.a_intent = "harm"
 	new_slime.key = key
-
+	new_slime.update_pipe_vision()
 	new_slime << "<B>You are now a slime. Skreee!</B>"
 	. = new_slime
 	qdel(src)
@@ -479,7 +489,7 @@
 	var/mob/living/simple_animal/corgi/new_corgi = new /mob/living/simple_animal/corgi (loc)
 	new_corgi.a_intent = "harm"
 	new_corgi.key = key
-
+	new_corgi.update_pipe_vision()
 	new_corgi << "<B>You are now a Corgi. Yap Yap!</B>"
 	. = new_corgi
 	qdel(src)
@@ -511,8 +521,8 @@
 	new_mob.key = key
 	new_mob.a_intent = "harm"
 
-
 	new_mob << "You suddenly feel more... animalistic."
+	new_mob.update_pipe_vision()
 	. = new_mob
 	qdel(src)
 
@@ -530,7 +540,7 @@
 	new_mob.key = key
 	new_mob.a_intent = "harm"
 	new_mob << "You feel more... animalistic"
-
+	new_mob.update_pipe_vision()
 	. = new_mob
 	qdel(src)
 
