@@ -17,6 +17,7 @@
 #define ABSTRACT    	128		// for all things that are technically items but used for various different stuff, made it 128 because it could conflict with other flags other way
 #define FPRINT			256		// takes a fingerprint
 #define ON_BORDER		512		// item has priority to check when entering or leaving
+#define NO_QUICK_GATHER 2048	// Prevents item from being quick-gathered because muh balance.
 
 /* what the actual fuck
 #define GLASSESCOVERSEYES	1024

@@ -621,13 +621,13 @@ Class Procs:
 				user << "<span class='notice'>Following parts detected in the machine:</span>"
 				for(var/var/obj/item/C in component_parts)
 					user << "<span class='notice'>    [C.name]</span>"
-			for(var/obj/item/weapon/stock_parts/A in component_parts)
+			for(var/obj/item/weapon/A in component_parts) //"Feels good to me?" I wish it did to me.
 				for(var/D in CB.req_components)
-					if(ispath(A.type, D))
-						P = D
+					if(ispath(A.type, D)) //if it's a req_component (aka not a circuit board)
+						P = D //this is the part we're replacing in the machine and we're looking for in the rped
 						break
-				for(var/obj/item/weapon/stock_parts/B in W.contents)
-					if(istype(B, P) && istype(A, P))
+				for(var/obj/item/weapon/B in W.contents)
+					if(istype(B, P) && istype(A, P)) //if we have this part in the rped continue
 						if(B.rating > A.rating)
 							W.remove_from_storage(B, src)
 							W.handle_item_insertion(A, 1)
