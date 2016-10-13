@@ -15,4 +15,5 @@ SpaghettiScience = Game Admin
 Doubleplus = Game Admin
 TowerShield = Moderator
 Ddraigg = Admin Candidate
+Compactusdiskus = Admin Candidate
 Zaers = Coder
