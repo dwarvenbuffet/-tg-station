@@ -361,6 +361,16 @@ var/datum/subsystem/ticker/ticker
 					Player << "<font color='green'><b>You managed to survive the events on [station_name()] as [Player.real_name].</b></FONT>"
 			else
 				Player << "<font color='red'><b>You did not survive the events on [station_name()]...</b></FONT>"
+#ifdef CREW_OBJECTIVES
+			var/datum/mind/M = Player.mind
+			var/count = 0
+			for(var/datum/objective/crew/CO in M.objectives)
+				count++
+				if(CO.check_completion())
+					Player << "<B>Objective #[count]</B>: [CO.explanation_text] <span style=\"color:green\"><B>Success</B></span>"
+				else
+					Player << "<B>Objective #[count]</B>: [CO.explanation_text] <span style=\"color:red\"><B>Failed</B></span>"
+#endif
 
 	//Round statistics report
 	var/datum/station_state/end_state = new /datum/station_state()

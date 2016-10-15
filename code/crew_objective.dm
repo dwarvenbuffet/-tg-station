@@ -610,12 +610,12 @@
 							return 1
 					else return 0
 		clown
-			explanation_text = "Escape on the shuttle alive wearing at least one piece of clown clothing."
+			explanation_text = "Escape on the shuttle alive wearing a clown mask."
 			
 			check_completion()
-				if(owner.current && ishuman(owner.current))
-					var/mob/living/carbon/human/H = owner.current
-					if(istype(H.wear_mask,/obj/item/clothing/mask/gas/clown_hat) || istype(H.w_uniform,/obj/item/clothing/under/rank/clown) || istype(H.shoes,/obj/item/clothing/shoes/clown_shoes)) return 1
+				if(owner.current && (ishuman(owner.current) || ismonkey(owner.current)))
+					var/mob/living/carbon/C = owner.current
+					if(istype(C.wear_mask,/obj/item/clothing/mask/gas/clown_hat)) return 1
 				return 0
 /*
 		chompski
