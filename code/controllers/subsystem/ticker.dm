@@ -176,6 +176,10 @@ var/datum/subsystem/ticker/ticker
 	create_characters() //Create player characters and transfer them
 	collect_minds()
 	equip_characters()
+	
+#ifdef CREW_OBJECTIVES
+	generate_crew_objectives()
+#endif
 
 	Master.RoundStart()
 
