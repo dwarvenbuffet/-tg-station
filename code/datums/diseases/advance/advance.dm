@@ -255,7 +255,7 @@ var/list/advance_cures = 	list(
 // Will generate a random cure, the less resistance the symptoms have, the harder the cure.
 /datum/disease/advance/proc/GenerateCure(var/list/properties = list())
 	if(properties && properties.len)
-		var/res = Clamp(properties["resistance"] - (symptoms.len / 2), 1, advance_cures.len)
+		var/res = Clamp(round(properties["resistance"] - (symptoms.len / 2)), 1, advance_cures.len)
 		//world << "Res = [res]"
 		cures = list(advance_cures[res])
 
