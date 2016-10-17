@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-  <title>NewStation 13 Changelog</title>
+  <title>CheesePizzastation 13 Changelog</title>
   <link rel="stylesheet" type="text/css" href="changelog.css">
   <base target="_blank" />
   <script type='text/javascript'>
@@ -23,9 +23,10 @@
 <table align='center' class="top">
 	<tr>
 		<td valign='top'>
-			<div align='center'><font size='3'><b>NewStation 13</b></font></div>
+			<div align='center'><font size='3'><b>CheesePizzaStation 13</b></font></div>
 			
-			<p><div align='center'><font size='3'><a href="https://8ch.net/v">Forum</a> | <a href="https://8station.miraheze.org/wiki/Main_Page">Wiki</a> | <a href="https://github.com/BigSlice/-tg-station">Source</a></font></div></p>
+			<p><div align='center'><font size='3'> <a href="http://www.tgstation13.org/wiki/Main_Page">Wiki</a> | <a href="https://github.com/Sierracode/-tg-station/">Source</a></font></div></p>
+			<font size='2'><b>Visit our Discord channel:</b> <a href="https://discord.gg/fgtAeQU">Discord</a> </font> <!--It'd be somewhat nice if these could be pulled from a template but that'd involve even MORE steps-->
 			</td>
 	</tr>
 </table>
@@ -33,15 +34,15 @@
 <table align='center' class="top">
 	<tr>
 		<td valign='top'>
-			<font size='2'><b>Current Project Maintainers:BigSlice</b><br></font>
-			<font size='2'><b>Currently Active GitHub contributor list:</b> <a href='https://github.com/BigSlice/-tg-station/graphs/contributors'>-Click Here-</a><br></font>
-			<font size='2'><b>Coders:</b> BigSlice, Merege<br></font> 
-			<font size='2'><b>Mappers:</b> BigSlice, Merege, T-Wiz<br></font>
-			<font size='2'><b>Spriters:</b> Nobody<br></font>
-			<font size='2'><b>Sounds:</b> Nobody<br></font>
-			<font size='2'><b>Main Testers:</b> BigSlice, Anyone who has submitted a bug to the issue tracker, The players<br></font>
-			<font size='2'><b>Thanks to:</b> PizzaStation, Hatestation, Baystation 12, /tg/station, /vg/station, NTstation, CDK Station devs, FacepunchStation, GoonStation devs, Metacide, the original SpaceStation developers and BigSlice for the title image.<br> Also a thanks to anybody who has contributed who is not listed here :^( Ask to be added here in OOC.</font>
-			<font size='2' color='red'><b><br>Have a bug to report?</b> Visit our <a href="https://github.com/BigSlice/-tg-station/issues?labels=Bug&state=open">Issue Tracker</a>.<br></font>
+			<font size='2'><b>Current Project Maintainers:</b> Sierra<br></font>
+			<font size='2'><b>Currently Active GitHub contributor list:</b> <a href='https://github.com/Sierracode/-tg-station/graphs/contributors'>-Click Here-</a><br></font>
+			<font size='2'><b>Coders:</b> Riesen, HONK-Science, Auron1213, Zaers<br></font> 
+			<font size='2'><b>Mappers:</b> Riesen, Zaers<br></font>
+			<font size='2'><b>Spriters:</b> KwataX11, Anon<br></font>
+			<font size='2'><b>Sounds:</b> Riesen<br></font>
+			<font size='2'><b>Main Testers:</b> Riesen, Zaers, Anyone who has submitted a bug to the issue tracker, The players<br></font>
+			<font size='2'><b>Thanks to:</b> Baystation 12, /tg/station, /vg/station, NTstation, CDK Station devs, FacepunchStation, GoonStation devs, Whoever made Metastation, the original SpaceStation developers and KwataX11 for the title image.<br> Also a thanks to anybody who has contributed who is not listed here :^( Ask to be added here on irc or in OOC.</font>
+			<font size='2' color='red'><b><br>Have a bug to report?</b> Visit our <a href="https://github.com/Sierracode/-tg-station/issues?labels=Bug&state=open">Issue Tracker</a>.<br></font>
 			<font size='2'>Please ensure that the bug has not already been reported and <u><a href="https://github.com/tgstation/-tg-station/issues/724"><b>use the template provided here</b></a></u>.</font>
 		</td>
 	</tr>
@@ -55,365 +56,58 @@
 		
 		-->
 		<div class="commit sansserif">
+
+			<h2 class="date">17 October 2016</h2>
+			<h3 class="author">Zaers updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Update the changelog.</li>
+			</ul>
+
 			<h2 class="date">23 June 2016</h2>
-			<h3 class="author">BigSlice updated:</h3>
+			<h3 class="author">Albinobigfoot updated:</h3>
 			<ul class="changes bgimages16">
-				<li class="bugfix">Toy double-bladed eswords will no longer cause dismemberment when wielded.</li>
+				<li class="rscadd">Added chainsaws to table crafting. Chainsaws can now serve as a ghetto circular saw for surgery, and can turn logs into planks.</li>
+				<li class="rscadd">Added missing inhands sprites for the chainsaw - chainsaw now properly displays on your character. Sprites by WalterJe.</li>
+				<li class="tweak">Chainsaw damage and research values adjusted, chainsaw no longer weakens, and the chainsaw now runs on fuel.</li>
+				<li class="tweak">Chainsaw code cleaned up, added chainsaw_attack var to sound.dm to reduce snowflake code.</li>
 			</ul>
-			<h3 class="author">Gamer56595857 updated:</h3>
+			<h3 class="author">Asd396 updated:</h3>
 			<ul class="changes bgimages16">
-				<li class="bugfix">Removed RNG from self-respiration.</li>
-				<li class="tweak">Regen symptom doesn't check for liggeritis anymore.</li>
+				<li class="rscadd">Added circuit imprinter board to secure tech storage.</li>
+				<li class="rscadd">New HTML interface ported from /tg/.</li>
+				<li class="rscadd">New crew monitor interface with minimap.</li>
+				<li class="rscadd">New playing cards. Click deck to shuffle, click people to deal them cards, click your hand to see it with options to reveal or remove cards.</li>
 			</ul>
-			
-			<h2 class="date">14 June 2016</h2>
-			<h3 class="author">Gamer56595857 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added limb-regen symptom to virology.</li>
-			</ul>
-			
-			<h2 class="date">12 June 2016</h2>
-			<h3 class="author">Gamer56595857 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Removed chemical generation from self-respiration, sensory restoration, and stimulant symptoms.</li>
-			</ul>
-			<h3 class="author">T-Wiz updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Added a crashed escape pod to the black market away mission.</li>
-				<li class="tweak">Replaced pen in the listening outpost mission with a sleepypen.</li>
-				<li class="tweak">Gave the airlocks in the listening outpost an access requirement, syndicate agent can no longer space himself.</li>
-				<li class="tweak">Added miner/scientist/doctor corpses to the Moon Outpost 19 away mission.</li>
-				<li class="tweak">Added a single active facehugger to xenos nest in Moon Outpost 19.</li>
-				<li class="tweak">Shrank/replaced the pool in the space hotel mission with actual pool tiles.</li>
-				<li class="tweak">Bolted down the door that leads to the xeno hotel room in the space hotel and opened it up to space.</li>
-				<li class="tweak">Replaced xeno queen corpses with xeno hunter corpses.</li>
-				<li class="tweak">Added various corpses and mobs to the station collision away mission.</li>
-				<li class="tweak">Moved an esword to inside the syndicate penetrator on the station collision mission.</li>
-			</ul>
-				
-			<h2 class="date">9 June 2016</h2>
-			<h3 class="author">T-Wiz updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Moved and remade Derelict R&D. </li>
-				<li class="tweak">Added air tanks to Derelict Atmos. </li>
-				<li class="tweak">Added autolathe board to Derelict AI Core.</li>
-				<li class="tweak">Added defibrilator to Derelict Medbay.</li>
-				<li class="tweak">Added RPD near Derelict Atmos.</li>
-				<li class="tweak">Prevented xenos from opening clown planet airlocks.</li>
-			</ul>
-			<h3 class="author">BigSlice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Removed unnecessary wooden barricades from clown planet.</li>
-				<li class="tweak">Illuminated mime town with pylons.</li>
-			</ul>
-			
-			<h2 class="date">3 June 2016</h2>
-			<h3 class="author">BigSlice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Ported inert virus fix.</li>
-				<li class="bugfix">Ported a fixed syndicate code response.</li>
-				<li class="tweak">The "Make Changelings" and "Make Traitors" admin buttons now only create one at a time, rather than 3.</li>
-				<li class="rscadd">Ported scarab and jihad viruses.</li>
-			</ul>
-			
-			<h2 class="date">29 May 2016</h2>
-			<h3 class="author">BigSlice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Removed the spellbook in the wizard academy and replaced it with something more appropriate.</li>
-			</ul>
-			<h3 class="author">Merege updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed some seed extractor interactions.</li>
-				<li class="bugfix">Vision penalties should now re-apply on reconnect.</li>
-			</ul>
-
-			<h2 class="date">28 May 2016</h2>
-			<h3 class="author">Merege updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed disposal pipe runtime.</li>
-				<li class="bugfix">Corn now properly contains corn oil.</li>
-				<li class="bugfix">You can no longer generate infinite reagents with the pandemic machine.</li>
-			</ul>
-			
-			<h2 class="date">27 May 2016</h2>
-			<h3 class="author">BigSlice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Added regular helmets to sec, warden, hos, hop, captain, and detective lockers.</li>
-			</ul>
-			<h3 class="author">Merege updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed some runtimes.</li>
-				<li class="bugfix">Fixed eguns not rechambering when switching firing modes.</li>
-				<li class="bugfix">Fixed restart vote spamming during restarts.</li>
-				<li class="bugfix">Fix NOBLEED dismembered organs being counted for brute damage.</li>
-				<li class="bugfix">Fixed a time of check/time of use issue for communications consoles.</li>
-			</ul>
-			
-			<h2 class="date">24 May 2016</h2>
-			<h3 class="author">BigSlice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="experiment">Lowered the price of ebows by 1 crystal.</li>
-				<li class="rscadd">Brought back named human burgers, and corgi burgers.</li>
-				<li class="rscadd">Brought back dna aide/saboteur virology symptoms.</li>
-				<li class="rscadd">Brought back bulldog bioterror magazines for nukeops.</li>
-				<li class="tweak">Removed range limits from foam darts and xray guns.</li>
-				<li class="tweak">Removed telescopic baton from detective.</li>
-			</ul>
-			<h3 class="author">Merege updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed manifest double injection.</li>
-				<li class="bugfix">Fixed broken icon in the corporate showroom.</li>
-			</ul>
-			
-			<h2 class="date">22 May 2016</h2>
-			<h3 class="author">Merege updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Made some procs properly respect baseturf.</li>
-				<li class="bugfix">Properly set some of the mining asteroid baseturfs.</li>
-				<li class="bugfix">Fixed storage implant.</li>
-				<li class="bugfix">Fixed whispering getting doubly encoded when using :w.</li>
-				<li class="bugfix">Fixed airlocks not cycling properly when using the associated control panel.</li>
-				<li class="tweak">Made the auxiliary turbine vent a blast door again.</li>
-				<li class="tweak">Alien neurotoxin projectiles now give newtonian movement in space.</li>
-				<li class="tweak">Made Gibtonite not explode immediately from a direct hit with a Kinetic Accelerator.</li>
-				<li class="tweak">Made is_type_in_list less likely to clobber stuff.</li>
-				<li class="tweak">Anchored beings don't have a float animation anymore.</li>
-				<li class="tweak">MMIs now don't automatically lock when you insert a brain in them.</li>
-				<li class="tweak">The game now prints a message when mobs are bumped by meteors.</li>
-				<li class="tweak">Raised the amount of time certain jobs have to rename themselves when they join.</li>
-				<li class="tweak">Improved pointing logic.</li>
-				<li class="tweak">Resurrection projectiles now heal missing limbs.</li>
-				<li class="tweak">Improved hijack objective non-human mob checks.</li>
-				<li class="rscadd">Ported tg hallucinations.</li>
-				<li class="rscadd">Ported tg remove firing pin recipe.</li>
-			</ul>
-			<h3 class="author">BigSlice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="experiment">Added various firing pin designs to the protolathe.</li>
-				<li class="bugfix">Fixed dna-keyed firing pin icons.</li>
-				<li class="tweak">Buffed cigars.</li>
-				<li class="tweak">Removed ChemMaster 3000 and Chem Dispenser from xenobiology.</li>
-				<li class="tweak">Added experimentor to xenobiology.</li>
-				<li class="tweak">Tweaked armoury contraband spawners so one combat shotgun always spawns.</li>
-				<li class="tweak">Moved Station Blueprints to the CE's desk from his locker.</li>
-				<li class="tweak">Removed loyalty firing pin recipe from the autolathe.</li>
-				<li class="tweak">Nerfed ORM upgrade bonus for sheets.</li>
-			</ul>
-
-			<h2 class="date">19 May 2016</h2>
-			<h3 class="author">BigSlice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Added uranium and silver bars to appropriate places.</li>
-				<li class="tweak">Moved a paper on port solars out of the way.</li>
-				<li class="tweak">Added a second pinpointer to the HoS office.</li>
-			</ul>
-			
-			<h2 class="date">18 May 2016</h2>
-			<h3 class="author">Merege updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed brain sight flags not resetting if it's alive.</li>
-				<li class="bugfix">Fixed husking and acid damage.</li>
-				<li class="bugfix">Made the cancel button properly cancel an order in the shuttle console.</li>
-				<li class="bugfix">Fixed FEV and reincluded it.</li>
-				<li class="bugfix">Fixed some diseases being resistible when they shouldn't be.</li>
-				<li class="bugfix">Fixed grinder logic.</li>
-				<li class="bugfix">Fixed monkey-humans not having a blood type.</li>
-				<li class="bugfix">Made cavity implanting properly add the item to the target's content list.</li>
-				<li class="bugfix">The correct proc is now being used for getting gib tile visibility.</li>
-				<li class="bugfix">Fixed storage dumping things when it shouldn't.</li>
-				<li class="tweak">Ling blade and shield now grow an arm if you're missing one.</li>
-				<li class="tweak">Refactored get_organ proc.</li>
-				<li class="tweak">The cargo console view requests button now shows the point cost of approving requests.</li>
-				<li class="tweak">Made pandemic save a copy of the disease instead of a pointer to the beaker.</li>
-				<li class="tweak">Simplified sheet grinding.</li>
-				<li class="tweak">Made escape shuttle propulsion block whole.</li>
-			</ul>
-			<h3 class="author">BigSlice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Lowered spontaneous appendicitis weight.</li>
-				<li class="tweak">Increased disease outbreak weight.</li>
-			</ul>
-			
-			<h2 class="date">16 May 2016</h2>
-			<h3 class="author">Merege updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed a runtime.</li>
-				<li class="bugfix">Fixed a broken supermatter check.</li>
-				<li class="bugfix">Fixed ventcrawling not updating location.</li>
-				<li class="bugfix">Fixed monkey swap hands not working.</li>
-				<li class="bugfix">Made monkeys taking stuff out of storage use the correct proc.</li>
-				<li class="bugfix">Losing both legs will now properly knock you down.</li>
-				<li class="bugfix">Implants are no longer edible.</li>
-				<li class="bugfix">Fixed status displays getting stuck on the friend computer mode.</li>
-				<li class="tweak">Made windows always print a message when hit by a non-ID weapon.</li>
-				<li class="tweak">Tweaked freezer/heater upgrades using an unreasonable amount of power.</li>
-				<li class="tweak">Made suit sensors start with all columns shown.</li>
-				<li class="tweak">Ported some list check optimization.</li>
-				<li class="tweak">You now have a chance to stun people when you throw your activated baton/prod at them.</li>
-			</ul>
-			<h3 class="author">BigSlice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">The chance to stun someone after throwing a baton is now 100%.</li>
-				<li class="tweak">Removed "Student Council Rules" lawset from the default AI law rotation.</li>
-				<li class="rscdel">Removed more memes.</li>
-			</ul>
-			
-			<h2 class="date">15 May 2016</h2>
-			<h3 class="author">Merege updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed some runtimes.</li>
-				<li class="bugfix">Fixed welding masks/goggles not impairing your vision.</li>
-				<li class="bugfix">AI turrets should now actually turn off when disabled at a control panel.</li>
-				<li class="bugfix">Fixed some visibility issues.</li>
-				<li class="bugfix">Fixed certain lockers being weldable when they shouldn't be.</li>
-			</ul>
-			<h3 class="author">BigSlice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Buffed soap.</li>
-			</ul>
-
-			<h2 class="date">14 May 2016</h2>
-			<h3 class="author">Merege updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed SM sword and multiverse sword not compiling.</li>
-				<li class="bugfix">Fixed some more broken vision logic.</li>
-				<li class="bugfix">All genetics powers now properly have a 100% chance to manifest.</li>
-				<li class="bugfix">Fixed blueprints not being able to rename areas.</li>
-			</ul>
-
-			<h2 class="date">13 May 2016</h2>
-			<h3 class="author">Merege updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed broken icons in the zone.</li>
-				<li class="bugfix">Fixed appendix icon.</li>
-				<li class="bugfix">Fixed some brain runtimes.</li>
-				<li class="bugfix">Fixed auto rifle having useless button.</li>
-				<li class="bugfix">Fixed ling regen not repairing organ damage.</li>
-				<li class="bugfix">Light vines will now properly emit light.</li>
-				<li class="bugfix">Fixed some damage sources not targeting the right thing.</li>
-				<li class="bugfix">Fixed some broken light overlays on tiles.</li>
-				<li class="bugfix">Fixed some logic issues with xray.</li>
-				<li class="tweak">Disabled midround antag by default.</li>
-				<li class="tweak">Players can now join as silicons midround.</li>
-			</ul>
-			<h3 class="author">BigSlice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Restored stun times for some weapons.</li>
-				<li class="tweak">Ported an extremely rare chance to win something fun from the arcade.</li>
-				<li class="tweak">Added a couple admin-only items.</li>
-			</ul>
-			
-			<h2 class="date">12 May 2016</h2>
-			<h3 class="author">Merege updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="experiment">Ported dismemberment with fixes.</li>
-				<li class="bugfix">Fixed some runtimes.</li>
-				<li class="tweak">Fixed and brought back the new pandemic UI.</li>
-			</ul>
-			<h3 class="author">BigSlice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Unincluded Viral Readaption Secretion. If it gets fixed it will come back.</li>
-				<li class="tweak">Removed RNG from mulebot damage.</li>
-				<li class="tweak">Removed explosion RNG from syndicate beacons.</li>
-				<li class="tweak">Slightly increased robusting power of cleaver.</li>
-			</ul>
-			
-			<h2 class="date">11 May 2016</h2>
-			<h3 class="author">BigSlice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Made console in Genetics easier to read.</li>
-				<li class="tweak">Made some small adjustments to cargo, chemistry, and science.</li>
-			</ul>
-			<h3 class="author">Merege updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed mutantrace runtime.</li>
-				<li class="bugfix">Fixed chemical runtime.</li>
-				<li class="bugfix">Fixed mech syringe gun errors.</li>
-				<li class="bugfix">Fixed borg law stating when AI gets a lawchange.</li>
-				<li class="tweak">Updated the light replacer's description.</li>
-				<li class="tweak">Skeletons will no longer speak in comic sans.</li>
-			</ul>
-			
-			<h2 class="date">10 May 2016</h2>
-			<h3 class="author">BigSlice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Added a missing power cable to arrivals maintenance.</li>
-			</ul>
-			<h3 class="author">Merege updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed nutrient runtime.</li>
-				<li class="bugfix">Fixed air runtime.</li>
-				<li class="bugfix">Fixed HUD issue.</li>
-				<li class="tweak">Reverted pandemic machine to it's old UI. (This should fix the problems with it.)</li>
-			</ul>
-			
-			<h2 class="date">9 May 2016</h2>
-			<h3 class="author">Merege updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed some MoMMI spawner logic.</li>
-				<li class="bugfix">Fixed some map issues on z1, z2, and z5.</li>
-				<li class="bugfix">Ported 510 compile error fix.</li>
-				<li class="tweak">Enhanced BBCode functionality.</li>
-				<li class="tweak">Ported cleaned up away mission code.</li>
-				<li class="tweak">Ported destructive analyzer research level display.</li>
-				<li class="tweak">Ported MC changes.</li>
-				<li class="rscadd">Ported Goon slurring.</li>
-			</ul>
-			<h3 class="author">BigSlice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="experiment">Upgraded to byond 510.</li>
-				<li class="tweak">Power cells are now small items.</li>
-				<li class="tweak">Added a missing pipe to science.</li>
-			</ul>
-			
-			<h2 class="date">8 May 2016</h2>
-			<h3 class="author">Merege updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="experiment">The chances of events triggering should now scale based on population, up to the normal rate at 10 pop.</li>
-				<li class="bugfix">Fixed runtime that occured if no players were connected.</li>
-				<li class="bugfix">Fixed alien hunter leap.</li>
-				<li class="bugfix">Fixed changeling chemical regeneration if using the organic spacesuit.</li>
-				<li class="tweak">Mice and butterflies are non-dense again.</li>
-				<li class="tweak">The emergency shuttle's thrusters should now light up in transit.</li>
-			</ul>
-			<h3 class="author">BigSlice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="experiment">Through the power of kopipe I bring you /tg/ Singulohammers, Mjolnirs, and Veil Renders.</li>
-				<li class="rscdel">Solar panels will no longer get dirty, you will no longer have to clean them.</li>
-			</ul>
-				
-			<h2 class="date">7 May 2016</h2>
-			<h3 class="author">BigSlice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Removed controversial meme ducks.</li>
-				<li class="rscdel">Trashed memeseeks.</li>
-				<li class="tweak">Moved Cargo Bay Ore Redemption Machine.</li>
-				<li class="tweak">Added to the changelog (hopefully) all of the undocumented changes. Scroll down to witness my suffering.</li>
-				<li class="experiment">Reverted the stun nerfs. I hope you know how to dodge.</li>
-			</ul>
-			<h3 class="author">Merege updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed blast doors leaking gases.</li>
-				<li class="bugfix">Fixed some pandemic machine runtimes.</li>
-				<li class="bugfix">Fixed tunnels and turf icons in the mining asteroid.</li>
-				<li class="tweak">Made shuttles dynamically lit again.</li>
-				<li class="tweak">Added a foam dart bow to replace the meeseeks box.</li>
-				<li class="tweak">Added a cap to scrubber filter mode to match the syphon mode.</li>
-				<li class="tweak">Changed the format of the scrubber syphon mode to be more readable.</li>
-			</ul>
-
-			<h2 class="date">6 May 2016</h2>
 			<h3 class="author">BigSlice updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="tweak">Changed a couple title themes.</li>
 				<li class="tweak">Changed the title screen.</li>
 			</ul>
+			<h3 class="author">Gamer56595857 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Removed chemical generation from self-respiration, sensory restoration, and stimulant symptoms.</li>
+			</ul>
+			<h3 class="author">Koriath updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Deep fryer has been added. Runs on corn oil (and regular oil or welder fuel, not recomended thought)</li>
+				<li class="rscadd">Deep fryer gives nutriment, can be upgraded with Science.</li>
+				<li class="rscadd">Deep fryer can add custom chems to food too.</li>
+				<li class="rscadd">Dakimakuras added. Simple customization, will need further improvement.</li>
+				<li class="bugfix">Fixed Toxins Mass Driver.</li>
+			</ul>
 			<h3 class="author">Merege updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="bugfix">Fixed some broken xenoarch logic.</li>
 			</ul>
-
-			<h2 class="date">November-December 2015</h2>
+			<h3 class="author">T-Wiz updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Moved and remade Derelict R&amp;D.</li>
+				<li class="tweak">Added air tanks to Derelict Atmos.</li>
+				<li class="tweak">Added autolathe board to Derelict AI Core.</li>
+				<li class="tweak">Added defibrilator to Derelict Medbay.</li>
+				<li class="tweak">Added RPD near Derelict Atmos.</li>
+				<li class="tweak">Prevented xenos from opening clown planet airlocks.</li>
+			</ul>
 			<h3 class="author">Various contributors updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="bugfix">Fixed AI Upload.</li>
@@ -467,233 +161,7 @@
 				<li class="rscdel">Removed AI Upload emag_act.</li>
 				<li class="rscdel">Removed dismemberment.</li>
 				<li class="rscdel">Removed bad dragon meme dildos.</li>
-			</ul>	
-			
-			<h2 class="date">1 November 2015</h2>
-			<h3 class="author">Albinobigfoot updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Restores control of the turrets in AI Upload to Turret Control.</li>
 			</ul>
-
-			<h2 class="date">29 October 1015</h2>
-			<h3 class="author">Koriath updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Meatspikes can now be constructed and deconstructed with metal and rods, as well as wrenched and unwrenched! Humans and corgis can be used on them as well.</li>
-				<li class="rscadd">Added pools and pool tiles.</li>
-				<li class="rscadd">Added a pool area north of the boxing ring.</li>
-				<li class="rscadd">You can get pool tiles from cargo</li>
-				<li class="rscadd">Pools apply chems on mobs standing in them using TOUCH reactions.</li>
-				<li class="rscadd">Added a forensics crate to cargo.</li>
-			</ul>
-			
-			<h2 class="date">27 October 2015</h2>
-			<h3 class="author">Albinobigfoot updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added a Raincoat to the syndicate uplink and a new American Psycho bundle to go with it. Credit goes to ArthurDentist of /vg/.</li>
-				<li class="bugfix">Shadowpeople, Abductors, and Slimepeople now see in the dark as intended.</li>
-			</ul>
-
-			<h2 class="date">25 October 2015</h2>
-			<h3 class="author">Asd396 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added WT550 auto rifles and ammo.</li>
-				<li class="rscadd">Added new crates to cargo, including foam force, toy and WT550.</li>
-			</ul>
-
-			<h2 class="date">24 October 2015</h2>
-			<h3 class="author">Albinobigfoot updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added chainsaws to table crafting. Chainsaws can now serve as a ghetto circular saw for surgery, and can turn logs into planks.</li>
-				<li class="rscadd">Added missing inhands sprites for the chainsaw - chainsaw now properly displays on your character. Sprites by WalterJe.</li>
-				<li class="tweak">Chainsaw damage and research values adjusted, chainsaw no longer weakens, and the chainsaw now runs on fuel.</li>
-				<li class="tweak">Chainsaw code cleaned up, added chainsaw_attack var to sound.dm to reduce snowflake code.</li>
-			</ul>
-
-			<h2 class="date">23 October 2015</h2>
-			<h3 class="author">Asd396 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">MoMMIs are now affected by the illegals module. It removes their muteness and killswitch restrictions, and shows them on the robotics console and borg law upload.</li>
-				<li class="rscadd">KEEPER AI module added to AI upload.</li>
-				<li class="tweak">KEEPER made universal to silicons: if a borg or an AI is uploaded with KEEPER it gets the same prohibitions as MoMMIs, including not being able to welderbomb or click beings.</li>
-			</ul>
-
-			<h2 class="date">22 October 2015</h2>
-			<h3 class="author">Asd396 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added circuit imprinter board to secure tech storage.</li>
-				<li class="rscadd">New HTML interface ported from /tg/.</li>
-				<li class="rscadd">New crew monitor interface with minimap.</li>
-				<li class="rscadd">New playing cards. Click deck to shuffle, click people to deal them cards, click your hand to see it with options to reveal or remove cards.</li>
-			</ul>
-			
-			<h2 class="date">13 October 2015</h2>
-			<h3 class="author">Koriath updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Brig, Cargo, Medbay, Science, Recreation and Crew Quarters now have their own SMES located in a substation.</li>
-				<li class="tweak">Changed the ORM location.</li>
-				<li class="bugfix">Fixed Toxins Mass Driver.</li>
-				<li class="bugfix">Fixed waste pipe in medbay.</li>
-				<li class="bugfix">Fixed shocked grils in the brig.</li>
-				<li class="bugfix">Fixed Field Generators starting welded but not anchored in Secure Storage.</li>
-				<li class="rscadd">Added Mr. Meeseeks box to the protolathe.</li>
-				<li class="rscadd">Added Mr. Meeseeks into the game. You can randomly become one by being a ghost with pAI enabled in your preferences.</li>
-				<li class="tweak">Players can despawn the Meeseeks with the box before he gets too anxious.</li>
-			</ul>
-			
-			<h2 class="date">26 September 2015</h2>
-			<h3 class="author">Koriath updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Several Races added to round start options.<br> Temporary test.</li>
-				<li class="bugfix">Fixed fat.</li>
-			</ul>
-
-			<h2 class="date">31 August 2015</h2>
-			<h3 class="author">Zaers updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">The space vines event should now properly spawn the vines </li>
-				<li class="tweak">Lazarus injectors should now work properly .</li>
-				<li class="tweak">Styptic powder and silver sulfadiazine will no longer heal dead people.</li>
-				<li class="tweak">Stun times for the stunbaton and taser have been increased.</li>
-				<li class="tweak">Skeletons now take extra brute damage and are no longer heatproof .</li>
-			</ul>
-
-			<h2 class="date">26 August 2015</h2>
-			<h3 class="author">Koriath updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added Alkysine to the Medborg reagents list.</li>
-				<li class="tweak">Silicons can now interact with the microwave.</li>
-				<li class="rscadd">Iv drips now attempt to remove chems from the body of the patient.</li>
-			</ul>
-			
-			
-			<h2 class="date">21 August 2015</h2>
-			<h3 class="author">Zaers updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Aliens now have internal organs that give them their powers</li>
-				<li class="rscadd">Operating consoles now list the next step of the surgeries being done on the patients</li>
-				<li class="tweak">Brain removal and appendectomy have been replaced with a generic organ manipulation surgery</li>
-			</ul>
-
-			<h2 class="date">19 August 2015</h2>
-			<h3 class="author">Zaers updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Walls should now properly get re-smoothed when a neighboring wall gets destroyed</li>
-				<li class="bugfix">Mechs now use an action button based interface instead of using verbs</li>
-			</ul>
-
-			<h2 class="date">18 August 2015</h2>
-			<h3 class="author">Zaers updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Mint toxin should now properly gib fat people again</li>
-				<li class="bugfix">Security HUDs should now properly update when identities get changed</li>
-				<li class="bugfix">Loyalty implants should now get properly implanted instead of getting silently deleted while using an implanter</li>
-				<li class="tweak">Space wind should no longer push objects that are being pulled</li>
-			</ul>
-
-			<h2 class="date">09 August 2015</h2>
-			<h3 class="author">Koriath updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Deep fryer has been added. Runs on corn oil (and regular oil or welder fuel, not recomended thought)</li>
-				<li class="rscadd">Deep fryer gives nutriment, can be upgraded with Science.</li>
-				<li class="rscadd">Deep fryer can add custom chems to food too.</li>
-				<li class="rscadd">Dakimakuras added. Simple customization, will need further improvement.</li>
-				<li class="bugfix">Fixed Toxins Mass Driver.</li>
-			</ul>
-
-			<h2 class="date">09 July 2015</h2>
-			<h3 class="author">Zaers updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Gangs are now datumized, allowing more than two gangs to exist at once</li>
-				<li class="tweak">Full blindness while critted is now a server config option, defaulting to off</li>
-				<li class="bugfix">There is now an additional level of blindness that corresponds to the old blindness available</li>
-			</ul>
-
-			<h2 class="date">08 July 2015</h2>
-			<h3 class="author">Zaers updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Blindness has been restored to its former strength</li>
-				<li class="rscdel">The DNA aide and DNA saboteur symptoms are no more</li>
-			</ul>
-
-			<h2 class="date">06 July 2015</h2>
-			<h3 class="author">Zaers updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Changelings can no longer activate their regenerative stasis after they are already dead and cannot fully die when they're regenerating</li>
-				<li class="tweak">Changeling headslugs can now be activated when the user is unconcious (but not dead) and allow the user to track the progress of the egg after infesting</li>
-			</ul>
-
-			<h2 class="date">05 July 2015</h2>
-			<h3 class="author">Zaers updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">The recycler now accumulates the materials from the items it recycles instead of generating sheets from nowhere</li>
-				<li class="bugfix">Cryo now respects temperature resistance on the occupant and displays the current temperature of the patient</li>
-			</ul>
-
-			<h2 class="date">01 July 2015</h2>
-			<h3 class="author">Zaers updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="experiment">Reverted to the old atmos system</li>
-			</ul>
-
-			<h2 class="date">30 June 2015</h2>
-			<h3 class="author">Zaers updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="experiment">Changed the atmospherics system to a zone-based one</li>
-				<li class="rscadd">Added magboots to most suit storage units to compensate for the airflow changes</li>
-				<li class="rscadd">Added the HoS hardsuit to the HoS office</li>
-				<li class="tweak">Increased walking speed in space</li>
-			</ul>
-
-			<h2 class="date">24 June 2015</h2>
-			<h3 class="author">Zaers updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="experiment">Change the space transition assignment, infinite space loops should no longer happen</li>
-			</ul>
-
-			<h2 class="date">23 June 2015</h2>
-			<h3 class="author">Zaers updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="experiment">More experimental stun/weaken avalue tweaks</li>
-				<li class="rscadd">Ported progress bars from tg</li>
-			</ul>
-
-			<h2 class="date">22 June 2015</h2>
-			<h3 class="author">Zaers updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="experiment">According to feedback, experimentally lower ranged and baton stun times</li>
-				<li class="bugfix">Possibly fix some saycode issues</li>
-			</ul>
-
-			<h2 class="date">18 June 2015</h2>
-			<h3 class="author">Zaers updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added some new items to traitor uplinks</li>
-				<li class="rscadd">Ported new plasma cutter mechanics, they now work like a gun, function better in vacuums and are refilled with plasma ore or sheets</li>
-				<li class="tgs">Ported super singularity, created when a singularity consumes a supermatter</li>
-				<li class="tweak">Placing APCs on the mining asteroid will now require you to define an area using blueprints first</li>
-				<li class="rscadd">A box of construction permits now spawns in the mining outpost and the research outpost to compensate for that</li>
-			</ul>
-
-			<h2 class="date">16 June 2015</h2>
-			<h3 class="author">Zaers updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Ported the latest gang mode mechanics, gangs now have to take over the station with a dominator</li>
-				<li class="rscadd">The emergency shuttle now has a defibrilator in the medical crate</li>
-				<li class="tweak">Ripleys now go fast in low pressure environments</li>
-				<li class="tweak">Update some of the changelogs headers</li>
-			</ul>
-
-			<h2 class="date">14 June 2015</h2>
-			<h3 class="author">Zaers updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Port gas miners for atmospherics so they can generate more air</li>
-				<li class="rscadd">Port new space wind mechanics, making magboots protect against space wind</li>
-				<li class="tweak">Add cover lock wire for APCs</li>
-				<li class="tweak">N2O now acts as an oxidizer for plasma fires</li>
-				<li class="bugfix">Fixed cargo shuttle loan event</li>
-			</ul>
-
-			<h2 class="date">11 June 2015</h2>
 			<h3 class="author">Zaers updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="rscadd">Ported guitar</li>
