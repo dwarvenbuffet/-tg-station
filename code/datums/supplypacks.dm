@@ -1372,6 +1372,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	manifest += "Contains any [num_contained] of:"
 	..()
 
+
 /datum/supply_packs/misc/randomised/contraband
 	num_contained = 5
 	contains = list(/obj/item/weapon/contraband/poster,
@@ -1381,17 +1382,6 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	name = "Contraband Crate"
 	cost = 30
 	containername = "crate"	//let's keep it subtle, eh?
-	contraband = 1
-
-/datum/supply_packs/misc/randomised/degenerate
-	num_contained = 5
-	contains = list(/obj/item/weapon/paddle/bdsm,
-					/obj/item/clothing/under/harness/male,
-					/obj/item/clothing/under/harness/female,
-					/obj/item/clothing/under/harness/fat)
-	name = "Degeneracy Crate"
-	cost = 30
-	containername = "degeneracy crate! Brought to you by Bad Xeno Inc., catering to all your natural (and taboo) needs!"
 	contraband = 1
 
 /datum/supply_packs/misc/randomised/toys
