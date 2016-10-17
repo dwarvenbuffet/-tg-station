@@ -15,7 +15,9 @@
 // BEGIN_INCLUDE
 #include "_maps\metastation.dm"
 #include "code\_compile_options.dm"
+#include "code\crew_objective.dm"
 #include "code\hub.dm"
+#include "code\miscreant_objectives.dm"
 #include "code\world.dm"
 #include "code\__DATASTRUCTURES\heap.dm"
 #include "code\__DATASTRUCTURES\linked_list.dm"

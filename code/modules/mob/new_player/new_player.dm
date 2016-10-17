@@ -252,7 +252,10 @@
 				if(SHUTTLE_CALL)
 					if(SSshuttle.emergency.timeLeft(1) > initial(SSshuttle.emergencyCallTime)*0.5)
 						ticker.mode.make_antag_chance(character)
-
+#ifdef CREW_OBJECTIVES
+		if (ticker && character.mind)
+			ticker.generate_individual_objectives(character.mind)
+#endif
 	else
 		var/mob/living/character = AttemptSiliconLateSpawn(src, rank)
 		ticker.minds += character.mind
