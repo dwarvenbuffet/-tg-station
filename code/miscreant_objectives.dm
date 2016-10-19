@@ -28,6 +28,9 @@
 			crewMind.objectives += newObjective
 
 			if (obj_count <= 1)
+				message_admins("[key_name_admin(crewMind.current)] is a miscreant!")
+				log_game("[key_name_admin(crewMind.current)] is a miscreant!")
+				crewMind.current << "<B>YOU ARE NOT AN ANTAG!</B>"
 				crewMind.current << "<B>You are a miscreant!</B>"
 				crewMind.current << "You should try to complete your objectives, but don't commit any traitorous acts."
 				crewMind.current << "Your objective is as follows:"
