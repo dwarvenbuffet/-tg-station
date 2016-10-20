@@ -5097,7 +5097,7 @@
 "bUa" = (/obj/machinery/computer/teleporter,/obj/machinery/atmospherics/components/unary/vent_pump{dir = 2; on = 1},/turf/simulated/floor/plating,/area/teleporter{name = "\improper Teleporter Room"})
 "bUb" = (/obj/machinery/teleport/station,/turf/simulated/floor/plating,/area/teleporter{name = "\improper Teleporter Room"})
 "bUc" = (/obj/machinery/teleport/hub,/turf/simulated/floor/plating{icon_state = "warnplate"},/area/teleporter{name = "\improper Teleporter Room"})
-"bUd" = (/obj/structure/extinguisher_cabinet{pixel_x = -27; pixel_y = 0},/obj/structure/table/wood,/obj/item/toy/AI,/turf/simulated/floor/carpet,/area/assembly/showroom{name = "\improper Corporate Showroom"})
+"bUd" = (/obj/item/toy/AI{origin_tech = "programming=3;materials=6;syndicate=7"},/turf/simulated/floor/carpet,/area/assembly/showroom{name = "\improper Corporate Showroom"})
 "bUe" = (/obj/structure/table/wood,/obj/structure/cable/green{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/item/weapon/storage/box/donkpockets,/turf/simulated/floor/carpet,/area/assembly/showroom{name = "\improper Corporate Showroom"})
 "bUf" = (/obj/machinery/atmospherics/pipe/simple/supply/hidden{req_access_txt = 1},/turf/simulated/floor/wood,/area/assembly/showroom{name = "\improper Corporate Showroom"})
 "bUg" = (/obj/structure/showcase{desc = "The famous NanoTrasen-brand microwave, the multi-purpose cooking appliance every station needs! This one appears to be drawn onto a cardboard box."; dir = 1; icon = 'icons/obj/kitchen.dmi'; icon_state = "mw"; name = "NanoTrasen-brand microwave"; pixel_x = 0; pixel_y = 2},/obj/structure/table/wood,/obj/structure/cable/green{d1 = 2; d2 = 4; icon_state = "2-4"},/turf/simulated/floor/carpet,/area/assembly/showroom{name = "\improper Corporate Showroom"})
