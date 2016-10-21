@@ -471,24 +471,3 @@
 	icon_state = "plaid_purple"
 	item_state = "plaid_purple"
 	item_color = "plaid_purple"
-
-/obj/item/clothing/under/harness //you're not supposed to have this!
-	name = "BDSM harness"
-	desc = "A skimpy pile of leather straps and buckles."
-	can_adjust = 0
-	icon_state = "harness_male" //item of icon. For some retarded reason this is tied to the actual clothing sprites, hence three of the same sprites
-	item_state = "bdsmharness"
-	item_color = "harness_male" //I have no idea what this does but it's in literally every other clothing type so...
-
-/obj/item/clothing/under/harness/male
-	desc = "A skimpy pile of leather straps and buckles. This one seems to have been fitted for a male."
-
-/obj/item/clothing/under/harness/female
-	desc = "A skimpy pile of leather straps and buckles. This one seems to have been fitted for a female."
-	icon_state = "harness_female"
-	item_color = "harness_female"
-
-/obj/item/clothing/under/harness/fat //"fat" is a gender
-	desc = "A skimpy pile of leather straps and buckles. This one seems to be very widely fitted."
-	icon_state = "harness_fat"
-	item_color = "harness_fat"

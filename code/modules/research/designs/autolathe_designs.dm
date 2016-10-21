@@ -395,14 +395,6 @@
 	category = list("initial", "Misc")
 
 //hacked autolathe recipes
-/datum/design/aluminumbat
-	name = "Aluminum bat"
-	id = "aluminumbat"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 20000)
-	build_path = /obj/item/weapon/twohanded/nanabat/aluminumbat
-	category = list("hacked", "Misc")
-
 /datum/design/flamethrower
 	name = "Flamethrower"
 	id = "flamethrower"
