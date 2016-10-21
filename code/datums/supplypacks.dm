@@ -596,6 +596,24 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containername = "space suit crate"
 	access = access_eva
 
+/datum/supply_packs/engineering/engine/arcd
+	name = "ARCD Crate"
+	contains = list(/obj/item/weapon/rcd/arcd/)
+	cost = 150
+	containertype = /obj/structure/closet/crate/secure/plasma
+	containername = "Advanced RCD crate"
+	access = access_ce
+
+/datum/supply_packs/engineering/engine/arcd
+	name = "ARCD Ammo Crate"
+	contains = list(/obj/item/weapon/arcd_ammo,
+					/obj/item/weapon/arcd_ammo,
+					/obj/item/weapon/arcd_ammo)
+	cost = 100
+	containertype = /obj/structure/closet/crate/secure/plasma
+	containername = "Advanced RCD ammo crate"
+	access = access_ce
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Medical /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -1372,7 +1390,6 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	manifest += "Contains any [num_contained] of:"
 	..()
 
-
 /datum/supply_packs/misc/randomised/contraband
 	num_contained = 5
 	contains = list(/obj/item/weapon/contraband/poster,
@@ -1382,6 +1399,17 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	name = "Contraband Crate"
 	cost = 30
 	containername = "crate"	//let's keep it subtle, eh?
+	contraband = 1
+
+/datum/supply_packs/misc/randomised/degenerate
+	num_contained = 5
+	contains = list(/obj/item/weapon/paddle/bdsm,
+					/obj/item/clothing/under/harness/male,
+					/obj/item/clothing/under/harness/female,
+					/obj/item/clothing/under/harness/fat)
+	name = "Degeneracy Crate"
+	cost = 30
+	containername = "degeneracy crate! Brought to you by Bad Xeno Inc., catering to all your natural (and taboo) needs!"
 	contraband = 1
 
 /datum/supply_packs/misc/randomised/toys

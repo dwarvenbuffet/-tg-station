@@ -392,6 +392,26 @@ other types of metals and chemistry for reagents).
 	build_path = /obj/item/clothing/shoes/magboots
 	category = list("Equipment")
 
+/datum/design/arcd
+	name = "Advanced RCD"
+	desc = "Improved rcd which construct and deconstruct reinforced walls"
+	id = "arcd"
+	req_tech = list("materials" = 7, "magnets" = 6, "engineering" = 6)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 36000, MAT_GLASS = 8000, MAT_PLASMA = 16000, MAT_URANIUM = 8000)
+	build_path = /obj/item/weapon/rcd/arcd/
+	category = list("Equipment")
+
+/datum/design/arcd_ammo
+	name = "Advanced rcd ammo"
+	desc = "Improved rcd ammo"
+	id = "arcd"
+	req_tech = list("materials" = 7, "magnets" = 6, "engineering" = 6)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 8000, MAT_GLASS = 4000, MAT_PLASMA = 4000)
+	build_path = /obj/item/weapon/arcd_ammo
+	category = list("Equipment")
+
 // remove shit below later
 
 /////////////////////////////////////////
