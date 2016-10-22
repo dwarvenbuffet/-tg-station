@@ -405,7 +405,7 @@ other types of metals and chemistry for reagents).
 /datum/design/arcd_ammo
 	name = "Advanced rcd ammo"
 	desc = "Improved rcd ammo"
-	id = "arcd"
+	id = "arcd_ammo"
 	req_tech = list("materials" = 7, "magnets" = 6, "engineering" = 6)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 8000, MAT_GLASS = 4000, MAT_PLASMA = 4000)

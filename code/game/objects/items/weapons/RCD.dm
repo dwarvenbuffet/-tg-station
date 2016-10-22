@@ -553,8 +553,8 @@ RCD
 	name = "Advanced compressed matter cartridge"
 	desc = "Highly compressed matter for the ARCD."
 	icon = 'icons/obj/ammo.dmi'
-	icon_state = "rcda"
-	item_state = "rcdammo"
+	icon_state = "arcd_ammo"
+	item_state = "arcd_ammo"
 	opacity = 0
 	density = 0
 	anchored = 0.0
