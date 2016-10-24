@@ -413,10 +413,11 @@ var/datum/subsystem/ticker/ticker
 				world << "<b>[robo.name] (Played by: [robo.mind.key]) survived as an AI-less [ismommi(robo)?"MoMMI":"borg"]! Its laws were:</b>"
 			else
 				world << "<b>[robo.name] (Played by: [robo.mind.key]) was unable to survive the rigors of being a [ismommi(robo)?"MoMMI":"cyborg"] without an AI. Its laws were:</b>"
-
 			if(robo) //How the hell do we lose robo between here and the world messages directly above this?
 				robo.laws.show_laws(world)
-
+	
+	roboTicker.printList()
+	
 	mode.declare_completion()//To declare normal completion.
 
 	//calls auto_declare_completion_* for all modes
