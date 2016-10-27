@@ -336,12 +336,12 @@ RCD
 	canRwall = 1
 
 /obj/item/weapon/rcd/loaded
-	matter = 100
+	matter = 200
 
 /obj/item/weapon/rcd/combat
 	name = "combat RCD"
-	max_matter = 1000
-	matter = 1000
+	max_matter = 500
+	matter = 500
 	canRwall = 1
 
 /obj/item/weapon/rcd/arcd
@@ -358,12 +358,12 @@ RCD
 	throw_speed = 3
 	throw_range = 5
 	w_class = 3.0
-	materials = list(MAT_METAL=100000, MAT_GLASS=8000, MAT_PLASMA = 8000)
+	materials = list(MAT_METAL=10000)
 	origin_tech = "engineering=5;materials=6"
 	sheetmultiplier	= 50			 //Controls the amount of matter added for each glass/metal sheet, triple for plasteel
 	plasteelmultiplier = 5 //Plasteel is worth 3 times more than glass or metal
 	matter = 0
-	max_matter = 2000
+	max_matter = 1000
 
 /obj/item/weapon/rcd/arcd/Destroy()
 	qdel(spark_system)
@@ -409,7 +409,7 @@ RCD
 	switch(mode)
 		if(1)
 			if(istype(A, /turf/space))
-				if(useAResource(10, user))
+				if(useAResource(25, user))
 					user << "Building Floor..."
 					activate()
 					A:ChangeTurf(/turf/simulated/floor/plating)
@@ -417,7 +417,7 @@ RCD
 				return 0
 
 			if(istype(A, /turf/simulated/floor))
-				if(checkResource(25, user))
+				if(checkResource(50, user))
 					user << "Building Wall ..."
 					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 					if(do_after(user, 20, target = A))
@@ -450,8 +450,8 @@ RCD
 					if(door_check)
 						user << "Building Airlock..."
 						playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-						if(do_after(user, 50, target = A))
-							if(!useResource(10, user)) return 0
+						if(do_after(user, 25, target = A))
+							if(!useResource(25, user)) return 0
 							activate()
 							var/obj/machinery/door/airlock/T = new airlock_type( A )
 							if(!T.checkForMultipleDoors())
@@ -468,11 +468,11 @@ RCD
 
 		if(3)
 			if(istype(A, /turf/simulated/wall))
-				if(checkResource(25, user))
+				if(checkResource(50, user))
 					user << "Deconstructing Wall..."
 					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-					if(do_after(user, 40, target = A))
-						if(!useAResource(25, user)) return 0
+					if(do_after(user, 50, target = A))
+						if(!useAResource(50, user)) return 0
 						activate()
 						A:ChangeTurf(/turf/simulated/floor/plating)
 						return 1
@@ -534,7 +534,7 @@ RCD
 
 
 /obj/item/weapon/rcd/arcd/loaded
-	matter = 2000
+	matter = 1000
 
 /obj/item/weapon/rcd_ammo
 	name = "compressed matter cartridge"
@@ -546,7 +546,7 @@ RCD
 	density = 0
 	anchored = 0.0
 	origin_tech = "materials=2"
-	materials = list(MAT_METAL=16000, MAT_GLASS=8000)
+	materials = list(MAT_METAL=4000)
 	var/ammoamt = 50
 
 /obj/item/weapon/arcd_ammo
@@ -559,8 +559,8 @@ RCD
 	density = 0
 	anchored = 0.0
 	origin_tech = "materials=6"
-	materials = list(MAT_METAL=16000, MAT_GLASS=8000, MAT_PLASMA = 8000)
-	var/ammoamt = 500
+	materials = list(MAT_METAL=6000)
+	var/ammoamt = 250
 
 /obj/item/weapon/rcd_ammo/large
 	ammoamt = 200

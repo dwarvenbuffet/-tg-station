@@ -608,8 +608,9 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	name = "ARCD Ammo Crate"
 	contains = list(/obj/item/weapon/arcd_ammo,
 					/obj/item/weapon/arcd_ammo,
+					/obj/item/weapon/arcd_ammo,
 					/obj/item/weapon/arcd_ammo)
-	cost = 100
+	cost = 150
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "Advanced RCD ammo crate"
 	access = access_ce
