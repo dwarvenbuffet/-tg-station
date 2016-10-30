@@ -432,3 +432,23 @@ other types of metals and chemistry for reagents).
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 500, MAT_PLASMA = 1500, MAT_URANIUM = 200)
 	build_path = /obj/item/weapon/weldingtool/experimental
 	category = list("Equipment")  //fuck you tg
+
+/datum/design/arcd
+	name = "Advanced RCD"
+	desc = "Improved rcd which construct and deconstruct reinforced walls"
+	id = "arcd"
+	req_tech = list("materials" = 7, "magnets" = 7, "engineering" = 6)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 80000, MAT_GLASS = 40000, MAT_PLASMA = 16000, MAT_SILVER = 16000, MAT_GOLD = 16000, MAT_URANIUM = 16000)
+	build_path = /obj/item/weapon/rcd/arcd/
+	category = list("Equipment")
+
+/datum/design/arcd_ammo
+	name = "Advanced rcd ammo"
+	desc = "Improved rcd ammo"
+	id = "arcd_ammo"
+	req_tech = list("materials" = 7, "magnets" = 7, "engineering" = 6)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 16000, MAT_GLASS = 8000, MAT_PLASMA = 8000, MAT_SILVER = 8000, MAT_GOLD = 8000, MAT_URANIUM = 8000)
+	build_path = /obj/item/weapon/arcd_ammo
+	category = list("Equipment")
