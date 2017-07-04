@@ -2,7 +2,6 @@
 	name = "station"
 	var/wet = 0
 	var/image/wet_overlay = null
-
 	var/thermite = 0
 	oxygen = MOLES_O2STANDARD
 	nitrogen = MOLES_N2STANDARD
@@ -18,15 +17,22 @@
 
 /turf/simulated/proc/burn_tile()
 
-/turf/simulated/proc/MakeSlippery(var/wet_setting = 1) // 1 = Water, 2 = Lube
+/turf/simulated/proc/MakeSlippery(var/wet_setting = SLIPPERY_TURF_WATER) // 1 = Water, 2 = Lube, 3 = Bluespace Lube
 	if(wet >= wet_setting)
 		return
 	wet = wet_setting
-	if(wet_setting == 1)
+	if(wet_setting == SLIPPERY_TURF_WATER)
 		if(wet_overlay)
 			overlays -= wet_overlay
 			wet_overlay = null
 		wet_overlay = image('icons/effects/water.dmi', src, "wet_floor_static")
+		overlays += wet_overlay
+
+	if(wet_setting == SLIPPERY_TURF_BLUBE)
+		if(wet_overlay)
+			overlays -= wet_overlay
+			wet_overlay = null
+		wet_overlay = image('icons/effects/water.dmi', src, "blue_floor_static")
 		overlays += wet_overlay
 
 	spawn(rand(790, 820)) // Purely so for visual effect
@@ -49,6 +55,8 @@
 				return
 			if(2) //lube
 				M.slip(0, 4, null, (STEP|SLIDE|GALOSHES_DONT_HELP))
+			if(3) //bluelube
+				M.slip(0, 4, null, (STEP|SLIDE|GALOSHES_DONT_HELP|BLUESPACE_SLIPPERY))
 
 /turf/simulated/ChangeTurf(var/path)
 	. = ..()

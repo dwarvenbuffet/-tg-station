@@ -196,3 +196,28 @@
 		if (length(law) > 0)
 			who << "[number]. [law]"
 			number++
+			
+/datum/ai_laws/proc/return_laws() //Returns your standard list of laws
+	var/return_string = ""
+	if (src.zeroth)
+		return_string += "<BR><font size = '1'>0. [src.zeroth]</font>"
+
+	for (var/index = 1, index <= src.ion.len, index++)
+		var/law = src.ion[index]
+		var/num = ionnum()
+		return_string += "<BR><font size = '1'>[num]. [law]</font>"
+
+	var/number = 1
+	for (var/index = 1, index <= src.inherent.len, index++)
+		var/law = src.inherent[index]
+
+		if (length(law) > 0)
+			return_string += "<BR><font size = '1'>[number]. [law]</font>"
+			number++
+
+	for (var/index = 1, index <= src.supplied.len, index++)
+		var/law = src.supplied[index]
+		if (length(law) > 0)
+			return_string += "<BR><font size = '1'>[number]. [law]</font>"
+			number++
+	return return_string

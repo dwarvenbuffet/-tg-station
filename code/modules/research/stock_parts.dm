@@ -5,7 +5,7 @@
 	icon_state = "RPED"
 	item_state = "RPED"
 	w_class = 5
-	can_hold = list(/obj/item/weapon/stock_parts)
+	can_hold = list(/obj/item/weapon/stock_parts, /obj/item/weapon/reagent_containers/glass/beaker)
 	storage_slots = 50
 	use_to_pickup = 1
 	allow_quick_gather = 1
@@ -17,6 +17,16 @@
 	var/works_from_distance = 0
 	var/pshoom_or_beepboopblorpzingshadashwoosh = 'sound/items/rped.ogg'
 	var/alt_sound = null
+
+/obj/item/weapon/storage/part_replacer/can_be_inserted(obj/item/W, stop_messages = 0, mob/user)
+	if(istype(W, /obj/item/weapon/reagent_containers/glass/beaker))
+		if(W.reagents.reagent_list.len) //don't let people use RPEDs to store beakers with reagents in them
+			user << "<span class='notice'>[src] beeps, \"Please empty the [W.name] before inserting it into the exchange device.\"</span>"
+			return 0 //you can't do it.
+		else
+			return ..() //do other checks even if beakers are empty
+	else
+		return ..() //do other checks if not a beaker
 
 /obj/item/weapon/storage/part_replacer/afterattack(obj/machinery/T as obj, mob/living/carbon/human/user as mob, flag, params)
 	if(flag)
@@ -60,7 +70,6 @@
 	desc = "What?"
 	icon = 'icons/obj/stock_parts.dmi'
 	w_class = 2.0
-	var/rating = 1
 
 /obj/item/weapon/stock_parts/New()
 	src.pixel_x = rand(-5.0, 5)

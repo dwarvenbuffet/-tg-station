@@ -1,3 +1,3 @@
 <!-- Most valid html will work in here, excluding images. -->
-<h3>wew lad</h3>
-<h4>CheesePizzaStation is fully operational.</h4>
+<h3>You know how this works. Read the rules, don't be a shitter, or do.</h3>
+<h4>Daedalus online.</h4>

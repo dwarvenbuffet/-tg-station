@@ -109,6 +109,17 @@
 		W.loc = src
 		update_icon()
 		return
+	if(istype(W,/obj/item/device/tankmanipulator))
+		var/obj/item/device/tankmanipulator/T = W
+		if(T.tank)
+			if(istype(T.tank,/obj/item/weapon/tank/internals/plasma))
+				if(ptank)
+					user << "<span class='notice'>There appears to already be a plasma tank loaded in [src]!</span>"
+					return
+				ptank = T.pop_tank(src)
+				update_icon()
+		return
+
 
 	if(istype(W, /obj/item/device/analyzer) && ptank)
 		atmosanalyzer_scan(ptank.air_contents, user)

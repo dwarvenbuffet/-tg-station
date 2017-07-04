@@ -176,6 +176,10 @@ var/datum/subsystem/ticker/ticker
 	create_characters() //Create player characters and transfer them
 	collect_minds()
 	equip_characters()
+	
+#ifdef CREW_OBJECTIVES
+	generate_crew_objectives()
+#endif
 
 	Master.RoundStart()
 
@@ -357,6 +361,16 @@ var/datum/subsystem/ticker/ticker
 					Player << "<font color='green'><b>You managed to survive the events on [station_name()] as [Player.real_name].</b></FONT>"
 			else
 				Player << "<font color='red'><b>You did not survive the events on [station_name()]...</b></FONT>"
+#ifdef CREW_OBJECTIVES
+			var/datum/mind/M = Player.mind
+			var/count = 0
+			for(var/datum/objective/crew/CO in M.objectives)
+				count++
+				if(CO.check_completion())
+					Player << "<B>Objective #[count]</B>: [CO.explanation_text] <span style=\"color:green\"><B>Success</B></span>"
+				else
+					Player << "<B>Objective #[count]</B>: [CO.explanation_text] <span style=\"color:red\"><B>Failed</B></span>"
+#endif
 
 	//Round statistics report
 	var/datum/station_state/end_state = new /datum/station_state()
@@ -399,10 +413,11 @@ var/datum/subsystem/ticker/ticker
 				world << "<b>[robo.name] (Played by: [robo.mind.key]) survived as an AI-less [ismommi(robo)?"MoMMI":"borg"]! Its laws were:</b>"
 			else
 				world << "<b>[robo.name] (Played by: [robo.mind.key]) was unable to survive the rigors of being a [ismommi(robo)?"MoMMI":"cyborg"] without an AI. Its laws were:</b>"
-
 			if(robo) //How the hell do we lose robo between here and the world messages directly above this?
 				robo.laws.show_laws(world)
-
+	
+	roboTicker.printList()
+	
 	mode.declare_completion()//To declare normal completion.
 
 	//calls auto_declare_completion_* for all modes

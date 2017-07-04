@@ -13,6 +13,13 @@
 	required_reagents = list("water" = 1, "silicon" = 1, "oxygen" = 1)
 	result_amount = 4
 
+/datum/chemical_reaction/blube
+	name = "Bluespace Lube"
+	id = "blube"
+	result = "blube"
+	required_reagents = list("lube" = 1, "bluespacejelly" = 1, "cryostylane" = 1, "oil" = 1)
+	result_amount = 1
+
 /datum/chemical_reaction/impedrezene
 	name = "Impedrezene"
 	id = "impedrezene"

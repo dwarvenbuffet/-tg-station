@@ -230,7 +230,7 @@
 							continue
 						if(I.type in rejections) // To limit bag spamming: any given type only complains once
 							continue
-						if(!S.can_be_inserted(I))	// Note can_be_inserted still makes noise when the answer is no
+						if((S.can_be_inserted(I) == 0) || (S.can_be_inserted(I, 0, user, 1) == NO_QUICK_GATHER))	// Note can_be_inserted still makes noise when the answer is no
 							rejections += I.type	// therefore full bags are still a little spammy
 							failure = 1
 							continue

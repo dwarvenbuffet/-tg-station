@@ -443,6 +443,9 @@
 			if ("incheck")
 				send_signal(device_id, list ("checks" = text2num(href_list["val"])^2))
 
+			if ("reverse") //check this
+				send_signal(device_id, list ("direction" = text2num(href_list["val"])))
+
 			//if("adjust_threshold") //was a good idea but required very wide window
 			if("set_threshold")
 				var/env = href_list["env"]
@@ -509,6 +512,7 @@
 				send_signal(device_id, list(
 					"power"= 1,
 					"checks"= 1,
+					"direction"= 1,
 					"set_external_pressure"= ONE_ATMOSPHERE
 				))
 		if(AALARM_MODE_CONTAMINATED)
@@ -525,6 +529,7 @@
 				send_signal(device_id, list(
 					"power"= 1,
 					"checks"= 1,
+					"direction"= 1,
 					"set_external_pressure"= ONE_ATMOSPHERE
 				))
 		if(AALARM_MODE_VENTING)
@@ -538,6 +543,7 @@
 				send_signal(device_id, list(
 					"power"= 1,
 					"checks"= 1,
+					"direction"= 1,
 					"set_external_pressure" = ONE_ATMOSPHERE*2
 				))
 		if(AALARM_MODE_REFILL)
@@ -554,6 +560,7 @@
 				send_signal(device_id, list(
 					"power"= 1,
 					"checks"= 1,
+					"direction"= 1,
 					"set_external_pressure" = ONE_ATMOSPHERE*3
 				))
 		if(
@@ -568,7 +575,9 @@
 				))
 			for(var/device_id in alarm_area.air_vent_names)
 				send_signal(device_id, list(
-					"power"= 0
+					"power"= 1,
+					"direction"= 0,
+					"set_external_pressure" = 0
 				))
 		if(
 			AALARM_MODE_SIPHON
@@ -581,7 +590,9 @@
 				))
 			for(var/device_id in alarm_area.air_vent_names)
 				send_signal(device_id, list(
-					"power"= 0
+					"power"= 1,
+					"direction"= 0,
+					"set_external_pressure" = 0
 				))
 
 		if(AALARM_MODE_OFF)
@@ -602,6 +613,7 @@
 				send_signal(device_id, list(
 					"power"= 1,
 					"checks"= 0,
+					"direction"= 1
 				))
 
 /obj/machinery/alarm/update_icon()

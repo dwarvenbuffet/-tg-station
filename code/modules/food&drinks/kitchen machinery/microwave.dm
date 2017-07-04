@@ -350,3 +350,11 @@
 	updateUsrDialog()
 	return
 
+/obj/machinery/microwave/storage_contents_dump_act(obj/item/weapon/storage/src_object, mob/user)
+	for(var/obj/item/I in src_object)
+		if (contents.len>=max_n_of_items)
+			user << "<span class='warning'>Not all of the items in \the [src_object] could fit into the microwave.</span>"
+			break
+		if (istype(I, /obj/item/weapon/reagent_containers/food/snacks))
+			src_object.remove_from_storage(I, src)
+	return 1

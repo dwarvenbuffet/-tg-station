@@ -37,6 +37,7 @@
 	var/drowsy = 0
 	var/stamina = 0
 	var/jitter = 0
+	var/tase = 0
 	var/forcedodge = 0
 	// 1 to pass solid objects, 2 to pass solid turfs (results in bugs, bugs and tons of bugs)
 	var/range = 0
@@ -83,7 +84,7 @@
 	add_logs(firer, L, "shot", object="[src]", addition=reagent_note)
 
 	L.on_hit(type)
-	return L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
+	return L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter, tase)
 
 /obj/item/projectile/proc/vol_by_damage()
 	if(src.damage)

@@ -106,6 +106,18 @@
 	build_path = /obj/item/bodybag/bluespace
 	category = list("Medical Designs")
 
+/datum/design/bluespacesyringe
+	name = "Bluespace Syringe"
+	desc = "Stores reagents in an artificial bluespace pocket. Can hold up to 50 units."
+	id = "bluespacesyringe"
+	req_tech = list("materials" = 6, "bluespace" = 2,"biotech" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 600, MAT_PLASMA = 600, MAT_DIAMOND = 150)
+	reliability = 76
+	build_path = /obj/item/weapon/reagent_containers/syringe/bluespace
+	category = list("Medical Designs")
+
+
 
 /////////////////////////////////////////
 ////////////Regular Implants/////////////

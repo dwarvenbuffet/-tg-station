@@ -128,6 +128,12 @@
 		holder.remove_reagent("capsaicin", 2)
 	..()
 	return
+	
+/datum/reagent/consumable/milk/reaction_hydroponics_tray(var/obj/machinery/hydroponics/H, var/reac_volume, var/mob/user)
+	if(reac_volume >= 1) // Milk is good for humans, but bad for plants. The sugars canot be used by plants, and the milk fat fucks up growth. Not shrooms though. I can't deal with this now...
+		H.adjustNutri(round(reac_volume)*0.1)
+		H.adjustWater(round(reac_volume)*0.9)
+	return
 
 /datum/reagent/consumable/soymilk
 	name = "Soy Milk"
@@ -325,6 +331,13 @@
 		M.bodytemperature = max(310, M.bodytemperature - (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	..()
 	return
+	
+/datum/reagent/consumable/sodawater/reaction_hydroponics_tray(var/obj/machinery/hydroponics/H, var/reac_volume, var/mob/user)
+	if(reac_volume >= 1)
+		H.adjustWater(round(reac_volume) * 1)
+		H.adjustHealth(round(reac_volume) * 0.1)
+		H.adjustNutri(round(reac_volume) * 0.1)
+	return
 
 /datum/reagent/consumable/tonic
 	name = "Tonic Water"
@@ -347,6 +360,8 @@
 	description = "Frozen water, your dentist wouldn't like you chewing this."
 	reagent_state = SOLID
 	color = "#619494" // rgb: 97, 148, 148
+	cool_c = 2.5 //Why the fuck are you pouring ice into expensive scientific equipment? Who gives a shit, that's why.
+	cool_l = 150
 
 /datum/reagent/consumable/ice/on_mob_life(var/mob/living/M as mob)
 	M.bodytemperature -= 5 * TEMPERATURE_DAMAGE_COEFFICIENT

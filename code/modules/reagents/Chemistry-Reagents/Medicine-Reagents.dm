@@ -238,6 +238,10 @@
 	..()
 	return
 
+/datum/reagent/medicine/anti_toxin/reaction_hydroponics_tray(var/obj/machinery/hydroponics/H, var/reac_volume, var/mob/user)
+	if(reac_volume >= 1) // Antitoxin binds shit pretty well. So the tox goes significantly down.
+		H.adjustToxic(-round(reac_volume) * 2)
+	return
 
 /datum/reagent/medicine/leporazine
 	name = "Leporazine"
@@ -293,6 +297,21 @@
 	..()
 	return
 
+/datum/reagent/medicine/adminordrazine/reaction_hydroponics_tray(var/obj/machinery/hydroponics/H, var/reac_volume, var/mob/user)
+	if(reac_volume >= 1)
+		H.adjustWater(round(reac_volume) * 1)
+		H.adjustHealth(round(reac_volume) * 1)
+		H.adjustNutri(round(reac_volume) * 1)
+		H.adjustPests(-rand(1,5))
+		H.adjustWeeds(-rand(1,5))
+	if(reac_volume >= 5)
+		switch(rand(100))
+			if(66  to 100)	H.mutatespecie()
+			if(33	to 65)	H.mutateweed()
+			if(1   to 32)	H.mutatepest()
+			else 			user << "Nothing happens..."
+	return
+	
 /datum/reagent/medicine/adminordrazine/nanites
 	name = "Nanites"
 	id = "nanites"
@@ -422,6 +441,12 @@
 		M.heal_organ_damage(3,3)
 		M.adjustToxLoss(-3)
 	..()
+	return
+	
+/datum/reagent/medicine/cryoxadone/reaction_hydroponics_tray(var/obj/machinery/hydroponics/H, var/reac_volume, var/mob/user)
+	if(reac_volume >= 1)
+		H.adjustHealth(round(reac_volume) * 3)
+		H.adjustToxic(-round(reac_volume) * 3)
 	return
 
 /datum/reagent/medicine/clonexadone

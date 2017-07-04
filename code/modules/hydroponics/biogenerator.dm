@@ -66,6 +66,7 @@
 	else if(processing)
 		user << "<span class='warning'>The biogenerator is currently processing.</span>"
 	else if(istype(O, /obj/item/weapon/storage/bag/plants))
+		var/obj/item/weapon/storage/bag/plants/pb = O
 		var/i = 0
 		for(var/obj/item/weapon/reagent_containers/food/snacks/grown/G in contents)
 			i++
@@ -75,7 +76,7 @@
 			for(var/obj/item/weapon/reagent_containers/food/snacks/grown/G in O.contents)
 				if(i >= max_items)
 					break
-				G.loc = src
+				pb.remove_from_storage(G, src) //goddamn just use the fucking proc they give you
 				i++
 			if(i<max_items)
 				user << "<span class='info'>You empty the plant bag into the biogenerator.</span>"
@@ -163,6 +164,7 @@
 			dat += "Utility belt: <A href='?src=\ref[src];create=tbelt;amount=1'>Make</A> ([300/efficiency])<BR>"
 			dat += "Security belt: <A href='?src=\ref[src];create=sbelt;amount=1'>Make</A> ([300/efficiency])<BR>"
 			dat += "Medical belt: <A href='?src=\ref[src];create=mbelt;amount=1'>Make</A> ([300/efficiency])<BR>"
+			dat += "Miner belt: <A href='?src=\ref[src];create=rbelt;amount=1'>Make</A> ([300/efficiency])<BR>"
 			dat += "Janitorial belt: <A href='?src=\ref[src];create=jbelt;amount=1'>Make</A> ([300/efficiency])<BR>"
 			dat += "Bandolier belt: <A href='?src=\ref[src];create=bbelt;amount=1'>Make</A> ([300/efficiency])<BR>"
 			dat += "Dakimakura: <A href='?src=\ref[src];create=daki;amount=1'>Make</A> ([300/efficiency])<BR>"
@@ -283,6 +285,10 @@
 		if("mbelt")
 			if (check_cost(300/efficiency)) return 0
 			else new/obj/item/weapon/storage/belt/medical(src.loc)
+		if("rbelt")
+			if (check_cost(300/efficiency))
+				return 0
+			else new/obj/item/weapon/storage/belt/mining(src.loc)
 		if("jbelt")
 			if (check_cost(300/efficiency)) return 0
 			else new/obj/item/weapon/storage/belt/janitor(src.loc)

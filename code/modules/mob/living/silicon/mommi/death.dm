@@ -1,6 +1,6 @@
 /mob/living/silicon/robot/mommi/gib(var/animation = 1)
 	if(generated)
-		src.dust()
+		return dust(animation)
 	if(src.module && istype(src.module))
 		var/obj/item/found = locate(tool_state) in src.module.modules
 		if(!found && tool_state != src.module.emag)
@@ -48,6 +48,8 @@
 
 	tod = worldtime2text() //weasellos time of death patch
 	if(mind)	mind.store_memory("Time of death: [tod]", 0)
+	if(name && mind && gibbed)
+		roboTicker.addMind(mind, src)
 
 	sql_report_cyborg_death(src)
 	return ..(gibbed)

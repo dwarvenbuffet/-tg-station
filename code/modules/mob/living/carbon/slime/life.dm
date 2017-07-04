@@ -490,6 +490,8 @@
 		speech_buffer = list()
 
 	//Speech starts here
+	if(stat != CONSCIOUS)
+		return
 	if (to_say)
 		say (to_say)
 	else if(prob(1))
@@ -556,6 +558,8 @@
 				phrases += "[M]... friend..."
 				if (nutrition < get_hunger_nutrition())
 					phrases += "[M]... feed me..."
+			if(stat != CONSCIOUS)
+				return
 			say (pick(phrases))
 
 /mob/living/carbon/slime/proc/get_max_nutrition() // Can't go above it

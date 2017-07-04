@@ -8,7 +8,11 @@
 /datum/round_event/wizard/race/start()
 
 	var/all_the_same = 0
-	var/all_species = typesof(/datum/species) - /datum/species
+	var/list/all_species = list()
+	for(var/speciestype in typesof(/datum/species) - /datum/species)
+		var/datum/species/S = new speciestype()
+		if(!S.dangerous_existence)
+			all_species += speciestype
 	var/new_species = pick(all_species)
 
 	if(prob(50))

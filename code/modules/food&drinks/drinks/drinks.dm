@@ -125,6 +125,12 @@
 	icon_state = "coffee"
 	list_reagents = list("coffee" = 30)
 
+/obj/item/weapon/reagent_containers/food/drinks/coffee/on_reagent_change()
+	if(reagents.total_volume)
+		icon_state = "coffee"
+	else
+		icon_state = "coffee_e" //coffeee
+
 /obj/item/weapon/reagent_containers/food/drinks/tea
 	name = "Duke Purple Tea"
 	desc = "An insult to Duke Purple is an insult to the Space Queen! Any proper gentleman will fight you, if you sully this tea."
@@ -135,8 +141,14 @@
 /obj/item/weapon/reagent_containers/food/drinks/ice
 	name = "Ice Cup"
 	desc = "Careful, cold ice, do not chew."
-	icon_state = "coffee"
+	icon_state = "ice_cup"
 	list_reagents = list("ice" = 30)
+
+/obj/item/weapon/reagent_containers/food/drinks/ice/on_reagent_change()
+	if(reagents.total_volume)
+		icon_state = "ice_cup"
+	else
+		icon_state = "cup_e"
 
 /obj/item/weapon/reagent_containers/food/drinks/h_chocolate
 	name = "Dutch Hot Coco"

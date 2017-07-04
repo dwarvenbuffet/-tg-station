@@ -127,10 +127,14 @@ nanoui is used to open and update nano browser uis
 	if (istype(user, /mob/living/silicon/ai))
 		set_status(STATUS_INTERACTIVE, push_update) // interactive (green visibility)
 	else if (istype(user, /mob/living/silicon/robot))
-		if (src_object in view(7, user)) // robots can see and interact with things they can see within 7 tiles
+		var/mob/living/silicon/robot/R = user
+		if (R.module && src_object in R.module.contents)
+			set_status(STATUS_INTERACTIVE, push_update)
+		else if (src_object in view(7, user)) // robots can see and interact with things they can see within 7 tiles
 			set_status(STATUS_INTERACTIVE, push_update) // interactive (green visibility)
 		else
 			set_status(STATUS_DISABLED, push_update) // no updates, completely disabled (red visibility)
+
 	else
 		var/dist = get_dist(src_object, user)
 		var/isTK = 0

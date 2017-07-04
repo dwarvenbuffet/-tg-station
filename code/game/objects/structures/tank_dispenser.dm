@@ -31,6 +31,9 @@
 		if(1 to 4)	overlays += "plasma-[plasmatanks]"
 		if(5 to INFINITY) overlays += "plasma-5"
 
+/obj/structure/dispenser/attack_robot(mob/user)
+	return attack_hand(user)
+
 /obj/structure/dispenser/attack_paw(mob/user as mob)
 	return src.attack_hand(user)
 
@@ -54,7 +57,7 @@
 			I.loc = src
 			oxytanks.Add(I)
 			oxygentanks++
-			user << "<span class='notice'>You put [I] in [src].</span>"
+			user << "<span class='notice'>You put the [I.name] in the [name].</span>"
 		else
 			user << "<span class='notice'>[src] is full.</span>"
 	if(istype(I, /obj/item/weapon/tank/internals/plasma))
@@ -63,14 +66,30 @@
 			I.loc = src
 			platanks.Add(I)
 			plasmatanks++
-			user << "<span class='notice'>You put [I] in [src].</span>"
+			user << "<span class='notice'>You put the [I.name] in the [name].</span>"
 		else
 			user << "<span class='notice'>[src] is full.</span>"
+	if(istype(I, /obj/item/device/tankmanipulator))
+		var/obj/item/device/tankmanipulator/T = I
+		if(T.tank)
+			if(istype(T.tank, /obj/item/weapon/tank/internals/oxygen) || istype(T.tank, /obj/item/weapon/tank/internals/air) || istype(T.tank, /obj/item/weapon/tank/internals/anesthetic)) //sorry for the copypaste
+				if(oxygentanks < 10)
+					var/obj/item/weapon/tank/tank = T.pop_tank(src)
+					oxytanks.Add(tank)
+					oxygentanks++
+					user << "<span class='notice'>You put the [tank.name] in the [name].</span>"
+			if(istype(T.tank, /obj/item/weapon/tank/internals/plasma)) //same here
+				if(plasmatanks < 10)
+					var/obj/item/weapon/tank/tank = T.pop_tank(src)
+					platanks.Add(I)
+					plasmatanks++
+					user << "<span class='notice'>You put the [tank.name] in the [name].</span>"
+
 	updateUsrDialog()
 
 
 /obj/structure/dispenser/Topic(href, href_list)
-	if(usr.stat || usr.restrained())
+	if(usr.stat || usr.restrained() || !usr.canmove)
 		return
 	if(Adjacent(usr))
 		usr.set_machine(src)

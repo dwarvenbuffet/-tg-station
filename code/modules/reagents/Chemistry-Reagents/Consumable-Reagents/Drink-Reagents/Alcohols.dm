@@ -65,6 +65,14 @@
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	boozepwr = 55
 
+/datum/reagent/consumable/ethanol/beer/reaction_hydroponics_tray(var/obj/machinery/hydroponics/H, var/reac_volume, var/mob/user)
+	// Beer is a chemical composition of alcohol and various other things. It's a shitty nutrient but hey, it's still one. Also alcohol is bad, mmmkay?
+	if(reac_volume >= 1)
+		H.adjustHealth(-round(reac_volume)*0.05)
+		H.adjustNutri(round(reac_volume)*0.25)
+		H.adjustWater(round(reac_volume)*0.7)
+	return
+
 /datum/reagent/consumable/ethanol/beer/greenbeer
 	name = "Green Beer"
 	id = "greenbeer"
@@ -409,6 +417,8 @@
 	description = "Ultimate refreshment."
 	color = "#664300" // rgb: 102, 67, 0
 	boozepwr = 25
+	cool_c = 3
+	cool_l = 100
 
 /datum/reagent/consumable/ethanol/antifreeze/on_mob_life(var/mob/living/M as mob)
 	if (M.bodytemperature < 330)

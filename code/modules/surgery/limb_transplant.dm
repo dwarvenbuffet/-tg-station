@@ -55,6 +55,7 @@
 			user.drop_item()
 			if(LI)
 				LI.Insert(H)
+				LI.loc = null //nullspace the organ to stop it from flopping out
 			else if (istype(tool, /obj/item/robot_parts/))	//Robotic limb, time for SNOWFLAKE CODE
 				var/obj/item/organ/limb/RL = null
 				switch(target_zone)

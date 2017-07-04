@@ -64,11 +64,14 @@
 		if(JITTER)
 			if(status_flags & CANSTUN)
 				jitteriness = max(jitteriness,(effect * blocked))
+		if(TASE)
+			if(status_flags & CANSTUN)
+				Tase(effect * blocked)
 	updatehealth()
 	return 1
 
 
-/mob/living/proc/apply_effects(var/stun = 0, var/weaken = 0, var/paralyze = 0, var/irradiate = 0, var/slur = 0, var/stutter = 0, var/eyeblur = 0, var/drowsy = 0, var/blocked = 0, var/stamina = 0, var/jitter = 0)
+/mob/living/proc/apply_effects(var/stun = 0, var/weaken = 0, var/paralyze = 0, var/irradiate = 0, var/slur = 0, var/stutter = 0, var/eyeblur = 0, var/drowsy = 0, var/blocked = 0, var/stamina = 0, var/jitter = 0, var/tase = 0)
 	if(blocked >= 100)	return 0
 	if(stun)		apply_effect(stun, STUN, blocked)
 	if(weaken)		apply_effect(weaken, WEAKEN, blocked)
@@ -80,4 +83,5 @@
 	if(drowsy)		apply_effect(drowsy, DROWSY, blocked)
 	if(stamina)		apply_damage(stamina, STAMINA, null, blocked)
 	if(jitter)		apply_effect(jitter, JITTER, blocked)
+	if(tase)		apply_effect(tase, TASE, blocked)
 	return 1

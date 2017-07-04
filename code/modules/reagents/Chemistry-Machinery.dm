@@ -1555,6 +1555,33 @@
 
 		remove_object(O)
 
+/obj/machinery/reagentgrinder/proc/crystal_fail()
+
+	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
+		var/shouldteleport = prob(5)
+		if (shouldteleport)
+			if (M.rating == 1)
+				visible_message("<span class='warning'>The [src.name] sparkles and fizzes!</span>") //boy indenting is fucking hard
+				explosion(get_turf(src.loc),0,1,2,3)
+				for (var/atom/movable/teleportthis in view(3, src.loc)) //purloined from anomaly code
+					if(istype(teleportthis, /obj/item/device/beacon))
+						continue
+					if(istype(teleportthis, /atom/movable/lighting_overlay))
+						continue
+					if(teleportthis.anchored)
+						continue
+					do_teleport(teleportthis, get_turf(src.loc), 4, asoundin = 'sound/effects/phasein.ogg')
+			else if (M.rating == 2)
+				for (var/atom/movable/teleportthis in view(2, src.loc)) //purloined from anomaly code
+					if(istype(teleportthis, /obj/item/device/beacon))
+						continue
+					if(istype(teleportthis, /atom/movable/lighting_overlay))
+						continue
+					if(teleportthis.anchored)
+						continue
+					do_teleport(teleportthis, get_turf(src.loc), 2, asoundin = 'sound/effects/phasein.ogg')
+			else //upgraded to tier 3 or above
+
 /obj/machinery/reagentgrinder/proc/grind()
 
 	power_change()
@@ -1600,7 +1627,6 @@
 
 		if (beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 			break
-
 		if(O.reagents.reagent_list.len == 0)
 			remove_object(O)
 
@@ -1641,7 +1667,6 @@
 				break
 		remove_object(O)
 
-
 	//Crayons
 	//With some input from aranclanos, now 30% less shoddily copypasta
 	for (var/obj/item/toy/crayon/O in holdingitems)
@@ -1658,6 +1683,22 @@
 				break
 		remove_object(O)
 
+	//Bluespace Crystals
+	for (var/obj/item/bluespace_crystal/O in holdingitems)
+		if (beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
+			break
+		var/list/allowed = get_allowed_by_id(O)
+		if(isnull(allowed))
+			break
+		for (var/r_id in allowed)
+			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
+			var/amount = allowed[r_id]
+			beaker.reagents.add_reagent(r_id,min(amount, space))
+			crystal_fail()
+			if (space < amount) //end of grindan loop
+				break
+		remove_object(O)
+
 		//Everything else - Transfers reagents from it into beaker
 	for (var/obj/item/weapon/reagent_containers/O in holdingitems)
 		if (beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
@@ -1666,6 +1707,7 @@
 		O.reagents.trans_to(beaker, amount)
 		if(!O.reagents.total_volume)
 			remove_object(O)
+
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /obj/machinery/chem_heater

@@ -261,3 +261,15 @@
 	New()
 		..()
 		reagents.add_reagent("virusfood", 1000)
+
+/obj/structure/reagent_dispensers/mutagen
+	name = "Unstable Mutagen Dispenser"
+	desc = "A dispenser of unstable mutagen."
+	icon = 'icons/obj/hydroponics/equipment.dmi'
+	icon_state = "mutagen_dispenser"
+	amount_per_transfer_from_this = 10
+	anchored = 1
+
+	New()
+		..()
+		reagents.add_reagent("mutagen", 1000)

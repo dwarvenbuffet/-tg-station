@@ -33,9 +33,18 @@
 	..()
 	if(istype(W, /obj/item/weapon/tank/internals/) && !tank)
 		if(istype(W, /obj/item/weapon/tank/internals/emergency_oxygen))
-			user << "<span class='warning'>\The [W] is too small for \the [src].</span>"
+			user << "<span class='warning'>\The [W] is too small for the [name].</span>"
 			return
 		updateTank(W, 0, user)
+		return
+	if(istype(W, /obj/item/device/tankmanipulator) && !tank)
+		var/obj/item/device/tankmanipulator/TM = W
+		var/obj/item/weapon/tank/internals/T = TM.tank
+		if(istype(T) && !istype(T, /obj/item/weapon/tank/internals/emergency_oxygen))
+			TM.pop_tank(src)
+			tank = T
+			user << "<span class='notice'>You hook the [T.name] up to the [name].</span>"
+			update_icons()
 		return
 	if(istype(W, /obj/item/weapon/wrench))
 		switch(pressureSetting)
