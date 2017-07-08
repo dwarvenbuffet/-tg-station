@@ -7,12 +7,5 @@
 # NOTE: if the rank-name cannot be found in admin_ranks.txt, they will not be adminned! ~Carn #
 # NOTE: syntax was changed to allow hyphenation of ranknames, since spaces are stripped.      #
 ###############################################################################################
-daedalushost = Host
-Dopaper = Game Master
-Octareenroon91 = Game Admin
-SpaghettiScience = Game Admin
-Doubleplus = Game Admin
-Compactusdiskus = Game Admin
-DerFlammenwerfer = Moderator
-SHOAHDAN = Moderator
-Zaers = Coder
+Chaosyourgod = Host
+8chanserverhost = Game Master
