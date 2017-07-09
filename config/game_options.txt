@@ -184,7 +184,7 @@ ALLOW_RANDOM_EVENTS
 ### AI ###
 
 ## Allow the AI job to be picked.
-ALLOW_AI
+#ALLOW_AI
 
 
 
