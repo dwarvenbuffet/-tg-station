@@ -340,6 +340,11 @@ var/global/list/obj/item/device/pda/PDAs = list()
 						if(cartridge.access_botcontrol)	//Ditto
 							dat += "<li><a href='byond://?src=\ref[src];choice=58'><img src=pda_medbot.png> Medibot Access</A></li>"
 						dat += "</ul>"
+					if (cartridge.access_ntrep)
+						dat += "<h4>Nanolink:</h4>"
+						dat += "<ul>
+						dat += "<a href='byond://?src=\ref[src];choice=Contact NT'><img src=pda_mail.png> Contact Nanotrasen</a><br>"
+						dat += "</ul>"
 				dat += "</ul>"
 
 				dat += "<h4>Utilities</h4>"
@@ -720,6 +725,12 @@ var/global/list/obj/item/device/pda/PDAs = list()
 						var/turf/T = get_turf(src.loc)
 						if(T)
 							pai.loc = T
+//NANOTRASEN REP FUNCTIONS==========================
+			if("Contact NT")
+				var/ntmsg = input("Message to centcom:")
+				Centcomm_announce(ntmsg, usr)
+				usr << "Message transmitted."
+				log_say("[key_name(usr)] has made a Centcom announcement: [ntmsg]")
 
 //LINK FUNCTIONS===================================
 
@@ -732,6 +743,8 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		U.unset_machine()
 		U << browse(null, "window=pda")
 		return
+
+
 
 //EXTRA FUNCTIONS===================================
 
