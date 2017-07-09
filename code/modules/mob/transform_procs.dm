@@ -292,7 +292,9 @@
 	O.loc = loc_landmark.loc
 	for (var/obj/item/device/radio/intercom/comm in O.loc)
 		comm.ai += O
-
+	//Moved so it occurs before lawset picking
+	O.rename_self("ai",1)
+	O.pick_lawset()
 	O << "<B>You are playing the station's AI. The AI cannot move, but can interact with many objects while viewing them (through cameras).</B>"
 	O << "<B>To look at other parts of the station, click on yourself to get a camera menu.</B>"
 	O << "<B>While observing through a camera, you can use most (networked) devices which you can see, such as computers, APCs, intercoms, doors, etc.</B>"
@@ -309,7 +311,7 @@
 
 	O.job = "AI"
 
-	O.rename_self("ai",1)
+
 	qdel(src)
 	return O
 
