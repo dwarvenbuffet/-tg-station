@@ -148,9 +148,9 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	icon_state = "pda-chaplain"
 	ttone = "holy"
 
-/obj/item/device/pda/lawyer
-	default_cartridge = /obj/item/weapon/cartridge/lawyer
-	icon_state = "pda-lawyer"
+/obj/item/device/pda/ntrep
+	default_cartridge = /obj/item/weapon/cartridge/ntrep
+	icon_state = "pda-ntrep"
 	ttone = "objection"
 
 /obj/item/device/pda/botanist

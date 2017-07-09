@@ -105,7 +105,7 @@
 	..()
 	radio = new /obj/item/radio/integrated/cleanbot(src)
 
-/obj/item/weapon/cartridge/lawyer
+/obj/item/weapon/cartridge/ntrep
 	name = "\improper P.R.O.V.E. cartridge"
 	icon_state = "cart-s"
 	access_security = 1

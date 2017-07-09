@@ -37,7 +37,7 @@
 /var/const/access_hydroponics = 35
 /var/const/access_manufacturing = 36
 /var/const/access_library = 37
-/var/const/access_lawyer = 38
+/var/const/access_ntrep = 38
 /var/const/access_virology = 39
 /var/const/access_cmo = 40
 /var/const/access_qm = 41
@@ -210,7 +210,7 @@
 	            access_teleporter, access_eva, access_heads, access_captain, access_all_personal_lockers,
 	            access_tech_storage, access_chapel_office, access_atmospherics, access_kitchen,
 	            access_bar, access_janitor, access_crematorium, access_robotics, access_cargo, access_construction,
-	            access_hydroponics, access_library, access_lawyer, access_virology, access_cmo, access_qm, access_surgery,
+	            access_hydroponics, access_library, access_ntrep, access_virology, access_cmo, access_qm, access_surgery,
 	            access_theatre, access_research, access_mining, access_mailsorting, access_weapons,
 	            access_heads_vault, access_mining_station, access_xenobiology, access_ce, access_hop, access_hos, access_RC_announce,
 	            access_keycard_auth, access_tcomsat, access_gateway, access_mineral_storeroom, access_minisat)
@@ -237,7 +237,7 @@
 		if(0)
 			return get_all_accesses()
 		if(1) //station general
-			return list(access_kitchen,access_bar, access_hydroponics, access_janitor, access_chapel_office, access_crematorium, access_library, access_theatre, access_lawyer)
+			return list(access_kitchen,access_bar, access_hydroponics, access_janitor, access_chapel_office, access_crematorium, access_library, access_theatre, access_ntrep)
 		if(2) //security
 			return list(access_sec_doors, access_weapons, access_security, access_brig, access_armory, access_forensics_lockers, access_court, access_hos)
 		if(3) //medbay
@@ -344,7 +344,7 @@
 			return "Hydroponics"
 		if(access_library)
 			return "Library"
-		if(access_lawyer)
+		if(access_ntrep)
 			return "Law Office"
 		if(access_robotics)
 			return "Robotics"
@@ -422,7 +422,7 @@
 
 /proc/get_all_jobs()
 	return list("Assistant", "Captain", "Head of Personnel", "Bartender", "Cook", "Botanist", "Quartermaster", "Cargo Technician",
-				"Shaft Miner", "Clown", "Mime", "Janitor", "Librarian", "Lawyer", "Chaplain", "Chief Engineer", "Station Engineer",
+				"Shaft Miner", "Clown", "Mime", "Janitor", "Librarian", "Nanotrasen Representative", "Chaplain", "Chief Engineer", "Station Engineer",
 				"Atmospheric Technician", "Chief Medical Officer", "Medical Doctor", "Chemist", "Geneticist", "Virologist",
 				"Research Director", "Scientist", "Roboticist", "Head of Security", "Warden", "Detective", "Security Officer")
 
