@@ -148,9 +148,9 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	icon_state = "pda-chaplain"
 	ttone = "holy"
 
-/obj/item/device/pda/lawyer
-	default_cartridge = /obj/item/weapon/cartridge/lawyer
-	icon_state = "pda-lawyer"
+/obj/item/device/pda/ntrep
+	default_cartridge = /obj/item/weapon/cartridge/ntrep
+	icon_state = "pda-ntrep"
 	ttone = "objection"
 
 /obj/item/device/pda/botanist
@@ -339,6 +339,11 @@ var/global/list/obj/item/device/pda/PDAs = list()
 							dat += "<li><a href='byond://?src=\ref[src];choice=57'><img src=pda_floorbot.png> Floorbot Access</A></li>"
 						if(cartridge.access_botcontrol)	//Ditto
 							dat += "<li><a href='byond://?src=\ref[src];choice=58'><img src=pda_medbot.png> Medibot Access</A></li>"
+						dat += "</ul>"
+					if (cartridge.access_ntrep)
+						dat += "<h4>Nanolink:</h4>"
+						dat += "<ul>
+						dat += "<a href='byond://?src=\ref[src];choice=Contact NT'><img src=pda_mail.png> Contact Nanotrasen</a><br>"
 						dat += "</ul>"
 				dat += "</ul>"
 
@@ -720,6 +725,12 @@ var/global/list/obj/item/device/pda/PDAs = list()
 						var/turf/T = get_turf(src.loc)
 						if(T)
 							pai.loc = T
+//NANOTRASEN REP FUNCTIONS==========================
+			if("Contact NT")
+				var/ntmsg = input("Message to centcom:")
+				Centcomm_announce(ntmsg, usr)
+				usr << "Message transmitted."
+				log_say("[key_name(usr)] has made a Centcom announcement: [ntmsg]")
 
 //LINK FUNCTIONS===================================
 
@@ -732,6 +743,8 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		U.unset_machine()
 		U << browse(null, "window=pda")
 		return
+
+
 
 //EXTRA FUNCTIONS===================================
 

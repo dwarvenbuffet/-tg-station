@@ -362,7 +362,7 @@ var/record_id_num = 1001
 			clothes_s = icon('icons/mob/uniform.dmi', "robotics_s")
 			clothes_s.Blend(icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
 			clothes_s.Blend(icon('icons/mob/suit.dmi', "labcoat"), ICON_OVERLAY)
-		if("Lawyer")
+		if("NT Rep")
 			clothes_s = icon('icons/mob/uniform.dmi', "bluesuit_s")
 			clothes_s.Blend(icon('icons/mob/feet.dmi', "laceups"), ICON_UNDERLAY)
 			clothes_s.Blend(icon('icons/mob/suit.dmi', "suitjacket_blue"), ICON_OVERLAY)

@@ -27,6 +27,8 @@
 	var/access_robotics = 0
 	var/access_botcontrol = 0
 
+	var/access_ntrep = 0
+
 	var/mode = null
 	var/menu
 	var/datum/data/record/active1 = null //General
@@ -105,10 +107,11 @@
 	..()
 	radio = new /obj/item/radio/integrated/cleanbot(src)
 
-/obj/item/weapon/cartridge/lawyer
+/obj/item/weapon/cartridge/ntrep
 	name = "\improper P.R.O.V.E. cartridge"
 	icon_state = "cart-s"
 	access_security = 1
+	access_ntrep = 1
 
 /obj/item/weapon/cartridge/clown
 	name = "\improper Honkworks 5.0 cartridge"

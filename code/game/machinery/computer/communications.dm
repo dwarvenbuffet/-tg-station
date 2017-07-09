@@ -200,7 +200,7 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 			src.updateDialog()
 
 		// OMG CENTCOM LETTERHEAD
-		if("MessageCentcomm")
+		/*if("MessageCentcomm")
 			if(src.authenticated==2)
 				if(CM.cooldownLeft())
 					usr << "Arrays recycling.  Please stand by."
@@ -212,7 +212,7 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 				usr << "Message transmitted."
 				log_say("[key_name(usr)] has made a Centcom announcement: [input]")
 				CM.lastTimeUsed = world.time
-
+*/
 
 		// OMG SYNDICATE ...LETTERHEAD
 		if("MessageSyndicate")
@@ -390,7 +390,7 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 					dat += "<BR>\[ <A HREF='?src=\ref[src];operation=emergencyaccess'>Emergency Maintenance Access</A> \]"
 					dat += "<BR>\[ <A HREF='?src=\ref[src];operation=nukerequest'>Request Nuclear Authentication Codes</A> \]"
 					if(src.emagged == 0)
-						dat += "<BR>\[ <A HREF='?src=\ref[src];operation=MessageCentcomm'>Send Message to Centcom</A> \]"
+						//dat += "<BR>\[ <A HREF='?src=\ref[src];operation=MessageCentcomm'>Send Message to Centcom</A> \]"
 					else
 						dat += "<BR>\[ <A HREF='?src=\ref[src];operation=MessageSyndicate'>Send Message to \[UNKNOWN\]</A> \]"
 						dat += "<BR>\[ <A HREF='?src=\ref[src];operation=RestoreBackup'>Restore Backup Routing Data</A> \]"
