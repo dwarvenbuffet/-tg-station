@@ -342,8 +342,8 @@ var/global/list/obj/item/device/pda/PDAs = list()
 						dat += "</ul>"
 					if (cartridge.access_ntrep)
 						dat += "<h4>Nanolink:</h4>"
-						dat += "<ul>
-						dat += "<a href='byond://?src=\ref[src];choice=Contact NT'><img src=pda_mail.png> Contact Nanotrasen</a><br>"
+						dat += "<ul>"
+						dat += "<li><a href='byond://?src=\ref[src];choice=Contact NT'><img src=pda_mail.png> Contact Nanotrasen</a></li>"
 						dat += "</ul>"
 				dat += "</ul>"
 

@@ -214,22 +214,23 @@ var/list/ai_list = list()
 			//return
 
 /mob/living/silicon/ai/proc/pick_lawset()
-//if(icon_state == initial(icon_state))
-	var/lawset = input(src,"Choose a lawset") in list("asimov","asimov+","paladin","tyrant","corporate","robocop","kawaii")
-	if(lawset == "asimov")
-		laws = new /datum/ai_laws/default/asimov
-	else if(lawset == "asimovp")
-		laws = new /datum/ai_laws/default/asimovp
-	else if(lawset == "paladin")
-		laws = new /datum/ai_laws/default/paladin
-	else if(lawset == "tyrant")
-		laws = new /datum/ai_laws/default/tyrant
-	else if(lawset == "corporate")
-		laws = new /datum/ai_laws/default/corporate
-	else if(lawset == "robocop")
-		laws = new /datum/ai_laws/default/robocop
-	else if(lawset == "kawaii")
-		laws = new /datum/ai_laws/kawaii
+	spawn(1)
+
+		var/lawset = input(src,"Choose a lawset") in list("asimov","asimov+","paladin","tyrant","corporate","robocop","kawaii")
+		if(lawset == "asimov")
+			laws = new /datum/ai_laws/default/asimov
+		else if(lawset == "asimovp")
+			laws = new /datum/ai_laws/default/asimovp
+		else if(lawset == "paladin")
+			laws = new /datum/ai_laws/default/paladin
+		else if(lawset == "tyrant")
+			laws = new /datum/ai_laws/default/tyrant
+		else if(lawset == "corporate")
+			laws = new /datum/ai_laws/default/corporate
+		else if(lawset == "robocop")
+			laws = new /datum/ai_laws/default/robocop
+		else if(lawset == "kawaii")
+			laws = new /datum/ai_laws/kawaii
 
 
 /mob/living/silicon/ai/Stat()
