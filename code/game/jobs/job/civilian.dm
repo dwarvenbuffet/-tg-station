@@ -126,7 +126,7 @@ Nanotrasen Representative
 	var/global/ntreps = 0 //Counts nanotrasen representative amount
 
 	default_pda = /obj/item/device/pda/ntrep
-	default_headset = /obj/item/device/radio/headset/headset_sec
+	default_headset = /obj/item/device/radio/headset/headset_ntr
 
 	access = list(access_ntrep, access_court, access_sec_doors)
 	minimal_access = list(access_ntrep, access_court, access_sec_doors)
@@ -134,6 +134,8 @@ Nanotrasen Representative
 /datum/job/ntrep/equip_items(var/mob/living/carbon/human/H)
 	ntreps += 1
 
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom_officer(H), slot_w_uniform)
+	/*
 	switch(ntreps)
 		if(1)
 			H.equip_to_slot_or_del(new /obj/item/clothing/under/ntrep/bluesuit(H), slot_w_uniform)
@@ -141,6 +143,7 @@ Nanotrasen Representative
 		else
 			H.equip_to_slot_or_del(new /obj/item/clothing/under/ntrep/purpsuit(H), slot_w_uniform)
 			H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/ntrep/purple(H), slot_wear_suit)
+	*/
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/laceup(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/weapon/storage/briefcase(H), slot_l_hand)
