@@ -35,6 +35,5 @@ Chaplain=1
 Lawyer=1
 Librarian=1
 
-AI=1
 Cyborg=2
 MoMMI=2
