@@ -111,16 +111,16 @@ GUEST_BAN
 # SERVER ss13.example.com:2506
 
 ## forum address
-FORUMURL https://8ch.net/nt/index.html
+FORUMURL 
 
 ## Wiki address
 WIKIURL http://8station.miraheze.org/wiki
 
 ##Rules address
-RULESURL http://cpstation.16mb.com/rules.html
+RULESURL
 
 ##Github address
-GITHUBURL https://github.com/SierraCode/-tg-station
+GITHUBURL https://github.com/chaosyourgod/-tg-station
 
 ## Ban appeals URL - usually for a forum or wherever people should go to contact your admins.
 # BANAPPEALS http://justanotherday.example.com
