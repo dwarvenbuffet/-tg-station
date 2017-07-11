@@ -4,7 +4,6 @@
 // to something, like the RCD, so then you can just call start() and the sparks
 // will always spawn at the items location.
 /////////////////////////////////////////////
-
 /obj/effect/effect/sparks
 	name = "sparks"
 	icon_state = "sparks"
