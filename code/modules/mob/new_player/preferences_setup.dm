@@ -188,7 +188,7 @@
 					clothes_s.Blend(new /icon('icons/mob/back.dmi', "engiepack"), ICON_OVERLAY)
 				if(backbag == 3)
 					clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel-eng"), ICON_OVERLAY)
-			if(LAWYER)
+			if(NTREP)
 				clothes_s = new /icon('icons/mob/uniform.dmi', "bluesuit_s")
 				clothes_s.Blend(new /icon('icons/mob/feet.dmi', "laceups"), ICON_OVERLAY)
 				clothes_s.Blend(new /icon('icons/mob/suit.dmi', "suitjacket_blue"), ICON_OVERLAY)
