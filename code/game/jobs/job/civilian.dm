@@ -122,7 +122,7 @@ Nanotrasen Representative
 	total_positions = 2
 	spawn_positions = 2
 	supervisors = "Nanotrasen officials and Space law"
-	selection_color = "#00ff00"
+	selection_color = "#dddddd"
 	var/global/ntreps = 0 //Counts nanotrasen representative amount
 
 	default_id = /obj/item/weapon/card/id/centcom
