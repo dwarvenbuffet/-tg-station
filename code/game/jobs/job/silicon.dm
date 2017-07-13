@@ -6,7 +6,7 @@ AI
 	flag = AI
 	department_flag = ENGSEC
 	faction = "Station"
-	total_positions = 1
+	total_positions = 0
 	spawn_positions = 1
 	selection_color = "#ccffcc"
 	supervisors = "your laws"
