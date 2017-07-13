@@ -121,30 +121,26 @@ Nanotrasen Representative
 	faction = "Station"
 	total_positions = 2
 	spawn_positions = 2
-	supervisors = "no one"
+	supervisors = "Nanotrasen officials and Space law"
 	selection_color = "#dddddd"
 	var/global/ntreps = 0 //Counts nanotrasen representative amount
 
+	default_id = /obj/item/weapon/card/id/centcom
 	default_pda = /obj/item/device/pda/ntrep
-	default_headset = /obj/item/device/radio/headset/headset_ntr
+	default_headset = /obj/item/device/radio/headset/headset_cent
 
 	access = list(access_ntrep, access_court, access_sec_doors)
 	minimal_access = list(access_ntrep, access_court, access_sec_doors)
 
 /datum/job/ntrep/equip_items(var/mob/living/carbon/human/H)
-	ntreps += 1
-
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom_officer(H), slot_w_uniform)
-	/*
-	switch(ntreps)
-		if(1)
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/ntrep/bluesuit(H), slot_w_uniform)
-			H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/ntrep(H), slot_wear_suit)
-		else
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/ntrep/purpsuit(H), slot_w_uniform)
-			H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/ntrep/purple(H), slot_wear_suit)
-	*/
+	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/security/sunglasses(H), slot_glasses)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), slot_shoes)
+	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(H), slot_gloves)
+	H.equip_to_slot_or_del(new /obj/item/weapon/clipboard(H), slot_l_hand)
+	
 
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/laceup(H), slot_shoes)
-	H.equip_to_slot_or_del(new /obj/item/weapon/storage/briefcase(H), slot_l_hand)
-	H.equip_to_slot_or_del(new /obj/item/device/laser_pointer(H), slot_l_store)
+	var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
+	L.imp_in = H
+	L.implanted = 1
+	H.sec_hud_set_implants()
