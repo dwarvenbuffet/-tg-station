@@ -84,37 +84,37 @@
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
 
 
-/obj/item/clothing/under/lawyer
+/obj/item/clothing/under/ntrep
 	desc = "Slick threads."
-	name = "Lawyer suit"
+	name = "Nanotrasen Representative suit"
 	can_adjust = 0
 
 
-/obj/item/clothing/under/lawyer/black
-	icon_state = "lawyer_black"
-	item_state = "lawyer_black"
-	item_color = "lawyer_black"
+/obj/item/clothing/under/ntrep/black
+	icon_state = "ntrep_black"
+	item_state = "ntrep_black"
+	item_color = "ntrep_black"
 
 
-/obj/item/clothing/under/lawyer/female
+/obj/item/clothing/under/ntrep/female
 	icon_state = "black_suit_fem"
 	item_state = "black_suit_fem"
 	item_color = "black_suit_fem"
 
 
-/obj/item/clothing/under/lawyer/red
-	icon_state = "lawyer_red"
-	item_state = "lawyer_red"
-	item_color = "lawyer_red"
+/obj/item/clothing/under/ntrep/red
+	icon_state = "ntrep_red"
+	item_state = "ntrep_red"
+	item_color = "ntrep_red"
 
 
-/obj/item/clothing/under/lawyer/blue
-	icon_state = "lawyer_blue"
-	item_state = "lawyer_blue"
-	item_color = "lawyer_blue"
+/obj/item/clothing/under/ntrep/blue
+	icon_state = "ntrep_blue"
+	item_state = "ntrep_blue"
+	item_color = "ntrep_blue"
 
 
-/obj/item/clothing/under/lawyer/bluesuit
+/obj/item/clothing/under/ntrep/bluesuit
 	name = "blue suit"
 	desc = "A classy suit and tie."
 	icon_state = "bluesuit"
@@ -123,16 +123,16 @@
 	can_adjust = 1
 
 
-/obj/item/clothing/under/lawyer/purpsuit
+/obj/item/clothing/under/ntrep/purpsuit
 	name = "purple suit"
-	icon_state = "lawyer_purp"
-	item_state = "lawyer_purp"
-	item_color = "lawyer_purp"
+	icon_state = "ntrep_purp"
+	item_state = "ntrep_purp"
+	item_color = "ntrep_purp"
 	fitted = NO_FEMALE_UNIFORM
 	can_adjust = 1
 
 
-/obj/item/clothing/under/lawyer/blacksuit
+/obj/item/clothing/under/ntrep/blacksuit
 	name = "black suit"
 	desc = "A professional black suit. Nanotrasen Investigation Bureau approved!"
 	icon_state = "blacksuit"
