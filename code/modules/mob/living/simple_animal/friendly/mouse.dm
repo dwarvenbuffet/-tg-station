@@ -69,6 +69,16 @@
 	body_color = "brown"
 	icon_state = "mouse_brown"
 
+/mob/living/simple_animal/mouse/attack_ghost(mob/user)
+	if(jobban_isbanned(user,"mouse"))
+		return
+	var/be_mouse = alert("Become a mouse? (Warning, You can no longer be cloned!)",,"Yes","No")
+	if(be_mouse == "No" || QDELETED(src) || !isobserver(user))
+		return
+	var/mob/living/simple_animal/mouse/M = new /mob/living/simple_animal/mouse/spookmouse(get_turf(loc))
+	M.key = user.key
+	qdel(src)
+
 //TOM IS ALIVE! SQUEEEEEEEE~K :)
 /mob/living/simple_animal/mouse/brown/Tom
 	name = "Tom"

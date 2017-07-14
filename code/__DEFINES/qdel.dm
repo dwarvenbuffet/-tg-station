@@ -8,3 +8,7 @@
 #define QDEL_HINT_HARDDEL		3 //qdel should assume this object won't gc, and queue a hard delete using a hard reference.
 #define QDEL_HINT_HARDDEL_NOW	4 //qdel should assume this object won't gc, and hard del it post haste.
 #define QDEL_HINT_PUTINPOOL		5 //qdel will put this object in the atom pool.
+
+//Lol, nuTG
+#define QDELING(X) (X.gc_destroyed)
+#define QDELETED(X) (!X || QDELING(X))
