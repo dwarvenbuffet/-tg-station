@@ -1,8 +1,8 @@
 ## Server name: This appears at the top of the screen in-game. Remove the # infront of SERVERNAME and replace 'tgstation' with the name of your choice
-SERVERNAME Daedalus
+SERVERNAME Infinitystation
 
 ## Station name: The name of the station as it is referred to in-game. If commented out, the game will generate a random name instead.
-STATIONNAME Daedalus
+STATIONNAME
 
 # Lobby time: This is the amount of time between rounds that players have to setup their characters and be ready.
 LOBBY_COUNTDOWN 200
@@ -111,16 +111,16 @@ GUEST_BAN
 # SERVER ss13.example.com:2506
 
 ## forum address
-FORUMURL https://8ch.net/nt/index.html
+FORUMURL 
 
 ## Wiki address
 WIKIURL http://8station.miraheze.org/wiki
 
 ##Rules address
-RULESURL http://cpstation.16mb.com/rules.html
+RULESURL
 
 ##Github address
-GITHUBURL https://github.com/SierraCode/-tg-station
+GITHUBURL https://github.com/chaosyourgod/-tg-station
 
 ## Ban appeals URL - usually for a forum or wherever people should go to contact your admins.
 # BANAPPEALS http://justanotherday.example.com

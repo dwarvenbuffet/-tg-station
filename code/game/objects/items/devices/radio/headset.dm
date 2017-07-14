@@ -75,6 +75,14 @@
 	icon_state = "sec_headset_alt"
 	item_state = "sec_headset_alt"
 
+/obj/item/device/radio/headset/headset_ntr
+	name = "nanotrasen representative headset"
+	desc = "This is used by the Nanotrasen Representative. \nTo access the security channel, use :s. \nTo access the centcom channel, use :y"
+	icon_state = "sec_headset"
+	item_state = "headset"
+	keyslot = new /obj/item/device/encryptionkey/headset_sec
+	keyslot2 = new /obj/item/device/encryptionkey/headset_cent
+
 /obj/item/device/radio/headset/headset_eng
 	name = "engineering radio headset"
 	desc = "When the engineers wish to chat like girls. \nTo access the engineering channel, use :e. "
