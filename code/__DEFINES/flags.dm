@@ -85,3 +85,4 @@
 #define SLIME 16
 #define DRONE 32
 #define SWARMER 64
+#define MOUSE 128
