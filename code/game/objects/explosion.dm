@@ -22,13 +22,13 @@ proc/trange(var/Dist=0,var/turf/Center=null)//alternative to range (ONLY process
 	var/orig_heavy_range = heavy_impact_range
 	var/orig_light_range = light_impact_range
 
-	if(!ignorecap)
+	//if(!ignorecap)
 		// Clamp all values to MAX_EXPLOSION_RANGE
-		devastation_range = min (MAX_EX_DEVESTATION_RANGE, devastation_range)
-		heavy_impact_range = min (MAX_EX_HEAVY_RANGE, heavy_impact_range)
-		light_impact_range = min (MAX_EX_LIGHT_RANGE, light_impact_range)
-		flash_range = min (MAX_EX_FLASH_RANGE, flash_range)
-		flame_range = min (MAX_EX_FLAME_RANGE, flame_range)
+	//	devastation_range = min (MAX_EX_DEVESTATION_RANGE, devastation_range)
+	//	heavy_impact_range = min (MAX_EX_HEAVY_RANGE, heavy_impact_range)
+	//	light_impact_range = min (MAX_EX_LIGHT_RANGE, light_impact_range)
+	//	flash_range = min (MAX_EX_FLASH_RANGE, flash_range)
+	//	flame_range = min (MAX_EX_FLAME_RANGE, flame_range)
 
 	spawn(0)
 		var/start = world.timeofday

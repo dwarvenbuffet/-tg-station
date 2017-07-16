@@ -347,6 +347,35 @@ About the new airlock wires panel:
 
 /obj/machinery/door/airlock/bumpopen(mob/living/simple_animal/user as mob)
 	..(user)
+	if(/mob/living/simple_animal/mouse/spookmouse)
+		sleep(4)
+		if(!src.operating && src.icon_state == "door_closed" || src.icon_state == "door_locked")
+			user << "<span class='notice'>You begin clawing your way through the airlock...</span>"
+			var/turf/curturf = get_turf(user)
+			var/turf/checkturf
+			var/clc = null
+			var/odir = user.dir
+			sleep(36)
+			checkturf = get_turf(user)
+			if(checkturf == curturf)
+				if(odir == 1)
+					clc = curturf.y + 2
+					user.loc = locate(curturf.x, clc, curturf.z)
+					user << "<span class='notice'>You've reached the other side.</span>"
+				if(odir == 2)
+					clc = curturf.y - 2
+					user.loc = locate(curturf.x, clc, curturf.z)
+					user << "<span class='notice'>You've reached the other side.</span>"
+				if(odir == 4)
+					clc = curturf.x + 2
+					user.loc = locate(clc, curturf.y, curturf.z)
+					user << "<span class='notice'>You've reached the other side.</span>"
+				if(odir == 8)
+					clc = curturf.x - 2
+					user.loc = locate(clc, curturf.y, curturf.z)
+					user << "<span class='notice'>You've reached the other side.</span>"
+			else
+				user << "<span class='notice'>You moved away!</span>"
 
 /obj/machinery/door/airlock/proc/isElectrified()
 	if(src.secondsElectrified != 0)

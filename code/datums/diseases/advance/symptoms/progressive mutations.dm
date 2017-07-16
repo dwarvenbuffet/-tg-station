@@ -76,10 +76,10 @@ Bonus
 /datum/symptom/genetic_mutation/powers
 
 	name = "Deoxyribonucleic Acid Aide"
-	stealth = -7
-	resistance = -7
-	stage_speed = -7
-	transmittable = -7
+	stealth = -5
+	resistance = -5
+	stage_speed = -5
+	transmittable = -5
 	level = 6
 	severity = 0
 

@@ -102,8 +102,8 @@
 	blood_overlay_type = "armor"
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank/internals/emergency_oxygen,/obj/item/device/t_scanner,)
 
-//Lawyer
-/obj/item/clothing/suit/toggle/lawyer
+//Nanotrasen Representative
+/obj/item/clothing/suit/toggle/ntrep
 	name = "blue suit jacket"
 	desc = "A snappy dress jacket."
 	icon_state = "suitjacket_blue"
@@ -112,13 +112,13 @@
 	body_parts_covered = CHEST|ARMS
 	togglename = "buttons"
 
-/obj/item/clothing/suit/toggle/lawyer/purple
+/obj/item/clothing/suit/toggle/ntrep/purple
 	name = "purple suit jacket"
 	desc = "A foppish dress jacket."
 	icon_state = "suitjacket_purp"
 	item_state = "suitjacket_purp"
 
-/obj/item/clothing/suit/toggle/lawyer/black
+/obj/item/clothing/suit/toggle/ntrep/black
 	name = "black suit jacket"
 	desc = "A professional suit jacket."
 	icon_state = "suitjacket_black"

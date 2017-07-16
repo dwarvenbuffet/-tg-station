@@ -2,7 +2,7 @@
  * Contains:
  *		Bartender
  *		Janitor
- *		Lawyer
+ *		Nanotrasen Representative
  */
 
 /*
@@ -86,7 +86,7 @@
 	new /obj/item/weapon/storage/belt/janitor(src)
 
 /*
- * Lawyer
+ * Nanotrasen Representative
  */
 /obj/structure/closet/lawcloset
 	name = "legal closet"
@@ -95,14 +95,14 @@
 
 
 /obj/structure/closet/lawcloset/New()
-	new /obj/item/clothing/under/lawyer/female(src)
-	new /obj/item/clothing/under/lawyer/black(src)
-	new /obj/item/clothing/under/lawyer/red(src)
-	new /obj/item/clothing/under/lawyer/bluesuit(src)
-	new /obj/item/clothing/suit/toggle/lawyer(src)
-	new /obj/item/clothing/under/lawyer/purpsuit(src)
-	new /obj/item/clothing/suit/toggle/lawyer/purple(src)
-	new /obj/item/clothing/under/lawyer/blacksuit(src)
-	new /obj/item/clothing/suit/toggle/lawyer/black(src)
+	new /obj/item/clothing/under/ntrep/female(src)
+	new /obj/item/clothing/under/ntrep/black(src)
+	new /obj/item/clothing/under/ntrep/red(src)
+	new /obj/item/clothing/under/ntrep/bluesuit(src)
+	new /obj/item/clothing/suit/toggle/ntrep(src)
+	new /obj/item/clothing/under/ntrep/purpsuit(src)
+	new /obj/item/clothing/suit/toggle/ntrep/purple(src)
+	new /obj/item/clothing/under/ntrep/blacksuit(src)
+	new /obj/item/clothing/suit/toggle/ntrep/black(src)
 	new /obj/item/clothing/shoes/laceup(src)
 	new /obj/item/clothing/shoes/laceup(src)
