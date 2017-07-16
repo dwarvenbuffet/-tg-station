@@ -72,6 +72,8 @@
 /mob/living/simple_animal/mouse/attack_ghost(mob/user)
 	if(jobban_isbanned(user,"mouse"))
 		return
+	if(istype(src, /mob/living/simple_animal/mouse/spookmouse))
+		return
 	var/be_mouse = alert("Become a mouse? (Warning, You can no longer be cloned!)",,"Yes","No")
 	if(be_mouse == "No" || QDELETED(src) || !isobserver(user))
 		return
