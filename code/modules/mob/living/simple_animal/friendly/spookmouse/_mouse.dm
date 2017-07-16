@@ -15,17 +15,17 @@
 	var/quietmouse = 0
 	var/under = 0
 	var/sqc = 0
-	var/repop = 0
 
 /mob/living/simple_animal/spookmouse/assess_threat() //Secbots won't hunt maintenance drones.
 	return -10
 
 /mob/living/simple_animal/attack_animal(mob/living/simple_animal/mouse/spookmouse/M)
-	var/repop
-	if(repop == null || repop == 0)
-		var/turf/curturf = get_turf(M)
-		visible_message("<span class='warning'>[src] pops out another mouse! Space is quite strange, really.</span>")
-		new /mob/living/simple_animal/mouse(curturf)
-		repop = 1
-		sleep(200)
-		repop = 0
+	if(istype(M, /mob/living/simple_animal/mouse/spookmouse))
+		var/repop
+		if(repop == null || repop == 0)
+			var/turf/curturf = get_turf(M)
+			visible_message("<span class='warning'>[src] pops out another mouse! Space is quite strange, really.</span>")
+			new /mob/living/simple_animal/mouse(curturf)
+			repop = 1
+			sleep(200)
+			repop = 0
