@@ -347,7 +347,7 @@ About the new airlock wires panel:
 
 /obj/machinery/door/airlock/bumpopen(mob/living/simple_animal/user as mob)
 	..(user)
-	if(/mob/living/simple_animal/mouse/spookmouse)
+	if(istype(user, /mob/living/simple_animal/mouse/spookmouse))
 		sleep(4)
 		if(!src.operating && src.icon_state == "door_closed" || src.icon_state == "door_locked")
 			user << "<span class='notice'>You begin clawing your way through the airlock...</span>"
