@@ -6,7 +6,7 @@
 	maxHealth = 30
 	languages_spoken = MOUSE
 	languages_understood = MOUSE
-	pass_flags = PASSTABLE | PASSMOB
+	pass_flags = PASSTABLE | PASSMOB | PASSGRILLE
 	sight = (SEE_MOBS)
 	status_flags = (CANPUSH | CANSTUN | CANWEAKEN)
 	gender = NEUTER
@@ -20,8 +20,8 @@
 /mob/living/simple_animal/spookmouse/assess_threat() //Secbots won't hunt maintenance drones.
 	return -10
 
-/mob/living/simple_animal/attackby(mob/living/simple_animal/mouse/spookmouse/M)
-	if(istype(M, /mob/living/simple_animal/mouse/spookmouse))
+/mob/living/simple_animal/mouse/spookmouse/attack_animal(mob/living/simple_animal/mouse/spookmouse/M as mob)
+	if(istype(M, /mob/living/simple_animal/mouse/spookmouse) && istype(src, /mob/living/simple_animal/mouse/spookmouse))
 		if(M.repop == null || M.repop == 0)
 			var/turf/curturf = get_turf(M)
 			visible_message("<span class='warning'>[src] pops out another mouse! Space is quite strange, really.</span>")
