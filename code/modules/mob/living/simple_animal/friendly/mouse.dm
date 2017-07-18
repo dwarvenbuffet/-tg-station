@@ -23,6 +23,7 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
 	var/body_color //brown, gray and white, leave blank for random
+	var/canpossess = 1
 
 /mob/living/simple_animal/mouse/New()
 	..()
@@ -40,6 +41,7 @@
 
 /mob/living/simple_animal/mouse/death(gibbed)
 	..(gibbed)
+	canpossess = 0
 	if(!ckey)
 		var/obj/item/trash/deadmouse/M = new(src.loc)
 		M.icon_state = src.icon_dead
@@ -72,7 +74,7 @@
 /mob/living/simple_animal/mouse/attack_ghost(mob/user)
 	if(jobban_isbanned(user,"mouse"))
 		return
-	if(istype(src, /mob/living/simple_animal/mouse/spookmouse))
+	if(istype(src, /mob/living/simple_animal/mouse/spookmouse) || canpossess == 0)
 		return
 	var/be_mouse = alert("Become a mouse? (Warning, You can no longer be cloned!)",,"Yes","No")
 	if(be_mouse == "No" || QDELETED(src) || !isobserver(user))

@@ -30,6 +30,7 @@
 	var/obj/screen/leap_icon = null
 	var/obj/screen/healthdoll = null
 
+	var/canpull = 1
 	var/damageoverlaytemp = 0
 	var/computer_id = null
 	var/lastattacker = null
