@@ -16,6 +16,8 @@
 	var/moving			= null
 	var/adminobs		= null
 	var/area			= null
+	
+	var/anonymous_key = ""  //A key given to everyone for anonymous OOC
 
 		///////////////
 		//SOUND STUFF//

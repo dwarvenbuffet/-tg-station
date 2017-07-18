@@ -165,6 +165,9 @@ var/next_external_rsc = 0
 
 	send_resources()
 
+	var/rand_number = rand(1, 1000)
+	anonymous_key = "Anonymous #[rand_number]"
+
 	if(!void)
 		void = new()
 	screen += void
