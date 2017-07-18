@@ -22,7 +22,7 @@
 
 /mob/living/simple_animal/spookmouse/assess_threat() //Secbots won't hunt maintenance drones.
 	return -10
-
+  
 /mob/living/simple_animal/mouse/spookmouse/Stat()
 	..()
 	if(statpanel("Status"))
