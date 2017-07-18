@@ -164,9 +164,9 @@ var/next_external_rsc = 0
 		sync_client_with_db()
 
 	send_resources()
-	
+
 	var/rand_number = rand(1, 1000)
-    anonymous_key = "Anonymous #[rand_number]"
+	anonymous_key = "Anonymous #[rand_number]"
 
 	if(!void)
 		void = new()
