@@ -13,7 +13,7 @@ Head of Security
 	department_head = list("Captain")
 	department_flag = ENGSEC
 	faction = "Station"
-	total_positions = 1
+	total_positions = 0
 	spawn_positions = 1
 	supervisors = "the captain"
 	selection_color = "#ffdddd"
