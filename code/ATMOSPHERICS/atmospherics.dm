@@ -168,6 +168,10 @@ Pipelines + Other Objects -> Pipe network
 		color = obj_color
 		pipe_color = obj_color
 		stored.dir = src.dir		  //need to define them here, because the obj directions...
+		if(istype(stored, /obj/item/pipe))
+			if(stored.dir in diagonals)
+				stored.is_bent = 1
+				stored.update()
 		stored.pipe_type = pipe_type  //... were not set at the time the stored pipe was created
 		stored.color = obj_color
 	var/turf/T = loc
