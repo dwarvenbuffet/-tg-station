@@ -728,9 +728,10 @@ var/global/list/obj/item/device/pda/PDAs = list()
 //NANOTRASEN REP FUNCTIONS==========================
 			if("Contact NT")
 				var/ntmsg = input("Message to centcom:")
-				Centcomm_announce(ntmsg, usr)
-				usr << "Message transmitted."
-				log_say("[key_name(usr)] has made a Centcom announcement: [ntmsg]")
+				if(ntmsg)
+					Centcomm_announce(ntmsg, usr)
+					usr << "Message transmitted."
+					log_say("[key_name(usr)] has made a Centcom announcement: [ntmsg]")
 
 //LINK FUNCTIONS===================================
 
