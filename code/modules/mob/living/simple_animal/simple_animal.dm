@@ -493,7 +493,7 @@
 /mob/living/simple_animal/proc/CanAttack(var/atom/the_target)
 	if(see_invisible < the_target.invisibility)
 		return 0
-	if(isType(the_target, /mob/living/simple_animal/mouse/spookmouse)
+	if(istype(the_target, /mob/living/simple_animal/mouse/spookmouse))
 		return 0
 	if (isliving(the_target))
 		var/mob/living/L = the_target
