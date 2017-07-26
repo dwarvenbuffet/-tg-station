@@ -72,6 +72,9 @@
 	return
 
 /datum/effect/effect/system/reagents_explosion/start()
+	//message_admins("[key_name_admin(user)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[user]'>FLW</A>) suicided with [src.name] at ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+	message_admins("Reagent explosion at ([location.x],[location.y],[location.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[location.x];Y=[location.y];Z=[location.z]'>JMP</a>)",0,1)
+
 	if(explosion_message)
 		location.visible_message("<span class='danger'>The solution violently explodes!</span>", \
 								"You hear an explosion!")
