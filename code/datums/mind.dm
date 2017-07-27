@@ -31,6 +31,7 @@
 
 /datum/mind
 	var/key
+	var/anonymous_key
 	var/name				//replaces mob/var/original_name
 	var/mob/living/current
 	var/active = 0
@@ -59,6 +60,7 @@
 
 /datum/mind/New(var/key)
 	src.key = key
+	src.anonymous_key = anonymous_key
 
 
 /datum/mind/proc/transfer_to(mob/living/new_character)
