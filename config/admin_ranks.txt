@@ -33,5 +33,5 @@ Badmin			= +@ +SPAWN +REJUV +VAREDIT +FUN
 Game Admin		= +@ +STEALTH +DEBUG
 Game Master		= +EVERYTHING
 Host			= +EVERYTHING
-
+Midiadmin = +SOUND
 Coder			= +DEBUG +VAREDIT +SERVER +SPAWN
