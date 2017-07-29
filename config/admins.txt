@@ -9,3 +9,6 @@
 ###############################################################################################
 Chaosyourgod = Host
 8chanserverhost = Game Master
+SpaghettiScience = Midiadmin
+VixG = Admin Candidate
+Dwarvenbuffet = Coder
