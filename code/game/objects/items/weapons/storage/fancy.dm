@@ -273,3 +273,16 @@
 	..()
 	for(var/i = 1 to storage_slots)
 		new /obj/item/weapon/rollingpaper(src)
+
+/obj/item/weapon/storage/fancy/oreopackage
+	name = "Package of Oreos"
+	desc = "Explosive flavor in every bite."
+	icon = 'icons/obj/oreopackage.dmi'
+	storage_slots = 8
+	can_hold = list(/obj/item/weapon/reagent_containers/food/snacks/oreo)
+
+/obj/item/weapon/storage/fancy/oreopackage/New()
+	..()
+	for(var/i=1; i <= storage_slots; i++)
+		new /obj/item/weapon/reagent_containers/food/snacks/oreo(src)
+	return

@@ -63,3 +63,11 @@
 	trash = /obj/item/trash/syndi_cakes
 	list_reagents = list("nutriment" = 4, "doctorsdelight" = 5)
 	filling_color = "#F5F5DC"
+
+/obj/item/weapon/reagent_containers/food/snacks/oreo
+	name = "Oreo"
+	desc = "Explosive flavor in every bite."
+	icon_state = "oreo"
+	list_reagents = list("sugar" = 3, "blackpowder" = 5)
+	junkiness = 25
+	filling_color = "#000000"
