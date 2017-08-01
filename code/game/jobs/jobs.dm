@@ -60,7 +60,8 @@ var/list/command_positions = list(
 	"Head of Security",
 	"Chief Engineer",
 	"Research Director",
-	"Chief Medical Officer"
+	"Chief Medical Officer",
+	"Nanotrasen Representative"
 )
 
 
@@ -101,7 +102,6 @@ var/list/civilian_positions = list(
 	"Cook",
 	"Janitor",
 	"Librarian",
-	"Nanotrasen Representative",
 	"Chaplain",
 	"Clown",
 	"Mime",
