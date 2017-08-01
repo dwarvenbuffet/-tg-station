@@ -129,8 +129,8 @@ Nanotrasen Representative
 	default_pda = /obj/item/device/pda/ntrep
 	default_headset = /obj/item/device/radio/headset/headset_cent
 
-	access = list(access_ntrep, access_court, access_sec_doors)
-	minimal_access = list(access_ntrep, access_court, access_sec_doors)
+	access = list(access_ntrep, access_court, access_heads)
+	minimal_access = list(access_ntrep, access_court, access_heads)
 
 /datum/job/ntrep/equip_items(var/mob/living/carbon/human/H)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom_officer(H), slot_w_uniform)
