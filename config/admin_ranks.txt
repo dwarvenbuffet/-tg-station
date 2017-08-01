@@ -29,9 +29,9 @@
 
 Admin Candidate	= +ADMIN
 Moderator		= +@ +BAN
-Badmin			= +@ +SPAWN +REJUV +VAREDIT +FUN
+Badmin			= +@ +SPAWN +REJUV +VAREDIT +FUN +POSSESS +BUILD +SOUND
 Game Admin		= +@ +STEALTH +DEBUG
 Game Master		= +EVERYTHING
 Host			= +EVERYTHING
-Midiadmin = +SOUND
-Coder			= +DEBUG +VAREDIT +SERVER +SPAWN
+Midiadmin     = +SOUND
+Coder			= +DEBUG +VAREDIT +SERVER +SPAWN +BUILD
