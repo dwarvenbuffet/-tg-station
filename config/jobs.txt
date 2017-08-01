@@ -32,7 +32,7 @@ Assistant=-1
 Atmospheric Technician=3
 Cargo Technician=3
 Chaplain=1
-Lawyer=1
+Nanotrasen Representative=1
 Librarian=1
 
 Cyborg=2
