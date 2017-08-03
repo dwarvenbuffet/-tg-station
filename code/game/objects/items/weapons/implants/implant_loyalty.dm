@@ -26,7 +26,7 @@
 			return -1
 		if(target.mind in ticker.mode.get_gangsters())
 			ticker.mode.remove_gangster(target.mind)
-			target.visible_message("<span class='warning'>[src] was destroyed in the process!</span>", "<span class='notice'>You feel a surge of loyalty towards Nanotrasen.</span>")
+			target.visible_message("<span class='warning'>[src] was destroyed in the process!</span>", "<span class='userdanger'>You feel a surge of loyalty towards Nanotrasen.</span>")
 			removed(target, 1)
 			qdel(src)
 			return -1
@@ -35,7 +35,7 @@
 		if(target.mind in ticker.mode.cult)
 			target << "<span class='warning'>You feel the corporate tendrils of Nanotrasen try to invade your mind!</span>"
 		else
-			target << "<span class='notice'>You feel a surge of loyalty towards Nanotrasen.</span>"
+			target << "<span class='userdanger'>You feel a surge of loyalty towards Nanotrasen.</span>"
 		return 1
 	return 0
 
