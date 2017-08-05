@@ -752,7 +752,7 @@ Sorry Giacom. Please don't be mad :(
 		var/total_health = (health - staminaloss)
 		if(total_health <= config.health_threshold_crit && !stat)
 			Exhaust()
-			setStaminaLoss(health - 2)
+			//setStaminaLoss(health - 2)
 			return
 		setStaminaLoss(max((staminaloss - 2), 0))
 
