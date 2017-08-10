@@ -93,7 +93,7 @@ NORESPAWN
 # DONT_DEL_NEWMOB
 
 ## set a hosted by name for unix platforms
-HOSTEDBY Sierrachan
+HOSTEDBY 8station
 
 ## Set to jobban "Guest-" accounts from Captain, HoS, HoP, CE, RD, CMO, Warden, Security, Detective, and AI positions.
 ## Set to 1 to jobban them from those positions, set to 0 to allow them.
@@ -117,16 +117,16 @@ FORUMURL
 WIKIURL http://8station.miraheze.org/wiki
 
 ##Rules address
-RULESURL
+RULESURL https://8station.miraheze.org/wiki/Rules
 
 ##Github address
 GITHUBURL https://github.com/chaosyourgod/-tg-station
 
 ## Ban appeals URL - usually for a forum or wherever people should go to contact your admins.
-# BANAPPEALS http://justanotherday.example.com
+# BANAPPEALS 8ch.net/leftypol/
 
 ##Synchtube address
-SYNCHTUBE https://synctube.org/r/CPstationSS13
+SYNCHTUBE 
 
 ## In-game features
 ##Toggle for having jobs load up from the .txt

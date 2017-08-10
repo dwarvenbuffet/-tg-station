@@ -87,13 +87,15 @@
 
 	if (getBrainLoss() >= 60 && stat != DEAD)
 		if (prob(3))
-			switch(pick(1,2,3))
+			switch(pick(1,2,3,4))
 				if(1)
 					say(pick("IM A PONY NEEEEEEIIIIIIIIIGH", "without oxigen blob don't evoluate?", "CAPTAINS A COMDOM", "[pick("", "that faggot traitor")] [pick("joerge", "george", "gorge", "gdoruge")] [pick("mellens", "melons", "mwrlins")] is grifing me HAL;P!!!", "can u give me [pick("telikesis","halk","eppilapse")]?", "THe saiyans screwed", "Bi is THE BEST OF BOTH WORLDS>", "I WANNA PET TEH monkeyS", "stop grifing me!!!!", "SOTP IT#"))
 				if(2)
 					say(pick("FUS RO DAH","fucking 4rries!", "stat me", ">my face", "roll it easy!", "waaaaaagh!!!", "red wonz go fasta", "FOR TEH EMPRAH", "lol2cat", "dem dwarfs man, dem dwarfs", "SPESS MAHREENS", "hwee did eet fhor khayosss", "lifelike texture ;_;", "luv can bloooom", "PACKETS!!!"))
 				if(3)
-					emote("drool")
+					say(pick("That's not your authority.", "he does it [pick("fo fwee", "without compemsatiun")]!!", "traps [pick("are", "aren't")] gay!", "THE DICK MACKES IT BETTA!", "10BUX", "[pick("tbh", "TBH", "TEA BEE AITCH")]", "fcuking pubbies  sware 2 GOD", "PRAISE KEK!!!!!!!SHADILAY!!"))
+				if(4)
+					emote(pick("drool", "ree", "clap"))
 
 
 /mob/living/carbon/human/handle_mutations_and_radiation()
