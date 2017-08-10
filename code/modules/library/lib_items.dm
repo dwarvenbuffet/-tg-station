@@ -115,10 +115,10 @@
 			qdel(src)
 
 /obj/structure/bookcase/update_icon()
-	if(contents.len < 5)
-		icon_state = "book-[contents.len]"
+	if(contents.len >= 10)
+		icon_state = "book-10"
 	else
-		icon_state = "book-5"
+		icon_state = "book-[contents.len]"
 
 
 /obj/structure/bookcase/manuals/medical
