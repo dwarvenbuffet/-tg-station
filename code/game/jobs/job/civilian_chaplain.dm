@@ -51,7 +51,7 @@ Chaplain
 				for(var/turf/T in A.contents)
 					if(T.icon_state == "carpetsymbol")
 						T.dir = 8
-		if("athiest")
+		if("atheist")
 			for(var/area/chapel/main/A in world)
 				for(var/turf/T in A.contents)
 					if(T.icon_state == "carpetsymbol")
@@ -111,11 +111,38 @@ Chaplain
 				B.name = "Toolbox Manifesto"
 			if("homosexuality")
 				B.name = "Guys Gone Wild"
-			if("lol", "wtf", "gay", "penis", "ass", "poo", "badmin", "shitmin", "deadmin", "cock", "cocks")
+			if("lol", "wtf", "gay", "penis", "ass", "poo", "badmin", "shitmin", "deadmin", "cock", "cocks", "kek", "kekistan" "8chan","4chan", "reddit")
 				B.name = pick("Woodys Got Wood: The Aftermath", "War of the Cocks", "Sweet Bro and Hella Jef: Expanded Edition")
 				H.setBrainLoss(100) // starts off retarded as fuck
 			if("science")
 				B.name = pick("Principle of Relativity", "Quantum Enigma: Physics Encounters Consciousness", "Programming the Universe", "Quantum Physics and Theology", "String Theory for Dummies", "How To: Build Your Own Warp Drive", "The Mysteries of Bluespace", "Playing God: Collector's Edition")
+			if("prismatology")
+				B.name = "Emetics"
+			if("sikhism")
+				B.name = "Guru Granth Sahib"
+			if("nod", "brotherhood of nod")
+				B.name = "Book of Nod"
+			if("judaism")
+				B.name = pick("The Torah", "The Talmud")
+			if("autism")
+				B.name = "Guide To BYOND Coding"
+			if("communism")
+				B.name = "The Communist Manifesto"
+			if("nazism", "fascism")
+				B.name = pick("Mein Kampf", "The Turner Diaries", "For My Legionairies")
+			if("anarchism")
+				B.name = "The Anarchist's Cookbook"
+			if("rastafarianism")
+				B.name = "Holy Piby"
+			if("bahaism", "baha'ism")
+				B.name = "Aqdas"
+			if("libertarianism", "pedophilia")
+				B.name = "Atlas Shrugged"
+			if("gaming")
+				B.name = "A Paid Review"
+			if("spurdo")
+				B.name = "Fuggin Baible :DDD"
+				H.setBrainLoss(50)//o fug im retarded :DDDD
 			else
 				B.name = "The Holy Book of [new_religion]"
 		feedback_set_details("religion_name","[new_religion]")
