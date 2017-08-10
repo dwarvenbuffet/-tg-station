@@ -12,3 +12,4 @@ Chaosyourgod = Host
 SpaghettiScience = Midiadmin
 VixG = Badmin
 Dwarvenbuffet = Coder
+KyleBaran = Coder
