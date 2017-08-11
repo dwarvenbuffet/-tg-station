@@ -308,28 +308,39 @@ update_flag
 		onclose(usr, "canister")
 		return
 	usr.set_machine(src)
-	if(href_list["toggle"])
-		var/logmsg
-		if (valve_open)
-			if (holding)
-				logmsg = "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into the [holding]<br>"
-			else
-				logmsg = "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into the <span class='boldannounce'>air</span><br>"
-		else
+	
+	if(href_list["open_valve"])
+		if (!valve_open)
+			var/logmsg
 			if (holding)
 				logmsg = "Valve was <b>opened</b> by [key_name(usr)], starting the transfer into the [holding]<br>"
 			else
 				logmsg = "Valve was <b>opened</b> by [key_name(usr)], starting the transfer into the <span class='boldannounce'>air</span><br>"
+				
 				if(air_contents.toxins > 0)
 					message_admins("[key_name_admin(usr)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[usr]'>FLW</A>) opened a canister that contains plasma! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 					log_admin("[key_name(usr)] opened a canister that contains plasma at [x], [y], [z]")
+					
 				var/datum/gas/sleeping_agent = locate(/datum/gas/sleeping_agent) in air_contents.trace_gases
 				if(sleeping_agent && (sleeping_agent.moles > 1))
 					message_admins("[key_name_admin(usr)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[usr]'>FLW</A>) opened a canister that contains N2O! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 					log_admin("[key_name(usr)] opened a canister that contains N2O at [x], [y], [z]")
-		investigate_log(logmsg, "atmos")
-		release_log += logmsg
-		valve_open = !valve_open
+					
+			investigate_log(logmsg, "atmos")
+			release_log += logmsg
+			valve_open = 1 // open the valve
+	
+	if(href_list["close_valve"])
+		if (valve_open)
+			var/logmsg
+			if (holding)
+				logmsg = "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into the [holding]<br>"
+			else
+				logmsg = "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into the <span class='boldannounce'>air</span><br>"
+
+			investigate_log(logmsg, "atmos")
+			release_log += logmsg
+			valve_open = 0 // close the valve
 
 	if (href_list["remove_tank"])
 		if(holding)
