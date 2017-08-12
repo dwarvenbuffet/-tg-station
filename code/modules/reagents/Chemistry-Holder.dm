@@ -460,14 +460,13 @@ var/const/PATCH = 4 //patches
 			touch_protection = L.get_permeability_protection()
 		for(var/datum/reagent/R in reagent_list)
 			R.reaction_mob(L, method, R.volume*volume_modifier, show_message, touch_protection)
-			
-	else if(isturf(A))	
+	else if(isturf(A))
 		for(var/datum/reagent/R in reagent_list)
-			R.reaction_turf(A, R.volume*volume_modifier, show_message)
-						
+			R.reaction_turf(A, R.volume*volume_modifier, show_message)						
 	else if(isobj(A))
 		for(var/datum/reagent/R in reagent_list)
 			R.reaction_obj(A, R.volume*volume_modifier, show_message)
+	return
 
 /datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = 300, no_react = 0)
 	if(!isnum(amount) || !amount)
