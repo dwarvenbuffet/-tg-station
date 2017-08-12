@@ -1,4 +1,3 @@
-
 var/const/TOUCH = 1 //splashing
 var/const/INGEST = 2 //injection, ingestion
 var/const/VAPOR = 3 //smoke, foam, spray, blob attack
@@ -454,6 +453,7 @@ var/const/PATCH = 4 //patches
 	return 0
 
 /datum/reagents/proc/reaction(atom/A, method=TOUCH, volume_modifier=1,show_message=1)
+
 	if(isliving(A))
 		var/mob/living/L = A
 		var/touch_protection = 0
@@ -461,9 +461,16 @@ var/const/PATCH = 4 //patches
 			touch_protection = L.get_permeability_protection()
 		for(var/datum/reagent/R in reagent_list)
 			R.reaction_mob(L, method, R.volume*volume_modifier, show_message, touch_protection)
+			
 	else if(isturf(A))
 		for(var/datum/reagent/R in reagent_list)
 			R.reaction_turf(A, R.volume*volume_modifier, show_message)
+			
+			// This is true if plasma is being applied to the floor. Usually (but not always) results in plasma gas. Tell admins!
+			//if (R.name == "plasma") 
+			message_admins("[key_name_admin(usr)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[usr]'>FLW</A>) performed a reaction which involves plasma")
+			log_admin("[key_name(usr)] performed a reaction which involves plasma")
+						
 	else if(isobj(A))
 		for(var/datum/reagent/R in reagent_list)
 			R.reaction_obj(A, R.volume*volume_modifier, show_message)
