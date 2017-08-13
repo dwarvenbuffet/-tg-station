@@ -250,3 +250,8 @@ About the Tools:
 */
 
 
+/*
+	Files have been shuffled around to a new structure.
+	Now, the base class gets its own folder, and subclasses are found within that same folder. This should be fine for major and minor
+	groups of things.
+*/
