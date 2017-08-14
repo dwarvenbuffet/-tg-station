@@ -753,8 +753,10 @@ Sorry Giacom. Please don't be mad :(
 		if(total_health <= config.health_threshold_crit && !stat)
 			Exhaust()
 			//setStaminaLoss(health - 2)
-			return
-		setStaminaLoss(max((staminaloss - 2), 0))
+			//return
+		//why is this shit used instead of adjustStaminaLoss
+		setStaminaLoss(max((staminaloss - 3), 0))
+
 
 /mob/living/proc/Exhaust()
 	src << "<span class='notice'>You're too exhausted to keep going...</span>"
