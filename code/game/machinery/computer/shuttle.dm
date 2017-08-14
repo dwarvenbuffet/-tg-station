@@ -178,6 +178,14 @@
 	shuttleId = "whiteship"
 	possible_destinations = "whiteship_ss13;whiteship_home;whiteship_z4;whiteship_asteroid"
 
+/obj/machinery/computer/shuttle/white_ship/attackby(I as obj, mob/living/user as mob, params)
+	if (istype(I, /obj/item/weapon/card/data/beacon))
+		var/obj/item/weapon/card/data/beacon/B = I
+		if(findtext(possible_destinations,B.data) == 0)
+			user << "<span class='notice'>You swipe the card on the console and it makes a distinct clicking noise.</span>"
+			possible_destinations += ";" + B.data
+	return
+
 
 /obj/machinery/computer/shuttle/research
 	name = "Research Shuttle Console"

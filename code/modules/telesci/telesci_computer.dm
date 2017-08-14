@@ -281,9 +281,9 @@
 		telefail()
 		temp_msg = "ERROR!<BR>Elevation is less than 1 or greater than 90."
 		return
-	if(z_co == 2 || z_co < 1 || z_co > 7)
+	if(z_co == 2 || z_co == 8 || z_co < 1 || z_co > 9)
 		telefail()
-		temp_msg = "ERROR! Sector is less than 1, <BR>greater than 7, or equal to 2."
+		temp_msg = "ERROR! Sector is less than 1, <BR>greater than 9, or equal to 2 or 8."
 		return
 	if(teles_left > 0)
 		doteleport(user)

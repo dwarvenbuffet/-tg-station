@@ -1657,6 +1657,394 @@ proc/process_ghost_teleport_locs()
 /area/awaycontent/a30
 	icon_state = "awaycontent30"
 
+//Micro Worlds
+/area/microworlds
+	name = "space"
+	has_gravity = 1
+
+/area/microworlds/mircroworldmuseum
+	name = "Micro-World Museum"
+	icon_state = "awaycontent1"
+
+/area/microworlds/microlobby
+	name = "Micro-World Lobby"
+	icon_state = "awaycontent2"
+
+/area/microworlds/snowcaves
+	name = "Snow Caves"
+	icon_state = "awaycontent3"
+
+/area/microworlds/magmacavern
+	name = "Magma Cavern"
+	icon_state = "awaycontent4"
+
+/area/microworlds/crashsite
+	name = "Crash Site"
+	icon_state = "awaycontent5"
+
+/area/microworlds/crashedship
+	name = "Crashed Ship"
+	icon_state = "awaycontent6"
+
+/area/microworlds/hotel
+
+/area/microworlds/hotel/left
+	name = "Hotel Left Wing"
+	icon_state = "awaycontent7"
+
+/area/microworlds/hotel/right
+	name = "Hotel Right Wing"
+	icon_state = "awaycontent8"
+
+/area/microworlds/hotel/hall
+	name = "Hotel Hallway"
+	icon_state = "awaycontent9"
+
+/area/microworlds/hotel/kitchen
+	name = "Hotel Kitchen"
+	icon_state = "awaycontent10"
+
+/area/microworlds/hotel/hydro
+	name = "Hotel Hydrophonics"
+	icon_state = "awaycontent11"
+
+/area/microworlds/snowforest
+	name = "Snow Forest"
+	icon_state = "awaycontent12"
+
+/area/microworlds/snowforest/bunker
+	name = "Bunker"
+	icon_state = "awaycontent1"
+
+/area/microworlds/mountain
+
+/area/microworlds/mountain/pass
+	name = "Mountain Pass"
+	icon_state = "awaycontent13"
+
+/area/microworlds/mountain/eva
+	name = "EVA"
+	icon_state = "awaycontent14"
+
+/area/microworlds/mountain/refinery
+	name = "Refinery"
+	icon_state = "awaycontent15"
+
+/area/microworlds/mountain/landing
+	name = "Landing Pad"
+	icon_state = "awaycontent16"
+
+/area/microworlds/overgrowth
+
+/area/microworlds/overgrowth/hall
+	name = "Station B56 Hall"
+	icon_state = "awaycontent17"
+
+/area/microworlds/overgrowth/room1
+	name = "Station B56 room 1"
+	icon_state = "awaycontent18"
+
+/area/microworlds/overgrowth/room2
+	name = "Station B56 room 2"
+	icon_state = "awaycontent19"
+
+/area/microworlds/overgrowth/room3
+	name = "Station B56 room 3"
+	icon_state = "awaycontent20"
+
+/area/microworlds/overgrowth/room4
+	name = "Station B56 room 4"
+	icon_state = "awaycontent21"
+
+/area/microworlds/overgrowth/room5
+	name = "Station B56 room 5"
+	icon_state = "awaycontent22"
+
+/area/microworlds/overgrowth/room6
+	name = "Station B56 room 6"
+	icon_state = "awaycontent23"
+
+/area/microworlds/overgrowth/room7
+	name = "Station B56 room 7"
+	icon_state = "awaycontent24"
+
+/area/microworlds/overgrowth/room8
+	name = "Station B56 room 8"
+	icon_state = "awaycontent25"
+
+/area/microworlds/overgrowth/room9
+	name = "Station B56 room 9"
+	icon_state = "awaycontent26"
+
+/area/microworlds/microbeach
+	name = "Beach"
+	icon_state = "awaycontent27"
+
+/area/microworlds/plains
+	name = "Grassy Plains"
+	icon_state = "awaycontent28"
+
+/area/microworlds/plains/cabinroom1
+	name = "Cabin Room 1"
+	icon_state = "awaycontent29"
+
+/area/microworlds/plains/cabinroom2
+	name = "Cabin Room 2"
+	icon_state = "awaycontent30"
+
+/area/microworlds/plains/cabinroom3
+	name = "Cabin Room 3"
+	icon_state = "awaycontent1"
+
+/area/microworlds/plains/cabinroom4
+	name = "Cabin Room 4"
+	icon_state = "awaycontent2"
+
+/area/microworlds/contructionyard
+
+/area/microworlds/contructionyard/hall
+	name = "Hall"
+	icon_state = "awaycontent3"
+
+/area/microworlds/contructionyard/room1
+	name = "Room 1"
+	icon_state = "awaycontent4"
+
+/area/microworlds/contructionyard/room2
+	name = "Room 2"
+	icon_state = "awaycontent5"
+
+/area/microworlds/contructionyard/room3
+	name = "Room 3"
+	icon_state = "awaycontent6"
+
+/area/microworlds/contructionyard/room4
+	name = "Room 4"
+	icon_state = "awaycontent7"
+
+/area/microworlds/contructionyard/incompleteship
+	name = "S.S. Rodent"
+	icon_state = "awaycontent8"
+
+/area/microworlds/contructionyard/completeship
+	name = "S.S. Roach"
+	icon_state = "awaycontent9"
+
+/area/microworlds/researchfacility
+
+/area/microworlds/researchfacility/hall
+	name = "Hall"
+	icon_state = "awaycontent10"
+
+/area/microworlds/researchfacility/room1
+	name = "Room 1"
+	icon_state = "awaycontent11"
+
+/area/microworlds/researchfacility/room2
+	name = "Room 2"
+	icon_state = "awaycontent12"
+
+/area/microworlds/researchfacility/room3
+	name = "Room 3"
+	icon_state = "awaycontent13"
+
+/area/microworlds/researchfacility/room4
+	name = "Room 4"
+	icon_state = "awaycontent14"
+
+/area/microworlds/researchfacility/room5
+	name = "Room 5"
+	icon_state = "awaycontent15"
+
+/area/microworlds/researchfacility/room6
+	name = "Room 6"
+	icon_state = "awaycontent16"
+
+/area/microworlds/researchfacility/room7
+	name = "Room 7"
+	icon_state = "awaycontent17"
+
+/area/microworlds/researchfacility/room8
+	name = "Room 8"
+	icon_state = "awaycontent18"
+
+/area/microworlds/researchfacility/room9
+	name = "Room 9"
+	icon_state = "awaycontent19"
+
+/area/microworlds/researchfacility/room10
+	name = "Room 10"
+	icon_state = "awaycontent20"
+
+/area/microworlds/researchfacility/room11
+	name = "Room 11"
+	icon_state = "awaycontent21"
+
+/area/microworlds/robotfactory
+
+/area/microworlds/robotfactory/hall
+	name = "Hall"
+	icon_state = "awaycontent22"
+
+/area/microworlds/robotfactory/room1
+	name = "Room 1"
+	icon_state = "awaycontent23"
+
+/area/microworlds/robotfactory/room2
+	name = "Room 2"
+	icon_state = "awaycontent24"
+
+/area/microworlds/robotfactory/room3
+	name = "Room 3"
+	icon_state = "awaycontent25"
+
+/area/microworlds/robotfactory/room4
+	name = "Room 4"
+	icon_state = "awaycontent26"
+
+/area/microworlds/robotfactory/room5
+	name = "Room 5"
+	icon_state = "awaycontent27"
+
+/area/microworlds/robotfactory/room6
+	name = "Room 6"
+	icon_state = "awaycontent28"
+
+/area/microworlds/robotfactory/room7
+	name = "Room 7"
+	icon_state = "awaycontent29"
+
+/area/microworlds/robotfactory/room8
+	name = "Room 8"
+	icon_state = "awaycontent30"
+
+/area/microworlds/robotfactory/lava
+	name = "Lava"
+	icon_state = "awaycontent1"
+
+/area/microworlds/desertvillage
+	name = "Desert Village"
+	icon_state = "awaycontent2"
+
+/area/microworlds/desertvillage/house1
+	name = "House 1"
+	icon_state = "awaycontent3"
+
+/area/microworlds/desertvillage/house2
+	name = "House 2"
+	icon_state = "awaycontent4"
+
+/area/microworlds/desertvillage/house3
+	name = "House 3"
+	icon_state = "awaycontent5"
+
+/area/microworlds/desertvillage/house4
+	name = "House 4"
+	icon_state = "awaycontent6"
+
+/area/microworlds/desertvillage/house5
+	name = "House 5"
+	icon_state = "awaycontent7"
+
+/area/microworlds/desertvillage/house6
+	name = "House 6"
+	icon_state = "awaycontent8"
+
+/area/microworlds/desertvillage/house7
+	name = "House 7"
+	icon_state = "awaycontent9"
+
+/area/microworlds/desertvillage/house8
+	name = "House 8"
+	icon_state = "awaycontent10"
+
+/area/microworlds/desertvillage/house9
+	name = "House 9"
+	icon_state = "awaycontent11"
+
+/area/microworlds/desertvillage/house10
+	name = "House 10"
+	icon_state = "awaycontent12"
+
+/area/microworlds/desertvillage/house11
+	name = "House 11"
+	icon_state = "awaycontent13"
+
+/area/microworlds/desertvillage/house12
+	name = "House 12"
+	icon_state = "awaycontent14"
+
+/area/microworlds/city
+	name = "Pizza City"
+	icon_state = "awaycontent15"
+
+/area/microworlds/city/dockingbay
+	name = "Docking Bay"
+	icon_state = "awaycontent16"
+
+/area/microworlds/city/shop1
+	name = "Shop 1"
+	icon_state = "awaycontent17"
+
+/area/microworlds/city/shop2
+	name = "Shop 2"
+	icon_state = "awaycontent18"
+
+/area/microworlds/city/shop3
+	name = "Shop 3"
+	icon_state = "awaycontent19"
+
+/area/microworlds/city/shop4
+	name = "Shop 4"
+	icon_state = "awaycontent20"
+
+/area/microworlds/city/shop5
+	name = "Shop 5"
+	icon_state = "awaycontent21"
+
+/area/microworlds/city/shop6
+	name = "Shop 6"
+	icon_state = "awaycontent22"
+
+/area/microworlds/city/shop7
+	name = "Shop 7"
+	icon_state = "awaycontent23"
+
+/area/microworlds/city/shop8
+	name = "Shop 8"
+	icon_state = "awaycontent24"
+
+/area/microworlds/city/shop9
+	name = "Shop 9"
+	icon_state = "awaycontent25"
+
+/area/microworlds/city/shop10
+	name = "Shop 10"
+	icon_state = "awaycontent26"
+
+/area/microworlds/city/shop11
+	name = "Shop 11"
+	icon_state = "awaycontent27"
+
+/area/microworlds/city/shop12
+	name = "Shop 12"
+	icon_state = "awaycontent28"
+
+/area/microworlds/city/shop13
+	name = "Shop 13"
+	icon_state = "awaycontent29"
+
+/area/microworlds/city/shop14
+	name = "Shop 14"
+	icon_state = "awaycontent30"
+
+/area/microworlds/city/shop15
+	name = "Shop 15"
+	icon_state = "awaycontent1"
+
+/area/microworlds/spidercaves
+	name = "Spider Caves"
+	icon_state = "awaycontent2"
 
 /////////////////////////////////////////////////////////////////////
 /*

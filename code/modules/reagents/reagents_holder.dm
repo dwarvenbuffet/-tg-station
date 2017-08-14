@@ -1,4 +1,3 @@
-
 var/const/TOUCH = 1 //splashing
 var/const/INGEST = 2 //injection, ingestion
 var/const/VAPOR = 3 //smoke, foam, spray, blob attack
@@ -463,10 +462,11 @@ var/const/PATCH = 4 //patches
 			R.reaction_mob(L, method, R.volume*volume_modifier, show_message, touch_protection)
 	else if(isturf(A))
 		for(var/datum/reagent/R in reagent_list)
-			R.reaction_turf(A, R.volume*volume_modifier, show_message)
+			R.reaction_turf(A, R.volume*volume_modifier, show_message)						
 	else if(isobj(A))
 		for(var/datum/reagent/R in reagent_list)
 			R.reaction_obj(A, R.volume*volume_modifier, show_message)
+	return
 
 /datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = 300, no_react = 0)
 	if(!isnum(amount) || !amount)

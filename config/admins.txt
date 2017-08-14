@@ -11,5 +11,5 @@ Chaosyourgod = Host
 8chanserverhost = Game Master
 SpaghettiScience = Midiadmin
 VixG = Badmin
-Dwarvenbuffet = Coder
+Dwarvenbuffet = Coder, Midiadmin
 KyleBaran = Coder
