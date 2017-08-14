@@ -53,6 +53,19 @@
 	function = "teleporter"
 	data = "Clown Land"
 
+/obj/item/weapon/card/data/beacon
+	name = "nav coords"
+	desc = "Holds to coordinates for a landing pad."
+	icon_state = "data"
+	item_state = "card-id"
+
+/obj/item/weapon/card/data/beacon/New()
+	data = pick("4637","2992","5832","9743","9323","1245","7235","6714","3582","8544","2467","1462","1842","3724","4628","6247") // these are all 16 of z9's beacon locations
+
+/obj/item/weapon/card/data/beacon/examine(mob/user)
+	..()
+	user << "The data slot reads: [data]."
+
 /*
  * ID CARDS
  */

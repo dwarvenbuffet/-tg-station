@@ -12,7 +12,8 @@ z5 = mining asteroid
 z6 = empty space
 z7 = empty space
 z8 = clown planet
-z9 = away mission
+z9 = microworlds
+z10 = away mission
 */
 
 #if !defined(MAP_FILE)
@@ -25,6 +26,7 @@ z9 = away mission
         #include "map_files\MetaStation\z6.dmm"
         #include "map_files\MetaStation\z7.dmm"
 		#include "map_files\MetaStation\z8.dmm"
+		#include "map_files\MetaStation\z9.dmm"
 
         #define MAP_FILE "MetaStation.v40D.dmm"
         #define MAP_NAME "MetaStation"
