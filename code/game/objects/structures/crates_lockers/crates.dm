@@ -348,7 +348,7 @@
 	name = "science crate"
 
 /obj/structure/closet/crate/randomized/science/New()
-
+	new /obj/effect/spawner/lootdrop/random/science(src)
 
 /obj/structure/closet/crate/randomized/hydro
 	name = "hydroponics crate"
@@ -368,7 +368,6 @@
 /obj/structure/closet/crate/randomized/coin
 
 /obj/structure/closet/crate/randomized/coin/New()
-
 	var/newcoin = pick(/obj/item/weapon/coin/silver, /obj/item/weapon/coin/silver, /obj/item/weapon/coin/silver, /obj/item/weapon/coin/iron, /obj/item/weapon/coin/iron, /obj/item/weapon/coin/iron, /obj/item/weapon/coin/gold, /obj/item/weapon/coin/diamond, /obj/item/weapon/coin/plasma, /obj/item/weapon/coin/uranium)
 	new newcoin(src)
 
