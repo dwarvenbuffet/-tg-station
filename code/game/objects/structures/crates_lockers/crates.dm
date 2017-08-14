@@ -15,7 +15,6 @@
 	..()
 	update_icon()
 
-
 /obj/structure/closet/crate/update_icon()
 	overlays.Cut()
 	if(opened)
@@ -322,3 +321,67 @@
 			src.req_access += pick(get_all_accesses())
 	..()
 
+//These are crates that are spawned from spawners, which in turn spawn spawners.
+
+/obj/structure/closet/crate/randomized //abstract class for randomized crates
+	desc = "A rectangular steel crate."
+	name = "crate"
+
+/obj/structure/closet/crate/randomized/medical //full of stuff you find in medbay
+	desc = "A medical crate."
+	name = "medical crate"
+	icon_crate = "medicalcrate"
+	icon_state = "medicalcrate"
+
+/obj/structure/closet/crate/randomized/medical/New()
+	var/newitem = pick(typesof(/obj/item/weapon/storage/firstaid))
+	new newitem(src)
+
+/obj/structure/closet/crate/randomized/engineering
+	desc = "An engineering crate."
+	name = "engineering crate"
+
+/obj/structure/closet/crate/randomized/engineering/New()
+
+/obj/structure/closet/crate/randomized/science
+	desc = "A science crate."
+	name = "science crate"
+
+/obj/structure/closet/crate/randomized/science/New()
+	new /obj/effect/spawner/lootdrop/random/science(src)
+
+/obj/structure/closet/crate/randomized/hydro
+	name = "hydroponics crate"
+	desc = "All you need to grow those beautiful weeds and pests."
+	icon_crate = "hydrocrate"
+	icon_state = "hydrocrate"
+
+/obj/structure/closet/crate/randomized/hydro/New()
+	new /obj/effect/spawner/lootdrop/random(src)
+
+/obj/structure/closet/crate/randomized/toy
+
+/obj/structure/closet/crate/randomized/toy/New()
+	var/newitem = pick(typesof(/obj/item/toy/prize) - /obj/item/toy/prize)
+	new newitem(src)
+
+/obj/structure/closet/crate/randomized/coin
+
+/obj/structure/closet/crate/randomized/coin/New()
+	var/newcoin = pick(/obj/item/weapon/coin/silver, /obj/item/weapon/coin/silver, /obj/item/weapon/coin/silver, /obj/item/weapon/coin/iron, /obj/item/weapon/coin/iron, /obj/item/weapon/coin/iron, /obj/item/weapon/coin/gold, /obj/item/weapon/coin/diamond, /obj/item/weapon/coin/plasma, /obj/item/weapon/coin/uranium)
+	new newcoin(src)
+
+/obj/structure/closet/crate/randomized/engineering
+
+/obj/structure/closet/crate/randomized/engineering/New()
+	new /obj/effect/spawner/lootdrop/random/engineering(src)
+
+/obj/structure/closet/crate/randomized/midvalue // Contents could be good, could be bad.
+
+/obj/structure/closet/crate/randomized/midvalue/New()
+	new /obj/effect/spawner/lootdrop/random(src)
+
+/obj/structure/closet/crate/randomized/highvalue // Reseved for threatening areas.
+
+/obj/structure/closet/crate/randomized/highvalue/New()
+	new /obj/effect/spawner/lootdrop/random/highvalue(src)
