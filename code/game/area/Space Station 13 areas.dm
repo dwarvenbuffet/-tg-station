@@ -1665,22 +1665,32 @@ proc/process_ghost_teleport_locs()
 /area/microworlds/mircroworldmuseum
 	name = "Micro-World Museum"
 	icon_state = "awaycontent1"
+	luminosity = 1
+	lighting_use_dynamic = 0
 
 /area/microworlds/microlobby
 	name = "Micro-World Lobby"
 	icon_state = "awaycontent2"
+	luminosity = 1
+	lighting_use_dynamic = 0
 
 /area/microworlds/snowcaves
 	name = "Snow Caves"
 	icon_state = "awaycontent3"
+	luminosity = 1
+	lighting_use_dynamic = 0
 
 /area/microworlds/magmacavern
 	name = "Magma Cavern"
 	icon_state = "awaycontent4"
+	luminosity = 1
+	lighting_use_dynamic = 0
 
 /area/microworlds/crashsite
 	name = "Crash Site"
 	icon_state = "awaycontent5"
+	luminosity = 1
+	lighting_use_dynamic = 0
 
 /area/microworlds/crashedship
 	name = "Crashed Ship"
@@ -1775,14 +1785,20 @@ proc/process_ghost_teleport_locs()
 /area/microworlds/overgrowth/room9
 	name = "Station B56 room 9"
 	icon_state = "awaycontent26"
+	luminosity = 1
+	lighting_use_dynamic = 0
 
 /area/microworlds/microbeach
 	name = "Beach"
 	icon_state = "awaycontent27"
+	luminosity = 1
+	lighting_use_dynamic = 0
 
 /area/microworlds/plains
 	name = "Grassy Plains"
 	icon_state = "awaycontent28"
+	luminosity = 1
+	lighting_use_dynamic = 0
 
 /area/microworlds/plains/cabinroom1
 	name = "Cabin Room 1"
@@ -1925,6 +1941,8 @@ proc/process_ghost_teleport_locs()
 /area/microworlds/desertvillage
 	name = "Desert Village"
 	icon_state = "awaycontent2"
+	luminosity = 1
+	lighting_use_dynamic = 0
 
 /area/microworlds/desertvillage/house1
 	name = "House 1"
@@ -2045,6 +2063,8 @@ proc/process_ghost_teleport_locs()
 /area/microworlds/spidercaves
 	name = "Spider Caves"
 	icon_state = "awaycontent2"
+	luminosity = 1
+	lighting_use_dynamic = 0
 
 /////////////////////////////////////////////////////////////////////
 /*
