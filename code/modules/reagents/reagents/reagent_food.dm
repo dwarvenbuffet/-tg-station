@@ -249,7 +249,7 @@
 				victim.emote("scream")
 			victim.eye_blurry = max(M.eye_blurry, 3)
 			victim.eye_blind = max(M.eye_blind, 1)
-			victim.confused = max(M.confused, 3)
+			victim.health_status.spatial_confuse = max(M.health_status.spatial_confuse, 3)
 			victim.damageoverlaytemp = 60
 			victim.Weaken(3)
 			victim.drop_item()
@@ -263,7 +263,7 @@
 				victim.emote("scream")
 			victim.eye_blurry = max(M.eye_blurry, 5)
 			victim.eye_blind = max(M.eye_blind, 2)
-			victim.confused = max(M.confused, 6)
+			victim.health_status.spatial_confuse = max(M.health_status.spatial_confuse, 6)
 			victim.damageoverlaytemp = 75
 			victim.Weaken(5)
 			victim.drop_item()

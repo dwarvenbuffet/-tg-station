@@ -167,7 +167,7 @@
 			sleeping += 1
 			Paralyse(5)
 
-	confused = max(0, confused - 1)
+	health_status.spatial_confuse = max(0, health_status.spatial_confuse - 1)
 	// decrement dizziness counter, clamped to 0
 	if(resting)
 		dizziness = max(0, dizziness - 5)

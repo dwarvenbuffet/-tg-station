@@ -201,7 +201,7 @@ Bonus
 			else
 				M.visible_message("<span class='danger'>[M] skin bursts like a bubble releasing a scarab!</span>", \
 					"<span class='userdanger'>Your skin bursts like a bubble releasing the scarab!</span>")
-				M.confused = min(100, M.confused + 2)
+				M.health_status.spatial_confuse = min(100, M.health_status.spatial_confuse + 2)
 				M.adjustBruteLoss(-60)
 				new/obj/item/weapon/guardiancreator/biological/choose ( M.loc )
 				A.cure()

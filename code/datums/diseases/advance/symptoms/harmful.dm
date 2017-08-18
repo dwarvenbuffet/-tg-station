@@ -535,7 +535,7 @@ Bonus
 				M << "<span class='notice'>[pick("You feel confused.", "You forgot what you were thinking about.")]</span>"
 			else
 				M << "<span class='notice'>You are unable to think straight!</span>"
-				M.confused = min(100, M.confused + 3)
+				M.health_status.spatial_confuse = min(100, M.health_status.spatial_confuse + 3)
 
 	return
 

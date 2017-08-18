@@ -25,7 +25,7 @@
 	M.dizziness = 0
 	M.drowsyness = 0
 	M.slurring = 0
-	M.confused = 0
+	M.health_status.spatial_confuse = 0
 	M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3*REM, 0, 1)
 	M.adjustToxLoss(-0.2*REM)
 	..()
@@ -284,7 +284,7 @@
 	M.drowsyness = 0
 	M.stuttering = 0
 	M.slurring = 0
-	M.confused = 0
+	M.health_status.spatial_confuse = 0
 	M.sleeping = 0
 	M.jitteriness = 0
 	for(var/datum/disease/D in M.viruses)
@@ -1035,7 +1035,7 @@
 	M.dizziness = 0
 	M.drowsyness = 0
 	M.slurring = 0
-	M.confused = 0
+	M.health_status.spatial_confuse = 0
 	M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3*REM, 0, 1)
 	M.adjustToxLoss(-0.2*REM)
 	..()

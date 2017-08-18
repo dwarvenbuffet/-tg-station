@@ -28,8 +28,8 @@
 		M.slurring += 4
 		M.Dizzy(5)
 	if(current_cycle >= boozepwr*2.5 && prob(33))
-		if (!M.confused) M.confused = 1
-		M.confused += 3
+		if (!M.health_status.spatial_confuse) M.health_status.spatial_confuse = 1
+		M.health_status.spatial_confuse += 3
 	if(current_cycle >= boozepwr*10 && prob(33))
 		M.adjustToxLoss(2)
 //		if(prob(20) && !(/datum/disease/cirrhosis/ in M.viruses))

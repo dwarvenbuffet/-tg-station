@@ -8,6 +8,31 @@
 	var/unacidable = 0
 
 	var/stat = 0 //Whether a mob is alive or dead. TODO: Move this to living - Nodrak
+	
+	
+// These will be phased out shortly
+//
+	var/datum/health_status/health_status = new()
+
+
+	//var/confused = 0		//Carbon
+		
+	var/ear_deaf = 0		//Carbon
+	var/ear_damage = 0		//Carbon
+	
+	var/stuttering = 0		//Carbon
+	var/slurring = 0		//Carbon
+	
+	var/druggy = 0			//Carbon
+	var/eye_blind = 0		//Carbon
+	var/eye_blurry = 0		//Carbon
+	var/eye_stat = null//Living, potentially Carbon
+	
+	
+	var/lastpuke = 0
+//
+//
+	
 
 	var/obj/screen/flash = null
 	var/obj/screen/blind = null
@@ -44,24 +69,14 @@
 	var/next_move = null
 	var/notransform = null	//Carbon
 	var/hand = null
-	var/eye_blind = 0		//Carbon
-	var/eye_blurry = 0		//Carbon
-	var/ear_deaf = 0		//Carbon
-	var/ear_damage = 0		//Carbon
-	var/stuttering = 0	//Carbon
-	var/slurring = 0		//Carbon
 	var/real_name = null
 	var/bhunger = 0			//Carbon
 	var/ajourn = 0
-	var/druggy = 0			//Carbon
-	var/confused = 0		//Carbon
 	var/sleeping = 0		//Carbon
 	var/resting = 0			//Carbon
 	var/lying = 0
 	var/lying_prev = 0
 	var/canmove = 1
-	var/eye_stat = null//Living, potentially Carbon
-	var/lastpuke = 0
 	pressure_resistance = 8
 
 	var/name_archive //For admin things like possession
@@ -99,7 +114,6 @@
 
 	var/list/grabbed_by = list(  )
 	var/list/requests = list(  )
-
 	var/list/mapobjs = list()
 
 	var/in_throw_mode = 0

@@ -412,7 +412,7 @@
 			if(iscarbon(target))
 				var/mob/living/carbon/M = target
 				M << "<span class='danger'><b>A spike of pain drives into your head and scrambles your thoughts!</b></span>"
-				M.confused += 10
+				M.health_status.spatial_confuse += 10
 				M.setEarDamage(M.ear_damage + 3)
 			else if(issilicon(target))
 				var/mob/living/silicon/S = target

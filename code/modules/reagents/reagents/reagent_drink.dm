@@ -423,8 +423,8 @@
 		M.adjustToxLoss(-2)
 	if(M.dizziness !=0)
 		M.dizziness = max(0,M.dizziness-15)
-	if(M.confused !=0)
-		M.confused = max(0,M.confused - 5)
+	if(M.health_status.spatial_confuse !=0)
+		M.health_status.spatial_confuse = max(0,M.health_status.spatial_confuse - 5)
 	..()
 /datum/reagent/consumable/doctor_delight/overdose_process(var/mob/living/M as mob)
 	M.adjustToxLoss(3*REM)
@@ -506,7 +506,7 @@
 
 /datum/reagent/consumable/atomicbomb/on_mob_life(var/mob/living/M as mob)
 	M.druggy = max(M.druggy, 50)
-	M.confused = max(M.confused+2,0)
+	M.health_status.spatial_confuse = max(M.health_status.spatial_confuse+2,0)
 	M.Dizzy(10)
 	if (!M.slurring)
 		M.slurring = 1
@@ -535,7 +535,7 @@
 			M.slurring += 3
 		if(45 to 55)
 			if(prob(50))
-				M.confused = max(M.confused+3,0)
+				M.health_status.spatial_confuse = max(M.health_status.spatial_confuse+3,0)
 		if(55 to 200)
 			M.druggy = max(M.druggy, 55)
 		if(200 to INFINITY)
@@ -559,7 +559,7 @@
 			M.slurring += 3
 		if(45 to 55)
 			if(prob(50))
-				M.confused = max(M.confused+3,0)
+				M.health_status.spatial_confuse = max(M.health_status.spatial_confuse+3,0)
 		if(55 to 200)
 			M.druggy = max(M.druggy, 55)
 		if(200 to INFINITY)
