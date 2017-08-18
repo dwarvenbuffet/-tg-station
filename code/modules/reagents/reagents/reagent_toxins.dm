@@ -316,7 +316,7 @@
 /datum/reagent/toxin/chloralhydrate/on_mob_life(var/mob/living/M as mob)
 	switch(current_cycle)
 		if(1 to 5)
-			M.health_status.spatial_confuse += 20 // XXX: Should be 2
+			M.health_status.spatial_confuse += 2
 			M.drowsyness += 2
 		if(5 to 25)
 			M.sleeping += 1
