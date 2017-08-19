@@ -247,7 +247,7 @@
 		else if ( mouth_covered )	// Reduced effects if partially protected
 			if(prob(5))
 				victim.emote("scream")
-			victim.eye_blurry = max(M.eye_blurry, 3)
+			victim.health_status.vision_blurry = max(M.health_status.vision_blurry, 3)
 			victim.health_status.vision_blindness = max(M.health_status.vision_blindness, 1)
 			victim.health_status.spatial_confuse = max(M.health_status.spatial_confuse, 3)
 			victim.damageoverlaytemp = 60
@@ -255,13 +255,13 @@
 			victim.drop_item()
 			return
 		else if ( eyes_covered ) // Eye cover is better than mouth cover
-			victim.eye_blurry = max(M.eye_blurry, 3)
+			victim.health_status.vision_blurry = max(M.health_status.vision_blurry, 3)
 			victim.damageoverlaytemp = 30
 			return
 		else // Oh dear :D
 			if(prob(5))
 				victim.emote("scream")
-			victim.eye_blurry = max(M.eye_blurry, 5)
+			victim.health_status.vision_blurry = max(M.health_status.vision_blurry, 5)
 			victim.health_status.vision_blindness = max(M.health_status.vision_blindness, 2)
 			victim.health_status.spatial_confuse = max(M.health_status.spatial_confuse, 6)
 			victim.damageoverlaytemp = 75

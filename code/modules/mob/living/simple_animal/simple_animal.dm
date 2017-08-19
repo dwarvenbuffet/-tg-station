@@ -117,15 +117,15 @@
 	else
 		if(health_status.vision_blindness)
 			health_status.vision_blindness = 0
-		if(eye_blurry)
-			eye_blurry = 0
-		if(eye_stat)
-			eye_stat = 0
+		if(health_status.vision_blurry)
+			health_status.vision_blurry = 0
+		if(health_status.vision_damage)
+			health_status.vision_damage = 0
 
 	//Ears
 	if(disabilities & DEAF)
-		setEarDamage(-1, max(ear_deaf, 1))
-	else if(ear_damage < 100)
+		setEarDamage(-1, max(health_status.aural_deaf, 1))
+	else if(health_status.aural_deaf_intensity < 100)
 		setEarDamage(0, 0)
 
 /mob/living/simple_animal/handle_status_effects()

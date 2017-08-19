@@ -413,7 +413,7 @@
 				var/mob/living/carbon/M = target
 				M << "<span class='danger'><b>A spike of pain drives into your head and scrambles your thoughts!</b></span>"
 				M.health_status.spatial_confuse += 10
-				M.setEarDamage(M.ear_damage + 3)
+				M.setEarDamage(M.health_status.aural_deaf_intensity + 3)
 			else if(issilicon(target))
 				var/mob/living/silicon/S = target
 				S << "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSOR INTERFERENCE DETECTED</b></span>"

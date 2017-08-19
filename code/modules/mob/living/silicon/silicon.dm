@@ -174,7 +174,7 @@
 		if(STUTTER)
 			stuttering = max(stuttering,(effect/(blocked+1)))
 		if(EYE_BLUR)
-			eye_blurry = max(eye_blurry,(effect/(blocked+1)))
+			health_status.vision_blurry = max(health_status.vision_blurry,(effect/(blocked+1)))
 		if(DROWSY)
 			drowsyness = max(drowsyness,(effect/(blocked+1)))
 	updatehealth()

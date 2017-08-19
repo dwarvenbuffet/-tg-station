@@ -244,7 +244,7 @@
 
 	if(drowsyness)
 		drowsyness--
-		eye_blurry = max(2, eye_blurry)
+		health_status.vision_blurry = max(2, health_status.vision_blurry)
 		if(prob(5))
 			sleeping += 1
 			Paralyse(5)
@@ -412,16 +412,16 @@
 	if(!(disabilities & BLIND) && exists("eyes"))	//blindness from disability or unconsciousness doesn't get better on its own
 		if(health_status.vision_blindness)			//blindness, heals slowly over time
 			health_status.vision_blindness = max(health_status.vision_blindness-1,0)
-		else if(eye_blurry)			//blurry eyes heal slowly
-			eye_blurry = max(eye_blurry-1, 0)
+		else if(health_status.vision_blurry)			//blurry eyes heal slowly
+			health_status.vision_blurry = max(health_status.vision_blurry-1, 0)
 	else
 		health_status.vision_blindness = max(health_status.vision_blindness,1) //Force blindness if user is actually blind
 	//Ears
 	if(disabilities & DEAF)		//disabled-deaf, doesn't get better on its own
-		setEarDamage(-1, max(ear_deaf, 1))
+		setEarDamage(-1, max(health_status.aural_deaf, 1))
 	else
 		// deafness heals slowly over time, unless ear_damage is over 100
-		if(ear_damage < 100)
+		if(health_status.aural_deaf_intensity < 100)
 			adjustEarDamage(-0.05,-1)
 
 

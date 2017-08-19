@@ -105,16 +105,16 @@
 		src.health_status.vision_blindness--
 
 
-	if (src.ear_deaf > 0) src.ear_deaf--
-	if (src.ear_damage < 25)
-		src.ear_damage -= 0.05
-		src.ear_damage = max(src.ear_damage, 0)
+	if (src.health_status.aural_deaf > 0) src.health_status.aural_deaf--
+	if (src.health_status.aural_deaf_intensity < 25)
+		src.health_status.aural_deaf_intensity -= 0.05
+		src.health_status.aural_deaf_intensity = max(src.health_status.aural_deaf_intensity, 0)
 
 	src.density = !( src.lying )
 
-	if (src.eye_blurry > 0)
-		src.eye_blurry--
-		src.eye_blurry = max(0, src.eye_blurry)
+	if (src.health_status.vision_blurry > 0)
+		src.health_status.vision_blurry--
+		src.health_status.vision_blurry = max(0, src.health_status.vision_blurry)
 
 	if (src.health_status.vision_druggy > 0)
 		src.health_status.vision_druggy--
@@ -236,7 +236,7 @@
 	//		if (src.disabilities & NEARSIGHTED)
 	//			src.client.screen += global_hud.vimpaired
 
-	//		if (src.eye_blurry)
+	//		if (src.health_status.vision_blurry)
 	//			src.client.screen += global_hud.blurry
 
 			if (src.health_status.vision_druggy)

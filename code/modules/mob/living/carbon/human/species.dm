@@ -629,9 +629,9 @@
 			H.health_status.vision_blindness = max(H.health_status.vision_blindness, 1)
 	else
 		H.clear_fullscreen("tint")
-	if(H.eye_stat > 30)
+	if(H.health_status.vision_damage > 30)
 		H.overlay_fullscreen("impaired", /obj/screen/fullscreen/impaired, 2)
-	else if(H.eye_stat > 20)
+	else if(H.health_status.vision_damage > 20)
 		H.overlay_fullscreen("impaired", /obj/screen/fullscreen/impaired, 1)
 	else
 		H.clear_fullscreen("impaired")
@@ -647,7 +647,7 @@
 		H.overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
 	else
 		H.clear_fullscreen("nearsighted")
-	if(H.eye_blurry)
+	if(H.health_status.vision_blurry)
 		H.overlay_fullscreen("blurry", /obj/screen/fullscreen/blurry)
 	else
 		H.clear_fullscreen("blurry")

@@ -97,7 +97,7 @@
 						silent = 0
 						emp_damage -= 1
 					if(11 to 19)//Moderate level of EMP damage, resulting in nearsightedness and ear damage
-						eye_blurry = 1
+						health_status.vision_blurry = 1
 						setEarDamage(1,-1)
 						if(!alert)
 							emote("alert")
@@ -107,7 +107,7 @@
 							emp_damage -= 1
 					if(10)
 						alert = 0
-						eye_blurry = 0
+						health_status.vision_blurry = 0
 						setEarDamage(0,-1)
 						emp_damage -= 1
 					if(2 to 9)//Low level of EMP damage, has few effects(handled elsewhere)
@@ -150,16 +150,16 @@
 	if(!(disabilities & BLIND))	//blindness from disability or unconsciousness doesn't get better on its own
 		if(health_status.vision_blindness)			//blindness, heals slowly over time
 			health_status.vision_blindness = max(health_status.vision_blindness-1,0)
-		else if(eye_blurry)			//blurry eyes heal slowly
-			eye_blurry = max(eye_blurry-1, 0)
+		else if(health_status.vision_blurry)			//blurry eyes heal slowly
+			health_status.vision_blurry = max(health_status.vision_blurry-1, 0)
 	else
 		health_status.vision_blindness = max(health_status.vision_blindness,1) //Force blindness if user is actually blind
 	//Ears
 	if(disabilities & DEAF)		//disabled-deaf, doesn't get better on its own
-		setEarDamage(-1, max(ear_deaf, 1))
+		setEarDamage(-1, max(health_status.aural_deaf, 1))
 	else
 		// deafness heals slowly over time, unless ear_damage is over 100
-		if(ear_damage < 100)
+		if(health_status.aural_deaf_intensity < 100)
 			adjustEarDamage(-0.05,-1)
 
 

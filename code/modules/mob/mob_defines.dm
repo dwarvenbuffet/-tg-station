@@ -13,15 +13,9 @@
 // These will be phased out shortly
 //
 	var/datum/health_status/health_status = new()
-
-	var/ear_deaf = 0		//Carbon
-	var/ear_damage = 0		//Carbon
 	
 	var/stuttering = 0		//Carbon
 	var/slurring = 0		//Carbon
-	
-	var/eye_blurry = 0		//Carbon
-	var/eye_stat = null//Living, potentially Carbon
 	
 	
 	var/lastpuke = 0

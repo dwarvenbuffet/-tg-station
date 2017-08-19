@@ -245,10 +245,10 @@ Bonus
 				if(M.disabilities & DEAF)
 					M.disabilities &= ~DEAF
 			if(2)
-				M.eye_blurry = max(M.eye_blurry-5 , 0)
+				M.health_status.vision_blurry = max(M.health_status.vision_blurry-5 , 0)
 				M.health_status.vision_blindness = max(M.health_status.vision_blindness-5 , 0)
 				M.disabilities &= ~NEARSIGHT
-				M.eye_stat = max(M.eye_stat-5, 0)
+				M.health_status.vision_damage = max(M.health_status.vision_damage-5, 0)
 				M.setEarDamage(0,0)
 				if(M.disabilities & DEAF)
 					M.disabilities &= ~DEAF
@@ -260,10 +260,10 @@ Bonus
 				M.hallucination = max(0, M.hallucination - 10)
 				if(prob(60))
 					M.adjustToxLoss(1)
-				M.eye_blurry = max(M.eye_blurry-5 , 0)
+				M.health_status.vision_blurry = max(M.health_status.vision_blurry-5 , 0)
 				M.health_status.vision_blindness = max(M.health_status.vision_blindness-5 , 0)
 				M.disabilities &= ~NEARSIGHT
-				M.eye_stat = max(M.eye_stat-5, 0)
+				M.health_status.vision_damage = max(M.health_status.vision_damage-5, 0)
 				M.setEarDamage(0,0)
 				if(M.disabilities & DEAF)
 					M.disabilities &= ~DEAF
@@ -277,10 +277,10 @@ Bonus
 				M.hallucination = max(0, M.hallucination - 10)
 				if(prob(60))
 					M.adjustToxLoss(1)
-				M.eye_blurry = max(M.eye_blurry-5 , 0)
+				M.health_status.vision_blurry = max(M.health_status.vision_blurry-5 , 0)
 				M.health_status.vision_blindness = max(M.health_status.vision_blindness-5 , 0)
 				M.disabilities &= ~NEARSIGHT
-				M.eye_stat = max(M.eye_stat-5, 0)
+				M.health_status.vision_damage = max(M.health_status.vision_damage-5, 0)
 				M.setEarDamage(0,0)
 				if(M.disabilities & DEAF)
 					M.disabilities &= ~DEAF

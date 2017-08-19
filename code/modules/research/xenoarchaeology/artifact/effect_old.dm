@@ -154,7 +154,7 @@
 			if("sleepy")
 				user << pick("<span class='notice'>You feel like taking a nap.</span>","<span class='notice'>You feel a yawn coming on.</span>","<span class='notice'>You feel a little tired.</span>")
 				user.drowsyness = min(user.drowsyness + rand(5,25), 50)
-				user.eye_blurry = min(user.eye_blurry + rand(1,3), 50)
+				user.health_status.vision_blurry = min(user.health_status.vision_blurry + rand(1,3), 50)
 				return 1
 	else if (src.effectmode == "aura")
 		switch(src.effecttype)
@@ -249,7 +249,7 @@
 					if(prob(10))
 						M << pick("<span class='notice'>You feel like taking a nap.</span>","<span class='notice'>You feel a yawn coming on.</span>","<span class='notice'>You feel a little tired.</span>")
 					M.drowsyness = min(M.drowsyness + 1, 25)
-					M.eye_blurry = min(M.eye_blurry + 1, 25)
+					M.health_status.vision_blurry = min(M.health_status.vision_blurry + 1, 25)
 				return 1
 	else if (src.effectmode == "pulse")
 		for(var/mob/O in viewers(originator, null))
@@ -383,7 +383,7 @@
 					if(prob(50))
 						M.drowsyness = min(M.drowsyness + rand(1,5), 25)
 					if(prob(50))
-						M.eye_blurry = min(M.eye_blurry + rand(1,5), 25)
+						M.health_status.vision_blurry = min(M.health_status.vision_blurry + rand(1,5), 25)
 				return 1
 	else if (src.effectmode == "worldpulse")
 		for(var/mob/O in viewers(originator, null))
@@ -492,7 +492,7 @@
 			if("sleepy")
 				for(var/mob/living/H in range(200, originator))
 					H.drowsyness = min(H.drowsyness + rand(5,15), 50)
-					H.eye_blurry = min(H.eye_blurry + rand(5,15), 50)
+					H.health_status.vision_blurry = min(H.health_status.vision_blurry + rand(5,15), 50)
 				return 1
 
 //initially for the force field artifact

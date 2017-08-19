@@ -162,7 +162,7 @@
 
 	if(drowsyness)
 		drowsyness--
-		eye_blurry = max(2, eye_blurry)
+		health_status.vision_blurry = max(2, health_status.vision_blurry)
 		if(prob(5))
 			sleeping += 1
 			Paralyse(5)
@@ -232,15 +232,15 @@
 	if(health_status.vision_blindness)
 		health_status.vision_blindness = 0
 
-	setEarDamage((ear_damage < 25 ? 0 : ear_damage),(disabilities & DEAF ? 1 :0))
+	setEarDamage((health_status.aural_deaf_intensity < 25 ? 0 : health_status.aural_deaf_intensity),(disabilities & DEAF ? 1 :0))
 
 	density = !( src.lying )
 
 	if(disabilities & BLIND)
 		health_status.vision_blindness = max(health_status.vision_blindness, 1)
 
-	if(eye_blurry > 0)
-		eye_blurry = 0
+	if(health_status.vision_blurry > 0)
+		health_status.vision_blurry = 0
 
 	if(health_status.vision_druggy > 0)
 		health_status.vision_druggy = 0

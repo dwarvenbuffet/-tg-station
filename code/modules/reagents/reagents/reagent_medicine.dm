@@ -274,7 +274,7 @@
 	M.hallucination = 0
 	M.setBrainLoss(0)
 	M.disabilities = 0
-	M.eye_blurry = 0
+	M.health_status.vision_blurry = 0
 	M.health_status.vision_blindness = 0
 	M.SetWeakened(0)
 	M.SetStunned(0)
@@ -387,10 +387,10 @@
 	color = "#C8A5DC" // rgb: 200, 165, 220
 
 /datum/reagent/medicine/imidazoline/on_mob_life(var/mob/living/M as mob)
-	M.eye_blurry = max(M.eye_blurry-5 , 0)
+	M.health_status.vision_blurry = max(M.health_status.vision_blurry-5 , 0)
 	M.health_status.vision_blindness = max(M.health_status.vision_blindness-5 , 0)
 	M.disabilities &= ~NEARSIGHT
-	M.eye_stat = max(M.eye_stat-5, 0)
+	M.health_status.vision_damage = max(M.health_status.vision_damage-5, 0)
 	..()
 	return
 
@@ -893,10 +893,10 @@
 			M.health_status.vision_blindness = 0
 		else if(prob(80))
 			M.health_status.vision_blindness = 0
-			M.eye_blurry = 1
-		if(M.eye_blurry > 0)
+			M.health_status.vision_blurry = 1
+		if(M.health_status.vision_blurry > 0)
 			if(prob(80))
-				M.eye_blurry = 0
+				M.health_status.vision_blurry = 0
 	..()
 	return
 

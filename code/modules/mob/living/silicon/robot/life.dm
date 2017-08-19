@@ -51,7 +51,8 @@
 			if(src.module_state_3)
 				cell.use(5)
 			cell.use(1)
-health_status.vision_blindness			stat = 0
+			health_status.vision_blindness = 0
+			stat = 0
 	else
 		uneq_all()
 		stat = 1
@@ -118,9 +119,9 @@ health_status.vision_blindness			stat = 0
 	if (src.disabilities & BLIND)
 		src.health_status.vision_blindness= max(1, health_status.vision_blindness)
 
-	if (src.eye_blurry > 0)
-		src.eye_blurry--
-		src.eye_blurry = max(0, src.eye_blurry)
+	if (src.health_status.vision_blurry > 0)
+		src.health_status.vision_blurry--
+		src.health_status.vision_blurry = max(0, src.health_status.vision_blurry)
 
 	if (src.health_status.vision_druggy > 0)
 		src.health_status.vision_druggy--

@@ -142,7 +142,7 @@
 	target << "<span class='danger'>Your eyes burn horrifically!</span>"
 	target.disabilities |= NEARSIGHT
 	target.health_status.vision_blindness = 20
-	target.eye_blurry = 40
+	target.health_status.vision_blurry = 40
 	feedback_add_details("changeling_powers","BS")
 	return 1
 

@@ -125,7 +125,7 @@
 		if(M.glasses == src)
 			M << "<span class='danger'>The [src] overloads and blinds you!</span>"
 			M.health_status.vision_blindness = 3
-			M.eye_blurry = 5
+			M.health_status.vision_blurry = 5
 			M.disabilities |= NEARSIGHT
 			spawn(100)
 				M.disabilities &= ~NEARSIGHT

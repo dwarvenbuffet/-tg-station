@@ -1,5 +1,6 @@
-// TODO: More intensity level integration
-// eg blind -> radius of overlay
+// TODO: More intensity level integration eg blind -> radius of overlay
+// TODO: Split audio stuff to care between sounds and speech
+// TODO: Life.dm has handle_disabilities declared multiple times
 
 datum/health_status
 
@@ -30,8 +31,8 @@ datum/health_status
 	var/vision_damage_intensity    = 0
 	var/vision_blindness           = 0 // Overlay: only see around you
 	var/vision_blindness_intensity = 0 
-	var/vision_blur                = 0 // Overlay: cloudy
-	var/vision_blur_intensity      = 0
+	var/vision_blurry              = 0 // Overlay: cloudy
+	var/vision_blurry_intensity    = 0
 	var/vision_druggy              = 0 // Overlay: hue shifting
 	var/vision_druggy_intensity    = 0
 

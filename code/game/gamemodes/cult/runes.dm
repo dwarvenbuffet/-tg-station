@@ -945,7 +945,7 @@ obj/effect/rune/proc/raise()
 			var/obj/item/weapon/nullrod/N = locate() in C
 			if(N)
 				continue
-			C.eye_blurry += 50
+			C.health_status.vision_blurry += 50
 			C.health_status.vision_blindness += 20
 			if(prob(5))
 				C.disabilities |= NEARSIGHT
@@ -967,7 +967,7 @@ obj/effect/rune/proc/raise()
 			var/obj/item/weapon/nullrod/N = locate() in C
 			if(N)
 				continue
-			C.eye_blurry += 30
+			C.health_status.vision_blurry += 30
 			C.health_status.vision_blindness += 10
 			//talismans is weaker.
 			affected++

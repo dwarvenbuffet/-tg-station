@@ -47,7 +47,7 @@
 	color = "#973800" // rgb: 151, 56, 0
 
 /datum/reagent/consumable/carrotjuice/on_mob_life(var/mob/living/M as mob)
-	M.eye_blurry = max(M.eye_blurry-1 , 0)
+	M.health_status.vision_blurry = max(M.health_status.vision_blurry-1 , 0)
 	M.health_status.vision_blindness = max(M.health_status.vision_blindness-1 , 0)
 	switch(current_cycle)
 		if(1 to 20)
@@ -624,7 +624,7 @@
 		if(1 to 12)
 			if(prob(5))	M.emote("yawn")
 		if(12 to 15)
-			M.eye_blurry = max(M.eye_blurry, 10)
+			M.health_status.vision_blurry = max(M.health_status.vision_blurry, 10)
 		if(15 to INFINITY)
 			M.drowsyness  = max(M.drowsyness, 20)
 	..()

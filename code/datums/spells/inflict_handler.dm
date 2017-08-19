@@ -62,7 +62,7 @@
 		target.Stun(amt_stunned)
 
 		target.health_status.vision_blindness += amt_eye_blind
-		target.eye_blurry += amt_eye_blurry
+		target.health_status.vision_blurry += amt_eye_blurry
 		//summoning
 		if(summon_type)
 			new summon_type(target.loc, target)
