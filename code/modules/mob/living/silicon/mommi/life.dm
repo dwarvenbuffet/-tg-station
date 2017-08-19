@@ -101,8 +101,8 @@
 
 	if (src.stuttering) src.stuttering--
 
-	if (src.eye_blind)
-		src.eye_blind--
+	if (src.health_status.vision_blindness)
+		src.health_status.vision_blindness--
 
 
 	if (src.ear_deaf > 0) src.ear_deaf--
@@ -116,9 +116,9 @@
 		src.eye_blurry--
 		src.eye_blurry = max(0, src.eye_blurry)
 
-	if (src.druggy > 0)
-		src.druggy--
-		src.druggy = max(0, src.druggy)
+	if (src.health_status.vision_druggy > 0)
+		src.health_status.vision_druggy--
+		src.health_status.vision_druggy = max(0, src.health_status.vision_druggy)
 
 	return 1
 
@@ -226,7 +226,7 @@
 //	if (src.oxygen) src.oxygen.icon_state = "oxy[src.oxygen_alert ? 1 : 0]"
 //	if (src.fire) src.fire.icon_state = "fire[src.fire_alert ? 1 : 0]"
 /*
-	client.screen.Remove(global_hud.blurry,global_hud.druggy)
+	client.screen.Remove(global_hud.blurry,global_hud.health_status.vision_druggy)
 
 	if ((src.blind && src.stat != 2))
 		if(src.blinded)
@@ -239,7 +239,7 @@
 	//		if (src.eye_blurry)
 	//			src.client.screen += global_hud.blurry
 
-			if (src.druggy)
+			if (src.health_status.vision_druggy)
 				src.client.screen += global_hud.druggy
 */
 	if (src.stat != 2)
@@ -249,7 +249,7 @@
 //		else
 //			if(!client.adminobs)
 //				reset_view(null)
-	if(eye_blind)
+	if(health_status.vision_blindness)
 		overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
 	else
 		clear_fullscreen("blind")

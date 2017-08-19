@@ -290,20 +290,20 @@
 /mob/living/carbon/handle_regular_status_updates()
 
 	if(stat == DEAD)
-		eye_blind = max(eye_blind, 1)
+		health_status.vision_blindness = max(health_status.vision_blindness, 1)
 		silent = 0
 	else
 		updatehealth()
 		if(health <= config.health_threshold_dead)
 			death()
-			eye_blind = max(eye_blind, 1)
+			health_status.vision_blindness = max(health_status.vision_blindness, 1)
 			silent = 0
 			return 1
 		else if(organsystem)
 			var/datum/organ/B = get_organdatum("brain")
 			if(!(B && B.exists()))
 				death()
-				eye_blind = max(eye_blind, 1)
+				health_status.vision_blindness = max(health_status.vision_blindness, 1)
 				silent = 0
 				return 1
 
@@ -380,8 +380,8 @@
 		if(silent)
 			silent = max(silent-1, 0)
 
-		if(druggy)
-			druggy = max(druggy-1, 0)
+		if(health_status.vision_druggy)
+			health_status.vision_druggy = max(health_status.vision_druggy-1, 0)
 
 		if(stunned)
 			stunned = max(stunned-1,0)
@@ -408,14 +408,14 @@
 /mob/living/carbon/handle_disabilities()
 	//Eyes
 	if(stat)
-		eye_blind = max(eye_blind, 5)
+		health_status.vision_blindness = max(health_status.vision_blindness, 5)
 	if(!(disabilities & BLIND) && exists("eyes"))	//blindness from disability or unconsciousness doesn't get better on its own
-		if(eye_blind)			//blindness, heals slowly over time
-			eye_blind = max(eye_blind-1,0)
+		if(health_status.vision_blindness)			//blindness, heals slowly over time
+			health_status.vision_blindness = max(health_status.vision_blindness-1,0)
 		else if(eye_blurry)			//blurry eyes heal slowly
 			eye_blurry = max(eye_blurry-1, 0)
 	else
-		eye_blind = max(eye_blind,1) //Force blindness if user is actually blind
+		health_status.vision_blindness = max(health_status.vision_blindness,1) //Force blindness if user is actually blind
 	//Ears
 	if(disabilities & DEAF)		//disabled-deaf, doesn't get better on its own
 		setEarDamage(-1, max(ear_deaf, 1))

@@ -190,7 +190,7 @@
 				eye_stat += rand(12, 16)
 
 		if(eye_stat > 10)
-			eye_blind += damage
+			health_status.vision_blindness += damage
 			eye_blurry += damage * rand(3, 6)
 
 			if(eye_stat > 20)

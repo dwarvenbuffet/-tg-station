@@ -96,7 +96,7 @@
 		M.reagents.add_reagent("ephedrine", 10)
 	if (M.reagents.get_reagent_amount("coffee") < 30)
 		M.reagents.add_reagent("coffee", 15)
-	M.druggy = max(M.druggy, 15)
+	M.health_status.vision_druggy = max(M.health_status.vision_druggy, 15)
 	if(prob(7)) M.emote(pick("twitch","drool","moan","giggle"))
 	..()
 	return
@@ -248,7 +248,7 @@
 			if(prob(5))
 				victim.emote("scream")
 			victim.eye_blurry = max(M.eye_blurry, 3)
-			victim.eye_blind = max(M.eye_blind, 1)
+			victim.health_status.vision_blindness = max(M.health_status.vision_blindness, 1)
 			victim.health_status.spatial_confuse = max(M.health_status.spatial_confuse, 3)
 			victim.damageoverlaytemp = 60
 			victim.Weaken(3)
@@ -262,7 +262,7 @@
 			if(prob(5))
 				victim.emote("scream")
 			victim.eye_blurry = max(M.eye_blurry, 5)
-			victim.eye_blind = max(M.eye_blind, 2)
+			victim.health_status.vision_blindness = max(M.health_status.vision_blindness, 2)
 			victim.health_status.spatial_confuse = max(M.health_status.spatial_confuse, 6)
 			victim.damageoverlaytemp = 75
 			victim.Weaken(5)
@@ -318,7 +318,7 @@
 	metabolization_rate = 0.2 * REAGENTS_METABOLISM
 
 /datum/reagent/mushroomhallucinogen/on_mob_life(var/mob/living/M as mob)
-	M.druggy = max(M.druggy, 30)
+	M.health_status.vision_druggy = max(M.health_status.vision_druggy, 30)
 	switch(current_cycle)
 		if(1 to 5)
 			if (!M.slurring)
@@ -331,7 +331,7 @@
 				M.slurring = 1
 			M.Jitter(10)
 			M.Dizzy(10)
-			M.druggy = max(M.druggy, 35)
+			M.health_status.vision_druggy = max(M.health_status.vision_druggy, 35)
 			if(prob(20))
 				M.emote(pick("twitch","giggle"))
 		if (10 to INFINITY)
@@ -339,7 +339,7 @@
 				M.slurring = 1
 			M.Jitter(20)
 			M.Dizzy(20)
-			M.druggy = max(M.druggy, 40)
+			M.health_status.vision_druggy = max(M.health_status.vision_druggy, 40)
 			if(prob(30))
 				M.emote(pick("twitch","giggle"))
 	..()

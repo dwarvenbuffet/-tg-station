@@ -151,10 +151,10 @@ Bonus
 				M.eye_stat += 5
 				if (M.eye_stat >= 10)
 					M.disabilities |= NEARSIGHT
-					if (prob(M.eye_stat - 10 + 1) && !(M.eye_blind))
+					if (prob(M.eye_stat - 10 + 1) && !(M.health_status.vision_blindness))
 						M << "<span class='danger'>You go blind!</span>"
 						M.disabilities |= BLIND
-						M.eye_blind = 1
+						M.health_status.vision_blindness = 1
 	return
 
 

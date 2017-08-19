@@ -113,10 +113,10 @@
 /mob/living/simple_animal/handle_disabilities()
 	//Eyes
 	if(disabilities & BLIND || stat)
-		eye_blind = max(eye_blind, 1)
+		health_status.vision_blindness = max(health_status.vision_blindness, 1)
 	else
-		if(eye_blind)
-			eye_blind = 0
+		if(health_status.vision_blindness)
+			health_status.vision_blindness = 0
 		if(eye_blurry)
 			eye_blurry = 0
 		if(eye_stat)
@@ -133,8 +133,8 @@
 	if(stuttering)
 		stuttering = 0
 
-	if(druggy)
-		druggy = 0
+	if(health_status.vision_druggy)
+		health_status.vision_druggy = 0
 
 /mob/living/simple_animal/proc/handle_automated_action()
 	return

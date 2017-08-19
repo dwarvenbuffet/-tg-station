@@ -586,7 +586,7 @@
 	if(H.stat == DEAD)
 		H.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		H.see_in_dark = 8
-		if(!H.druggy)
+		if(!H.health_status.vision_druggy)
 			H.see_invisible = SEE_INVISIBLE_LEVEL_TWO
 		return
 	if(!(SEE_TURFS & H.permanent_sight_flags))
@@ -626,7 +626,7 @@
 		if(tinted_weldhelh)
 			H.overlay_fullscreen("tint", /obj/screen/fullscreen/impaired, 2)
 		if(H.tinttotal >= TINT_BLIND)
-			H.eye_blind = max(H.eye_blind, 1)
+			H.health_status.vision_blindness = max(H.health_status.vision_blindness, 1)
 	else
 		H.clear_fullscreen("tint")
 	if(H.eye_stat > 30)
@@ -637,7 +637,7 @@
 		H.clear_fullscreen("impaired")
 	if(!H.client)//no client, no screen to update
 		return 1
-	if(H.eye_blind)
+	if(H.health_status.vision_blindness)
 		H.overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
 		H.throw_alert("blind", /obj/screen/alert/blind)
 	else
@@ -651,7 +651,7 @@
 		H.overlay_fullscreen("blurry", /obj/screen/fullscreen/blurry)
 	else
 		H.clear_fullscreen("blurry")
-	if(H.druggy)
+	if(H.health_status.vision_druggy)
 		H.overlay_fullscreen("high", /obj/screen/fullscreen/high)
 		H.throw_alert("high", /obj/screen/alert/high)
 	else

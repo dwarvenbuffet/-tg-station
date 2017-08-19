@@ -125,9 +125,9 @@
 /mob/living/proc/handle_disabilities()
 	//Eyes
 	if(disabilities & BLIND || stat)	//blindness from disability or unconsciousness doesn't get better on its own
-		eye_blind = max(eye_blind, 1)
-	else if(eye_blind)			//blindness, heals slowly over time
-		eye_blind = max(eye_blind-1,0)
+		health_status.vision_blindness = max(health_status.vision_blindness, 1)
+	else if(health_status.vision_blindness)			//blindness, heals slowly over time
+		health_status.vision_blindness = max(health_status.vision_blindness-1,0)
 	else if(eye_blurry)			//blurry eyes heal slowly
 		eye_blurry = max(eye_blurry-1, 0)
 
@@ -181,7 +181,7 @@
 
 	if(stat == DEAD)
 		return
-	if(eye_blind)
+	if(health_status.vision_blindness)
 		overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
 		throw_alert("blind", /obj/screen/alert/blind)
 	else
@@ -198,7 +198,7 @@
 		else
 			clear_fullscreen("blurry")
 
-		if(druggy)
+		if(health_status.vision_druggy)
 			overlay_fullscreen("high", /obj/screen/fullscreen/high)
 			throw_alert("high", /obj/screen/alert/high)
 		else

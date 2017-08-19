@@ -56,18 +56,18 @@
 /mob/living/carbon/brain/handle_regular_status_updates()	//TODO: comment out the unused bits >_>
 
 	if(stat == DEAD)
-		eye_blind = max(eye_blind, 1)
+		health_status.vision_blindness = max(health_status.vision_blindness, 1)
 		silent = 0
 	else
 		updatehealth()
 		if( !container && (health < config.health_threshold_dead || ((world.time - timeofhostdeath) > config.revival_brain_life)) )
 			death()
-			eye_blind = max(eye_blind, 1)
+			health_status.vision_blindness = max(health_status.vision_blindness, 1)
 			silent = 0
 			return 1
 	/*	if(health < config.health_threshold_crit)
 			stat = UNCONSCIOUS
-			eye_blind = max(eye_blind, 1) */
+			health_status.vision_blindness = max(health_status.vision_blindness, 1) */
 		else
 			stat = CONSCIOUS
 
@@ -81,7 +81,7 @@
 					if(31 to INFINITY)
 						emp_damage = 30//Let's not overdo it
 					if(21 to 30)//High level of EMP damage, unable to see, hear, or speak
-						eye_blind = max(eye_blind, 1)
+						health_status.vision_blindness = max(health_status.vision_blindness, 1)
 						setEarDamage(-1,1)
 						silent = 1
 						if(!alert)//Sounds an alarm, but only once per 'level'
@@ -92,7 +92,7 @@
 							emp_damage -= 1
 					if(20)
 						alert = 0
-						eye_blind = 0
+						health_status.vision_blindness = 0
 						setEarDamage(-1,0)
 						silent = 0
 						emp_damage -= 1
@@ -122,7 +122,7 @@
 						src << "<span class='danger'>All systems restored.</span>"
 						emp_damage -= 1
 			else
-				eye_blind = 0
+				health_status.vision_blindness = 0
 
 	return 1
 
@@ -146,14 +146,14 @@
 /mob/living/carbon/brain/handle_disabilities()
 		//Eyes
 	if(stat)
-		eye_blind = max(eye_blind, 5)
+		health_status.vision_blindness = max(health_status.vision_blindness, 5)
 	if(!(disabilities & BLIND))	//blindness from disability or unconsciousness doesn't get better on its own
-		if(eye_blind)			//blindness, heals slowly over time
-			eye_blind = max(eye_blind-1,0)
+		if(health_status.vision_blindness)			//blindness, heals slowly over time
+			health_status.vision_blindness = max(health_status.vision_blindness-1,0)
 		else if(eye_blurry)			//blurry eyes heal slowly
 			eye_blurry = max(eye_blurry-1, 0)
 	else
-		eye_blind = max(eye_blind,1) //Force blindness if user is actually blind
+		health_status.vision_blindness = max(health_status.vision_blindness,1) //Force blindness if user is actually blind
 	//Ears
 	if(disabilities & DEAF)		//disabled-deaf, doesn't get better on its own
 		setEarDamage(-1, max(ear_deaf, 1))

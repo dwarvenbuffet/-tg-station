@@ -1,11 +1,7 @@
-// TODO: Organize previous references
-// TODO: This could also accept silicons too, depending on implementation
-// TODO: Add flags for control
+// TODO: More intensity level integration
+// eg blind -> radius of overlay
 
 datum/health_status
-
-// Complete groups
-// Incomplete groups
 
 	// Spatial
 	var/spatial_confuse               = 0 // Occasionally mis-step into the wrong tile
@@ -32,8 +28,8 @@ datum/health_status
 	// Vision
 	var/vision_damage              = 0 // Overlay: checkerboard
 	var/vision_damage_intensity    = 0
-	var/vision_nearsight           = 0 // Overlay: only see around you
-	var/vision_nearsight_intensity = 0 
+	var/vision_blindness           = 0 // Overlay: only see around you
+	var/vision_blindness_intensity = 0 
 	var/vision_blur                = 0 // Overlay: cloudy
 	var/vision_blur_intensity      = 0
 	var/vision_druggy              = 0 // Overlay: hue shifting
@@ -42,7 +38,3 @@ datum/health_status
 	// Others
 	var/nausea_vomit           = 0 // Yes, you can be made to constantly throw up indefinitely
 	var/nausea_vomit_intensity = 0
-	
-datum/health_status/proc/set_spatial_confuse(var/value, var/intensity)
-	spatial_confuse = value
-	spatial_confuse_intensity = intensity

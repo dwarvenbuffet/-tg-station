@@ -946,7 +946,7 @@ obj/effect/rune/proc/raise()
 			if(N)
 				continue
 			C.eye_blurry += 50
-			C.eye_blind += 20
+			C.health_status.vision_blindness += 20
 			if(prob(5))
 				C.disabilities |= NEARSIGHT
 				if(prob(10))
@@ -968,7 +968,7 @@ obj/effect/rune/proc/raise()
 			if(N)
 				continue
 			C.eye_blurry += 30
-			C.eye_blind += 10
+			C.health_status.vision_blindness += 10
 			//talismans is weaker.
 			affected++
 			C.show_message("<span class='danger'>You feel a sharp pain in your eyes, and the world disappears into darkness..</span>", 3)

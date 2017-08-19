@@ -152,7 +152,7 @@
 	boozepwr = 15
 
 /datum/reagent/consumable/ethanol/threemileisland/on_mob_life(var/mob/living/M as mob)
-	M.druggy = max(M.druggy, 50)
+	M.health_status.vision_druggy = max(M.health_status.vision_druggy, 50)
 	..()
 	return
 
@@ -400,7 +400,7 @@
 	boozepwr = 15
 
 /datum/reagent/consumable/ethanol/manhattan_proj/on_mob_life(var/mob/living/M as mob)
-	M.druggy = max(M.druggy, 30)
+	M.health_status.vision_druggy = max(M.health_status.vision_druggy, 30)
 	..()
 	return
 

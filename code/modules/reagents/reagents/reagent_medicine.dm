@@ -275,7 +275,7 @@
 	M.setBrainLoss(0)
 	M.disabilities = 0
 	M.eye_blurry = 0
-	M.eye_blind = 0
+	M.health_status.vision_blindness = 0
 	M.SetWeakened(0)
 	M.SetStunned(0)
 	M.SetParalysis(0)
@@ -388,7 +388,7 @@
 
 /datum/reagent/medicine/imidazoline/on_mob_life(var/mob/living/M as mob)
 	M.eye_blurry = max(M.eye_blurry-5 , 0)
-	M.eye_blind = max(M.eye_blind-5 , 0)
+	M.health_status.vision_blindness = max(M.health_status.vision_blindness-5 , 0)
 	M.disabilities &= ~NEARSIGHT
 	M.eye_stat = max(M.eye_stat-5, 0)
 	..()
@@ -888,11 +888,11 @@
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 
 /datum/reagent/medicine/oculine/on_mob_life(var/mob/living/M as mob)
-	if(M.eye_blind > 0 && current_cycle > 20)
+	if(M.health_status.vision_blindness > 0 && current_cycle > 20)
 		if(prob(30))
-			M.eye_blind = 0
+			M.health_status.vision_blindness = 0
 		else if(prob(80))
-			M.eye_blind = 0
+			M.health_status.vision_blindness = 0
 			M.eye_blurry = 1
 		if(M.eye_blurry > 0)
 			if(prob(80))

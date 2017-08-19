@@ -441,7 +441,7 @@ Sorry Giacom. Please don't be mad :(
 	nutrition = NUTRITION_LEVEL_FED + 50
 	bodytemperature = 310
 	disabilities = 0
-	eye_blind = 0
+	health_status.vision_blindness = 0
 	eye_blurry = 0
 	ear_deaf = 0
 	ear_damage = 0

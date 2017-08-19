@@ -61,7 +61,7 @@
 		target.Paralyse(amt_paralysis)
 		target.Stun(amt_stunned)
 
-		target.eye_blind += amt_eye_blind
+		target.health_status.vision_blindness += amt_eye_blind
 		target.eye_blurry += amt_eye_blurry
 		//summoning
 		if(summon_type)
