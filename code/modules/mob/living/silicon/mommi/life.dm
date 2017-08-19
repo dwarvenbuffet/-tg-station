@@ -99,7 +99,7 @@
 	//	src.blinded = 1
 		src.stat = 2
 
-	if (src.stuttering) src.stuttering--
+	if (src.health_status.verbal_stutter) src.health_status.verbal_stutter--
 
 	if (src.health_status.vision_blindness)
 		src.health_status.vision_blindness--

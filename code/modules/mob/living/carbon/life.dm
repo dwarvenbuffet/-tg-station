@@ -371,11 +371,11 @@
 
 		//Other
 
-		if(stuttering)
-			stuttering = max(stuttering-1, 0)
+		if(health_status.verbal_stutter)
+			health_status.verbal_stutter = max(health_status.verbal_stutter-1, 0)
 
-		if(slurring)
-			slurring = max(slurring-1,0)
+		if(health_status.verbal_slur)
+			health_status.verbal_slur = max(health_status.verbal_slur-1,0)
 
 		if(silent)
 			silent = max(silent-1, 0)

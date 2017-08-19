@@ -314,8 +314,8 @@
 	// Puke if toxloss is too high
 	if(!stat)
 		if (getToxLoss() >= 45 && nutrition > 20)
-			lastpuke ++
-			if(lastpuke >= 25) // about 25 second delay I guess
+			health_status.nausea_vomit ++
+			if(health_status.nausea_vomit >= 25) // about 25 second delay I guess
 				Stun(5)
 
 				visible_message("<span class='danger'>[src] throws up!</span>", \
@@ -330,7 +330,7 @@
 				adjustToxLoss(-3)
 
 				// make it so you can only puke so fast
-				lastpuke = 0
+				health_status.nausea_vomit = 0
 
 
 /mob/living/carbon/human/handle_changeling()

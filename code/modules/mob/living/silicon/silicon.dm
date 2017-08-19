@@ -172,7 +172,7 @@
 		if(IRRADIATE)
 			radiation += min((effect - (effect*getarmor(null, "rad"))), 0)//Rads auto check armor
 		if(STUTTER)
-			stuttering = max(stuttering,(effect/(blocked+1)))
+			health_status.verbal_stutter = max(health_status.verbal_stutter,(effect/(blocked+1)))
 		if(EYE_BLUR)
 			health_status.vision_blurry = max(health_status.vision_blurry,(effect/(blocked+1)))
 		if(DROWSY)

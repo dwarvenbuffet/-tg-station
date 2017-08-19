@@ -106,7 +106,7 @@
 		heart_attack = 0
 	jitteriness += 1000 //High numbers for violent convulsions
 	do_jitter_animation(jitteriness)
-	stuttering += 2
+	health_status.verbal_stutter += 2
 	Stun(2)
 	spawn(20)
 		src.jitteriness -= 990 //Still jittery, but vastly less

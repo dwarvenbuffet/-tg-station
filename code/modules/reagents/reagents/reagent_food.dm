@@ -321,22 +321,22 @@
 	M.health_status.vision_druggy = max(M.health_status.vision_druggy, 30)
 	switch(current_cycle)
 		if(1 to 5)
-			if (!M.slurring)
-				M.slurring = 1
+			if (!M.health_status.verbal_slur)
+				M.health_status.verbal_slur = 1
 			M.Dizzy(5)
 			if(prob(10))
 				M.emote(pick("twitch","giggle"))
 		if(5 to 10)
-			if (!M.slurring)
-				M.slurring = 1
+			if (!M.health_status.verbal_slur)
+				M.health_status.verbal_slur = 1
 			M.Jitter(10)
 			M.Dizzy(10)
 			M.health_status.vision_druggy = max(M.health_status.vision_druggy, 35)
 			if(prob(20))
 				M.emote(pick("twitch","giggle"))
 		if (10 to INFINITY)
-			if (!M.slurring)
-				M.slurring = 1
+			if (!M.health_status.verbal_slur)
+				M.health_status.verbal_slur = 1
 			M.Jitter(20)
 			M.Dizzy(20)
 			M.health_status.vision_druggy = max(M.health_status.vision_druggy, 40)

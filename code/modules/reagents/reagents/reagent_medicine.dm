@@ -24,7 +24,7 @@
 /datum/reagent/medicine/ethylredoxrazine/on_mob_life(var/mob/living/M as mob)
 	M.dizziness = 0
 	M.drowsyness = 0
-	M.slurring = 0
+	M.health_status.verbal_slur = 0
 	M.health_status.spatial_confuse = 0
 	M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3*REM, 0, 1)
 	M.adjustToxLoss(-0.2*REM)
@@ -282,8 +282,8 @@
 	M.silent = 0
 	M.dizziness = 0
 	M.drowsyness = 0
-	M.stuttering = 0
-	M.slurring = 0
+	M.health_status.verbal_stutter = 0
+	M.health_status.verbal_slur = 0
 	M.health_status.spatial_confuse = 0
 	M.sleeping = 0
 	M.jitteriness = 0
@@ -1034,7 +1034,7 @@
 /datum/reagent/medicine/antihol/on_mob_life(var/mob/living/M as mob)
 	M.dizziness = 0
 	M.drowsyness = 0
-	M.slurring = 0
+	M.health_status.verbal_slur = 0
 	M.health_status.spatial_confuse = 0
 	M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3*REM, 0, 1)
 	M.adjustToxLoss(-0.2*REM)

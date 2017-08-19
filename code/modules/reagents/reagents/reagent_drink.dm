@@ -508,9 +508,9 @@
 	M.health_status.vision_druggy = max(M.health_status.vision_druggy, 50)
 	M.health_status.spatial_confuse = max(M.health_status.spatial_confuse+2,0)
 	M.Dizzy(10)
-	if (!M.slurring)
-		M.slurring = 1
-	M.slurring += 3
+	if (!M.health_status.verbal_slur)
+		M.health_status.verbal_slur = 1
+	M.health_status.verbal_slur += 3
 	switch(current_cycle)
 		if(51 to 200)
 			M.sleeping += 1
@@ -530,9 +530,9 @@
 	M.dizziness +=6
 	switch(current_cycle)
 		if(15 to 45)
-			if(!M.slurring)
-				M.slurring = 1
-			M.slurring += 3
+			if(!M.health_status.verbal_slur)
+				M.health_status.verbal_slur = 1
+			M.health_status.verbal_slur += 3
 		if(45 to 55)
 			if(prob(50))
 				M.health_status.spatial_confuse = max(M.health_status.spatial_confuse+3,0)
@@ -554,9 +554,9 @@
 	M.dizziness +=6
 	switch(current_cycle)
 		if(15 to 45)
-			if(!M.slurring)
-				M.slurring = 1
-			M.slurring += 3
+			if(!M.health_status.verbal_slur)
+				M.health_status.verbal_slur = 1
+			M.health_status.verbal_slur += 3
 		if(45 to 55)
 			if(prob(50))
 				M.health_status.spatial_confuse = max(M.health_status.spatial_confuse+3,0)
@@ -579,23 +579,23 @@
 	M.health_status.vision_druggy = max(M.health_status.vision_druggy, 50)
 	switch(current_cycle)
 		if(1 to 5)
-			if (!M.slurring) M.slurring = 1
+			if (!M.health_status.verbal_slur) M.health_status.verbal_slur = 1
 			M.Dizzy(10)
 			if(prob(10)) M.emote(pick("twitch","giggle"))
 		if(5 to 10)
-			if (!M.slurring) M.slurring = 1
+			if (!M.health_status.verbal_slur) M.health_status.verbal_slur = 1
 			M.Jitter(20)
 			M.Dizzy(20)
 			M.health_status.vision_druggy = max(M.health_status.vision_druggy, 45)
 			if(prob(20)) M.emote(pick("twitch","giggle"))
 		if (10 to 200)
-			if (!M.slurring) M.slurring = 1
+			if (!M.health_status.verbal_slur) M.health_status.verbal_slur = 1
 			M.Jitter(40)
 			M.Dizzy(40)
 			M.health_status.vision_druggy = max(M.health_status.vision_druggy, 60)
 			if(prob(30)) M.emote(pick("twitch","giggle"))
 		if(200 to INFINITY)
-			if (!M.slurring) M.slurring = 1
+			if (!M.health_status.verbal_slur) M.health_status.verbal_slur = 1
 			M.Jitter(60)
 			M.Dizzy(60)
 			M.health_status.vision_druggy = max(M.health_status.vision_druggy, 75)

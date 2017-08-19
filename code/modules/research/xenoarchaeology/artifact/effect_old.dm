@@ -108,7 +108,7 @@
 				if (istype(user, /mob/living/carbon/))
 					user << "<span class='warning'>A powerful force overwhelms your consciousness.</span>"
 					user.weakened += 45
-					user.stuttering += 45
+					user.health_status.verbal_stutter += 45
 					if(prob(50))
 						user.stunned += rand(1,10)
 					return 1
@@ -192,7 +192,7 @@
 						M << "<span class='warning'>Your body goes numb for a moment.</span>"
 						M.stunned += 2
 						M.weakened += 2
-						M.stuttering += 2
+						M.health_status.verbal_stutter += 2
 				return 1
 			if("roboheal")
 				for (var/mob/living/silicon/robot/M in range(src.aurarange,originator))
@@ -289,7 +289,7 @@
 					M << "<span class='warning'>A wave of energy overwhelms your senses!</span>"
 					M.paralysis += 3
 					M.weakened += 4
-					M.stuttering += 4
+					M.health_status.verbal_stutter += 4
 				return 1
 			if("roboheal")
 				for (var/mob/living/silicon/robot/M in range(src.aurarange,originator))
@@ -418,7 +418,7 @@
 					M << "<span class='warning'>A powerful force causes you to black out momentarily.</span>"
 					M.paralysis += 5
 					M.weakened += 8
-					M.stuttering += 8
+					M.health_status.verbal_stutter += 8
 				return 1
 			if("roboheal")
 				for (var/mob/living/silicon/robot/M in range(200, originator))

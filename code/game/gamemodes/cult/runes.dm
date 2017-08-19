@@ -1052,7 +1052,7 @@ obj/effect/rune/proc/raise()
 			if(iscarbon(L))
 				var/mob/living/carbon/C = L
 				flick("e_flash", C.flash)
-				C.stuttering = 1
+				C.health_status.verbal_stutter = 1
 				C.Weaken(1)
 				C.Stun(1)
 				C.show_message("<span class='danger'>The rune explodes in a bright flash.</span>", 3)

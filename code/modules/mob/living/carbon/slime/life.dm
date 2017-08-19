@@ -226,8 +226,8 @@
 		if (paralysis > 0)
 			AdjustParalysis(-1)
 
-	if(stuttering)
-		stuttering = 0
+	if(health_status.verbal_stutter)
+		health_status.verbal_stutter = 0
 
 	if(health_status.vision_blindness)
 		health_status.vision_blindness = 0

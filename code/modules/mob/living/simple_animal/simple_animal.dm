@@ -130,8 +130,8 @@
 
 /mob/living/simple_animal/handle_status_effects()
 	..()
-	if(stuttering)
-		stuttering = 0
+	if(health_status.verbal_stutter)
+		health_status.verbal_stutter = 0
 
 	if(health_status.vision_druggy)
 		health_status.vision_druggy = 0

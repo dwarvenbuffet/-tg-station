@@ -24,8 +24,8 @@
 /datum/reagent/consumable/ethanol/on_mob_life(var/mob/living/M as mob)
 	M.jitteriness = max(M.jitteriness-5,0)
 	if(current_cycle >= boozepwr)
-		if (!M.slurring) M.slurring = 1
-		M.slurring += 4
+		if (!M.health_status.verbal_slur) M.health_status.verbal_slur = 1
+		M.health_status.verbal_slur += 4
 		M.Dizzy(5)
 	if(current_cycle >= boozepwr*2.5 && prob(33))
 		if (!M.health_status.spatial_confuse) M.health_status.spatial_confuse = 1

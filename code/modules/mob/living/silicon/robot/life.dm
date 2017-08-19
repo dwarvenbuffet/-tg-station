@@ -109,7 +109,7 @@
 	else //Dead.
 		src.health_status.vision_blindness = 1
 
-	if (src.stuttering) src.stuttering--
+	if (src.health_status.verbal_stutter) src.health_status.verbal_stutter--
 
 	if (health_status.vision_blindness)
 		health_status.vision_blindness--

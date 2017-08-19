@@ -1,6 +1,14 @@
-// TODO: More intensity level integration eg blind -> radius of overlay
-// TODO: Split audio stuff to care between sounds and speech
-// TODO: Life.dm has handle_disabilities declared multiple times
+/*
+	Author: Dan
+	Date: August 19, 2017
+	
+	This is a large refactor which moves several non-harmful "damage" values into a status object so it
+	removes cluttering from the main mob varlist. Eg, deafness, blurry vision, etc.
+
+	// TODO: More intensity level integration eg blind -> radius of overlay
+	// TODO: Split audio stuff to care between sounds and speech
+	// TODO: Life.dm has handle_disabilities declared multiple times
+*/
 
 datum/health_status
 

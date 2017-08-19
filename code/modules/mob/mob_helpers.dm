@@ -267,7 +267,7 @@ proc/slur(n)
 		p++//for each letter p is increased to find where the next letter will be.
 	return copytext(sanitize(t),1,MAX_MESSAGE_LEN)
 
-/proc/derpspeech(message, stuttering)
+/proc/derpspeech(message, stutter)
 	message = replacetext(message, " am ", " ")
 	message = replacetext(message, " is ", " ")
 	message = replacetext(message, " are ", " ")
@@ -280,7 +280,7 @@ proc/slur(n)
 	if(prob(50))
 		message = uppertext(message)
 		message += "[stutter(pick("!", "!!", "!!!"))]"
-	if(!stuttering && prob(15))
+	if(!stutter && prob(15))
 		message = stutter(message)
 	return message
 
