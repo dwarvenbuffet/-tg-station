@@ -10,5 +10,6 @@
 8chanserverhost = Game Master
 SpaghettiScience = Midiadmin
 VixG = Badmin
+Solovale = Admin Candidate
 Dwarvenbuffet = Midicoder
 KyleBaran = Coder
