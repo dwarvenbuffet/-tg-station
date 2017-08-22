@@ -322,9 +322,12 @@
 
 /turf/indestructible/splashscreen
 	name = "Space Station 13"
-	icon = 'icons/misc/fullscreen.dmi'
-	icon_state = "title"
+	icon = 'icons/misc/lobby_splash.dmi'
+	icon_state = "lobby_1"
 	layer = FLY_LAYER
+	
+/turf/indestructible/splashscreen/New()
+	icon_state = pick(icon_states(icon)) // Dynamically pick an existing state from the list of title icons
 
 /turf/indestructible/riveted
 	icon_state = "riveted"
