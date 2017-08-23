@@ -39,12 +39,12 @@
 	if(!ear_safety)
 		M.Stun(max(10/distance, 3))
 		M.Weaken(max(10/distance, 3))
-		M.setEarDamage(M.health_status.aural_deaf_intensity + rand(0, 5), max(M.health_status.aural_deaf,15))
-		if (M.health_status.aural_deaf_intensity >= 15)
+		M.setEarDamage(M.health_status.aural_audio_intensity + rand(0, 5), max(M.health_status.aural_audio,15))
+		if (M.health_status.aural_audio_intensity >= 15)
 			M << "<span class='warning'>Your ears start to ring badly!</span>"
-			if(prob(M.health_status.aural_deaf_intensity - 10 + 5))
+			if(prob(M.health_status.aural_audio_intensity - 10 + 5))
 				M << "<span class='warning'>You can't hear anything!</span>"
 				M.disabilities |= DEAF
 		else
-			if (M.health_status.aural_deaf_intensity >= 5)
+			if (M.health_status.aural_audio_intensity >= 5)
 				M << "<span class='warning'>Your ears start to ring!</span>"

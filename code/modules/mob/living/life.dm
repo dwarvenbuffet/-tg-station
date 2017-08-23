@@ -133,10 +133,10 @@
 
 	//Ears
 	if(disabilities & DEAF)		//disabled-deaf, doesn't get better on its own
-		setEarDamage(-1, max(health_status.aural_deaf, 1))
+		setEarDamage(-1, max(health_status.aural_audio, 1))
 	else
 		// deafness heals slowly over time, unless ear_damage is over 100
-		if(health_status.aural_deaf_intensity < 100)
+		if(health_status.aural_audio_intensity < 100)
 			adjustEarDamage(-0.05,-1)
 
 /mob/living/proc/handle_actions()

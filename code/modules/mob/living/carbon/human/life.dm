@@ -82,7 +82,7 @@
 	//Ears
 	if(!(disabilities & DEAF))
 		if(istype(ears, /obj/item/clothing/ears/earmuffs)) // earmuffs rest your ears, healing ear_deaf faster and ear_damage, but keeping you deaf.
-			setEarDamage(max(health_status.aural_deaf_intensity-0.10, 0), max(health_status.aural_deaf - 1, 1))
+			setEarDamage(max(health_status.aural_audio_intensity-0.10, 0), max(health_status.aural_audio - 1, 1))
 
 
 	if (getBrainLoss() >= 60 && stat != DEAD)

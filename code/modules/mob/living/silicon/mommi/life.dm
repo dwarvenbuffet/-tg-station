@@ -105,10 +105,10 @@
 		src.health_status.vision_blindness--
 
 
-	if (src.health_status.aural_deaf > 0) src.health_status.aural_deaf--
-	if (src.health_status.aural_deaf_intensity < 25)
-		src.health_status.aural_deaf_intensity -= 0.05
-		src.health_status.aural_deaf_intensity = max(src.health_status.aural_deaf_intensity, 0)
+	if (src.health_status.aural_audio > 0) src.health_status.aural_audio--
+	if (src.health_status.aural_audio_intensity < 25)
+		src.health_status.aural_audio_intensity -= 0.05
+		src.health_status.aural_audio_intensity = max(src.health_status.aural_audio_intensity, 0)
 
 	src.density = !( src.lying )
 

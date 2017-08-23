@@ -124,8 +124,8 @@
 
 	//Ears
 	if(disabilities & DEAF)
-		setEarDamage(-1, max(health_status.aural_deaf, 1))
-	else if(health_status.aural_deaf_intensity < 100)
+		setEarDamage(-1, max(health_status.aural_audio, 1))
+	else if(health_status.aural_audio_intensity < 100)
 		setEarDamage(0, 0)
 
 /mob/living/simple_animal/handle_status_effects()

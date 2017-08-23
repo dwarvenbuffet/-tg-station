@@ -21,8 +21,8 @@ datum/health_status
 	//var/spatial_brainloss_intensity   = 0
 
 	// Hearing
-	var/aural_deaf             = 0 // Prevents sounds from being played
-	var/aural_deaf_intensity   = 0
+	var/aural_audio             = 0 // Prevents sounds from being played
+	var/aural_audio_intensity   = 0
 	var/aural_speech           = 0 // Prevents hearing speech
 	var/aural_speech_intensity = 0
 

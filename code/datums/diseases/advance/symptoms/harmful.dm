@@ -412,7 +412,7 @@ Bonus
 			if(3, 4)
 				M << "<span class='notice'>[pick("You hear a ringing in your ear.", "Your ears pop.")]</span>"
 			if(5)
-				if(!(M.health_status.aural_deaf))
+				if(!(M.health_status.aural_audio))
 					M << "<span class='danger'>Your ears pop and begin ringing loudly!</span>"
 					M.setEarDamage(-1,INFINITY) //Shall be enough
 					spawn(200)

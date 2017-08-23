@@ -232,7 +232,7 @@
 	if(health_status.vision_blindness)
 		health_status.vision_blindness = 0
 
-	setEarDamage((health_status.aural_deaf_intensity < 25 ? 0 : health_status.aural_deaf_intensity),(disabilities & DEAF ? 1 :0))
+	setEarDamage((health_status.aural_audio_intensity < 25 ? 0 : health_status.aural_audio_intensity),(disabilities & DEAF ? 1 :0))
 
 	density = !( src.lying )
 
