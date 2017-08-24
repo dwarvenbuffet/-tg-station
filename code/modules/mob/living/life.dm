@@ -182,7 +182,7 @@
 	if(stat == DEAD)
 		return
 	if(health_status.vision_blindness)
-		overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
+		overlay_fullscreen("blind", /obj/screen/fullscreen/blind, health_status.vision_blindness_intensity)
 		throw_alert("blind", /obj/screen/alert/blind)
 	else
 		clear_fullscreen("blind")

@@ -12,4 +12,4 @@ SpaghettiScience = Midiadmin
 VixG = Badmin
 Solovale = Admin Candidate
 Dwarvenbuffet = Midicoder
-KyleBaran = Coder
+KyleBaran = Host

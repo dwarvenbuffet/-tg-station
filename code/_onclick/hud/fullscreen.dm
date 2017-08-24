@@ -85,12 +85,13 @@
 	layer = CRIT_LAYER
 
 /obj/screen/fullscreen/blind
-	icon = 'icons/overlay/blind_overlay.dmi'
-	icon_state = "blind_13" // New overlays! Blind 13 is the default old one until it gets fully implemented
+	icon = 'icons/overlay/fullscreen_vision_radial.dmi'
+	icon_state = "state_"
 	layer = BLIND_LAYER
 
 /obj/screen/fullscreen/impaired
-	icon_state = "impairedoverlay"
+	icon = 'icons/overlay/fullscreen_vision_checkerboard.dmi'
+	icon_state = "state_"
 
 /obj/screen/fullscreen/blurry
 	icon = 'icons/mob/screen_gen.dmi'

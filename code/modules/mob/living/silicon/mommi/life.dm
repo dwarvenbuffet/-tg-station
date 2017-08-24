@@ -250,7 +250,7 @@
 //			if(!client.adminobs)
 //				reset_view(null)
 	if(health_status.vision_blindness)
-		overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
+		overlay_fullscreen("blind", /obj/screen/fullscreen/blind, health_status.vision_blindness_intensity)
 	else
 		clear_fullscreen("blind")
 
