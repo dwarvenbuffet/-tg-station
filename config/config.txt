@@ -120,7 +120,7 @@ WIKIURL http://8station.miraheze.org/wiki
 RULESURL https://8station.miraheze.org/wiki/Rules
 
 ##Github address
-GITHUBURL https://github.com/chaosyourgod/-tg-station
+GITHUBURL https://github.com/RoleplayRascal/-8ch-station
 
 ## Ban appeals URL - usually for a forum or wherever people should go to contact your admins.
 # BANAPPEALS 8ch.net/leftypol/
