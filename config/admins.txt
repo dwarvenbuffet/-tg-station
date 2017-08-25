@@ -11,5 +11,5 @@
 SpaghettiScience = Midiadmin
 VixG = Badmin
 Solovale = Admin Candidate
-Dwarvenbuffet = Midicoder
+Dwarvenbuffet = Coder
 KyleBaran = Coder
