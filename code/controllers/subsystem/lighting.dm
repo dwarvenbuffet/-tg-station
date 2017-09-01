@@ -87,9 +87,10 @@ var/datum/subsystem/lighting/SSlighting
 
 	if(config.starlight)
 		set background = 1
-		for(var/turf/space/S in world)
-			S.update_starlight()
-
+		spawn(0)
+		for(var/i=1, i<=world.maxz, i++)
+			for(var/turf/space/S in block(locate(1,1,i), locate(world.maxx,world.maxy,i)))
+				S.update_starlight()
 	..()
 
 //Used to strip valid information from an existing instance and transfer it to the replacement. i.e. when a crash occurs
