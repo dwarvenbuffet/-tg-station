@@ -133,6 +133,7 @@ Made by Xhuis
 	var/mob/living/carbon/human/S = shadow_mind.current
 	shadow_mind.current.verbs += /mob/living/carbon/human/proc/shadowling_hatch
 	shadow_mind.spell_list += new /obj/effect/proc_holder/spell/targeted/enthrall
+	shadow_mind.spell_list += new /obj/effect/proc_holder/spell/targeted/intertwine
 	spawn(0)
 		shadow_mind.spell_list += new /obj/effect/proc_holder/spell/targeted/shadowling_hivemind
 		update_shadow_icons_added(shadow_mind)

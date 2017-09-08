@@ -1,3 +1,56 @@
+/obj/effect/proc_holder/spell/targeted/intertwine
+	name = "Intertwine"
+	desc = "Possess crew member"
+	panel = "Shadowling Abilities"
+	charge_max = 300
+	clothes_req = 0
+	shadowling_req = 1
+
+/obj/effect/proc_holder/spell/targeted/intertwine/cast(list/targets, mob/user = usr)
+	var/mob/living/carbon/M = input(user,"Who do you want to intertwine with") in null|targets
+	if(!M || !user) return
+	if(!(user.Adjacent(M))) return
+	M.shadowling_possess(M)
+
+	//fuck up nearby lights for a few seconds
+
+
+
+
+
+	/*for(var/mob/living/carbon/human/target in targets)
+		if(!ishuman(target))
+			charge_counter = charge_max
+			return
+		if(target.stat)
+			charge_counter = charge_max
+			return
+		if(is_shadow_or_thrall(target))
+			usr << "<span class='danger'>You don't see why you would want to paralyze an ally.</span>"
+			charge_counter = charge_max
+			return
+
+		usr.visible_message("<span class='warning'><b>[usr]'s eyes flash a blinding red!</b></span>")
+		target.visible_message("<span class='danger'>[target] freezes in place, their eyes glazing over...</span>")
+		if(in_range(target, usr))
+			target << "<span class='userdanger'>Your gaze is forcibly drawn into [usr]'s eyes, and you are mesmerized by the heavenly lights...</span>"
+		else //Only alludes to the shadowling if the target is close by
+			target << "<span class='userdanger'>Red lights suddenly dance in your vision, and you are mesmerized by the heavenly lights...</span>"
+		target.Stun(10)
+		if(target.reagents)
+			target.reagents.add_reagent("mutetoxin", 4) //This is really bad but it's the only way it works.
+	*/
+
+/mob/living/carbon/proc/shadowling_possess(mob/living/carbon/human/M)
+	//Possess them shits
+	src.loc = M
+	if(!M.ckey)
+		M.ckey = user.ckey
+
+/mob/living/carbon/human/proc/unpossess(mob/living/carbon/human/M)
+	src.loc = M.loc
+
+
 /obj/effect/proc_holder/spell/targeted/glare
 	name = "Glare"
 	desc = "Stuns and mutes a target for a decent duration."
