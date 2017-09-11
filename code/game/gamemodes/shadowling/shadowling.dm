@@ -36,12 +36,14 @@ Made by Xhuis
 
 */
 
+//Shadowling info because I can't put this shit anywhere else
+/datum/shadowling
+	var/intertwine_mode = 0 //True if the shadowling is attempting to intertwine
 
 
 /*
 	GAMEMODE
 */
-
 
 /datum/game_mode
 	var/list/datum/mind/shadows = list()
@@ -62,6 +64,8 @@ Made by Xhuis
 
 /proc/is_shadow(var/mob/living/M)
 	return istype(M) && M.mind && ticker && ticker.mode && (M.mind in ticker.mode.shadows)
+
+//proc/is_intertwined(var/mob/living/M)
 
 
 /datum/game_mode/shadowling
@@ -128,15 +132,21 @@ Made by Xhuis
 		shadow_mind.memory += "<b>Objective #1</b>: [objective_explanation]"
 		shadow_mind.current << "<b>Objective #1</b>: [objective_explanation]<br>"
 
+/datum/game_mode/proc/add_shadowling_verbs(var/datum/mind/shadow_mind)
+	//shadow_mind.current.verbs += /mob/living/carbon/human/proc/shadowling_hatch
+	shadow_mind.current.verbs += /mob/living/carbon/human/proc/shadowling_intertwine
+	//shadow_mind.spell_list += new /obj/effect/proc_holder/spell/targeted/enthrall
+	//shadow_mind.spell_list += new /obj/effect/proc_holder/spell/targeted/intertwine
+	spawn(0)
+		//shadow_mind.spell_list += new /obj/effect/proc_holder/spell/targeted/shadowling_hivemind
+		update_shadow_icons_added(shadow_mind)
+
 
 /datum/game_mode/proc/finalize_shadowling(var/datum/mind/shadow_mind)
 	var/mob/living/carbon/human/S = shadow_mind.current
-	shadow_mind.current.verbs += /mob/living/carbon/human/proc/shadowling_hatch
-	shadow_mind.spell_list += new /obj/effect/proc_holder/spell/targeted/enthrall
-	shadow_mind.spell_list += new /obj/effect/proc_holder/spell/targeted/intertwine
+	shadow_mind.shadowling = new /datum/shadowling
+	add_shadowling_verbs(shadow_mind)
 	spawn(0)
-		shadow_mind.spell_list += new /obj/effect/proc_holder/spell/targeted/shadowling_hivemind
-		update_shadow_icons_added(shadow_mind)
 		if(shadow_mind.assigned_role == "Clown")
 			S << "<span class='notice'>Your alien nature has allowed you to overcome your clownishness.</span>"
 			S.dna.remove_mutation(CLOWNMUT)

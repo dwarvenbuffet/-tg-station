@@ -1,3 +1,4 @@
+/*
 /obj/effect/proc_holder/spell/targeted/intertwine
 	name = "Intertwine"
 	desc = "Possess crew member"
@@ -5,50 +6,63 @@
 	charge_max = 300
 	clothes_req = 0
 	shadowling_req = 1
+*/
+/*
+/obj/effect/proc_holder/spell/targeted/leavehost
+	name = "Leave Host"
+	desc = "Unpossess crew member"
+	panel = "Shadowling Abilities"
+	charge_max = 300
+	clothes_req = 0
+	shadowling_req = 1
+*/
+//set category = "Shadowling Evolution"
+//set name = "Hatch"
+/mob/living/carbon/proc/shadowling_intertwine()
+	set category = "Shadowling Abilities"
+	set name = "Intertwine"
+	if(src.mind.shadowling.intertwine_mode)
+		src << "<span class='danger'>You unprepare to intertwine</span>"
+		src.mind.shadowling.intertwine_mode = 0
+		return
+	src << "<span class='danger'>You prepare to intertwine</span>"
+	src.mind.shadowling.intertwine_mode = 1
+	/*
+	if(isshadow(M))
+		M << "<span class='danger'>You cannot intertwine with another shadowling</span>"
+		return
+	if(M.stat)
+		M << "<span class='danger'>You cannot intertwine with a corpse</span>"
+		return
 
-/obj/effect/proc_holder/spell/targeted/intertwine/cast(list/targets, mob/user = usr)
-	var/mob/living/carbon/M = input(user,"Who do you want to intertwine with") in null|targets
-	if(!M || !user) return
-	if(!(user.Adjacent(M))) return
-	M.shadowling_possess(M)
-
-	//fuck up nearby lights for a few seconds
-
-
-
-
-
-	/*for(var/mob/living/carbon/human/target in targets)
-		if(!ishuman(target))
-			charge_counter = charge_max
-			return
-		if(target.stat)
-			charge_counter = charge_max
-			return
-		if(is_shadow_or_thrall(target))
-			usr << "<span class='danger'>You don't see why you would want to paralyze an ally.</span>"
-			charge_counter = charge_max
-			return
-
-		usr.visible_message("<span class='warning'><b>[usr]'s eyes flash a blinding red!</b></span>")
-		target.visible_message("<span class='danger'>[target] freezes in place, their eyes glazing over...</span>")
-		if(in_range(target, usr))
-			target << "<span class='userdanger'>Your gaze is forcibly drawn into [usr]'s eyes, and you are mesmerized by the heavenly lights...</span>"
-		else //Only alludes to the shadowling if the target is close by
-			target << "<span class='userdanger'>Red lights suddenly dance in your vision, and you are mesmerized by the heavenly lights...</span>"
-		target.Stun(10)
-		if(target.reagents)
-			target.reagents.add_reagent("mutetoxin", 4) //This is really bad but it's the only way it works.
+	user << "<span class='danger'>You begin intertwining with [M]</span>"
+	M << "<span class='danger'>[user] begins intertwining with you</span>"
 	*/
 
-/mob/living/carbon/proc/shadowling_possess(mob/living/carbon/human/M)
+/mob/living/carbon/proc/shadowling_attempt_possession(var/mob/living/carbon/M)
+	//Make sure the target is next to the shadowling
+	if(M in range(1,get_turf(usr)))
+		if(is_shadow(M))
+			src << "<span class='danger'>You cannot intertwine with another shadowling</span>"
+			return
+		if(M.stat)
+			src << "<span class='danger'>You cannot intertwine with a corpse</span>"
+			return
+		if(do_mob(usr, M, 10, 5))
+			src << "<span class='danger'>You begin to intertwine with [M]</span>"
+			M << "<span class='dangerself'>[src] begins intertwining with you!</span>"
+		shadowling_possess(M)
+
+/mob/living/carbon/proc/shadowling_possess(var/mob/living/carbon/M)
 	//Possess them shits
 	src.loc = M
 	if(!M.ckey)
-		M.ckey = user.ckey
+		M.ckey = src.ckey
+		//add_shadowling_spells(shadow_mind)
 
-/mob/living/carbon/human/proc/unpossess(mob/living/carbon/human/M)
-	src.loc = M.loc
+/mob/living/carbon/human/proc/unpossess(var/mob/living/carbon/M)
+	remove_shadowling_powers(M)
+	src.loc = get_turf(M)
 
 
 /obj/effect/proc_holder/spell/targeted/glare
