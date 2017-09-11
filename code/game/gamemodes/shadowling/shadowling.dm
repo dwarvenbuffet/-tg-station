@@ -134,7 +134,7 @@ Made by Xhuis
 
 /datum/game_mode/proc/add_shadowling_verbs(var/datum/mind/shadow_mind)
 	//shadow_mind.current.verbs += /mob/living/carbon/human/proc/shadowling_hatch
-	shadow_mind.current.verbs += /mob/living/carbon/human/proc/shadowling_intertwine
+	shadow_mind.current.verbs += /mob/living/carbon/proc/shadowling_intertwine
 	//shadow_mind.spell_list += new /obj/effect/proc_holder/spell/targeted/enthrall
 	//shadow_mind.spell_list += new /obj/effect/proc_holder/spell/targeted/intertwine
 	spawn(0)

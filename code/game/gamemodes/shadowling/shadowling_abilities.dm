@@ -22,10 +22,10 @@
 	set category = "Shadowling Abilities"
 	set name = "Intertwine"
 	if(src.mind.shadowling.intertwine_mode)
-		src << "<span class='danger'>You unprepare to intertwine</span>"
+		src << "<span class='danger'>You unprepare to intertwine.</span>"
 		src.mind.shadowling.intertwine_mode = 0
 		return
-	src << "<span class='danger'>You prepare to intertwine</span>"
+	src << "<span class='danger'>You prepare to intertwine.</span>"
 	src.mind.shadowling.intertwine_mode = 1
 	/*
 	if(isshadow(M))
@@ -43,24 +43,43 @@
 	//Make sure the target is next to the shadowling
 	if(M in range(1,get_turf(usr)))
 		if(is_shadow(M))
-			src << "<span class='danger'>You cannot intertwine with another shadowling</span>"
+			src << "<span class='danger'>You cannot intertwine with another shadowling.</span>"
 			return
 		if(M.stat)
-			src << "<span class='danger'>You cannot intertwine with a corpse</span>"
+			src << "<span class='danger'>You cannot intertwine with a corpse.</span>"
 			return
+		src << "<span class='danger'>You begin to intertwine with [M]</span>"
+		M << "<span class='dangerself'>[src] begins intertwining with you!</span>"
 		if(do_mob(usr, M, 10, 5))
-			src << "<span class='danger'>You begin to intertwine with [M]</span>"
-			M << "<span class='dangerself'>[src] begins intertwining with you!</span>"
-		shadowling_possess(M)
-
+			src << "<span class='danger'>You finish intertwining with [M].</span>"
+			M << "<span class='dangerself'>[src] intertwines with you!</span>"
+			shadowling_possess(M)
+/*
+	host_brain.languages_understood = host.languages_understood
+	host_brain.languages_spoken = host.languages_spoken
+	languages_understood |= host.languages_understood //Allow borers to learn more languages by infesting beings
+	languages_spoken |= host.languages_spoken
+	*/
 /mob/living/carbon/proc/shadowling_possess(var/mob/living/carbon/M)
 	//Possess them shits
 	src.loc = M
+	src.mind.current.verbs -= /mob/living/carbon/proc/shadowling_intertwine
+	//Get delicious full control if the target is not a player
+	//Otherwise just sit in their body
+	//This code generously donated by borer.dm
+	languages_understood |= M.languages_understood
+	languages_spoken |= M.languages_spoken
+
 	if(!M.ckey)
 		M.ckey = src.ckey
-		//add_shadowling_spells(shadow_mind)
+		//add verbs here
+	else
 
-/mob/living/carbon/human/proc/unpossess(var/mob/living/carbon/M)
+
+	//fuck with lights
+
+
+/mob/living/carbon/proc/unpossess(var/mob/living/carbon/M)
 	remove_shadowling_powers(M)
 	src.loc = get_turf(M)
 
