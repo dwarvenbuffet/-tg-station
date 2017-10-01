@@ -36,9 +36,19 @@ Made by Xhuis
 
 */
 
+/mob/living/shadowling_host_brain
+	name = "shadowling host brain"
+
+/mob/living/shadowling_host_brain/say(var/message)
+	return
+
+/mob/living/shadowling_host_brain/emote(var/message)
+	return
+
 //Shadowling info because I can't put this shit anywhere else
 /datum/shadowling
-	var/intertwine_mode = 0 //True if the shadowling is attempting to intertwine
+	var/intertwine_mode = 0 //True if the shadowling is attempting to
+	var/mob/living/shadowling_host_brain/host_brain
 
 
 /*
@@ -145,6 +155,7 @@ Made by Xhuis
 /datum/game_mode/proc/finalize_shadowling(var/datum/mind/shadow_mind)
 	var/mob/living/carbon/human/S = shadow_mind.current
 	shadow_mind.shadowling = new /datum/shadowling
+	shadow_mind.shadowling.host_brain = new /mob/living/shadowling_host_brain(S)
 	add_shadowling_verbs(shadow_mind)
 	spawn(0)
 		if(shadow_mind.assigned_role == "Clown")

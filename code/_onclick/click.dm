@@ -197,7 +197,7 @@
 		next_click = world.time + 5
 		mind.changeling.chosen_sting.try_to_sting(src, A)
 	else if(!src.stat && src.mind && src.mind.shadowling && src.mind.shadowling.intertwine_mode && (istype(A, /mob/living/carbon/human) || istype(A, /mob/living/carbon/monkey)) && (A != src))
-		shadowling_attempt_possession(A)
+		src.shadowling_attempt_possession(A)
 	else
 		swap_hand()
 

@@ -16,8 +16,6 @@
 	clothes_req = 0
 	shadowling_req = 1
 */
-//set category = "Shadowling Evolution"
-//set name = "Hatch"
 /mob/living/carbon/proc/shadowling_intertwine()
 	set category = "Shadowling Abilities"
 	set name = "Intertwine"
@@ -49,11 +47,11 @@
 			src << "<span class='danger'>You cannot intertwine with a corpse.</span>"
 			return
 		src << "<span class='danger'>You begin to intertwine with [M]</span>"
-		M << "<span class='dangerself'>[src] begins intertwining with you!</span>"
+		//M << "<span class='dangerself'>[src] begins intertwining with you!</span>"
 		if(do_mob(usr, M, 10, 5))
 			src << "<span class='danger'>You finish intertwining with [M].</span>"
-			M << "<span class='dangerself'>[src] intertwines with you!</span>"
-			shadowling_possess(M)
+			//M << "<span class='dangerself'>[src] intertwines with you!</span>"
+			src.shadowling_possess(M)
 /*
 	host_brain.languages_understood = host.languages_understood
 	host_brain.languages_spoken = host.languages_spoken
@@ -64,23 +62,43 @@
 	//Possess them shits
 	src.loc = M
 	src.mind.current.verbs -= /mob/living/carbon/proc/shadowling_intertwine
+	src.mind.current.verbs += /mob/living/carbon/proc/shadowling_unintertwine
+
+
+	var/mob/living/shadowling_host_brain/hostbrain = src.mind.shadowling.host_brain
+
+	//This code generously donated by borer.dm
+	src.languages_understood |= M.languages_understood
+	src.languages_spoken |= M.languages_spoken
+
+	src.hostbrain.languages_understood = M.languages_understood
+	src.hostbrain.languages_spoken = M.languages_spoken
+
 	//Get delicious full control if the target is not a player
 	//Otherwise just sit in their body
-	//This code generously donated by borer.dm
-	languages_understood |= M.languages_understood
-	languages_spoken |= M.languages_spoken
-
 	if(!M.ckey)
 		M.ckey = src.ckey
+		//Replace their languages with yours temporarily
+		M.languages_understood = src.languages_understood
+		M.languages_spoken = src.languages_spoken
 		//add verbs here
 	else
 
-
 	//fuck with lights
+/mob/living/carbon/proc/shadowling_unintertwine(var/mob/living/carbon/M)
+	set category = "Shadowling Abilities"
+	set name = "Unintertwine"
+	src << "<span class='danger'>You unintertwine with [M].</span>"
+	src.shadowling_unpossess(M)
 
-
-/mob/living/carbon/proc/unpossess(var/mob/living/carbon/M)
+/mob/living/carbon/proc/shadowling_unpossess(var/mob/living/carbon/M)
 	remove_shadowling_powers(M)
+	src.mind.current.verbs -= /mob/living/carbon/proc/shadowling_unintertwine
+	if(M.ckey == src.ckey)
+		M.ckey = src.mind.shadowling.host_brain.ckey
+	M.hostbrain.languages_understood = src.languages_understood
+	M.hostbrain.languages_spoken = src.languages_spoken
+
 	src.loc = get_turf(M)
 
 
